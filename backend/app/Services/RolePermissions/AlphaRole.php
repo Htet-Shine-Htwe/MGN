@@ -30,17 +30,33 @@ class AlphaRole
         return DB::table('permissions')->where('guard_name', $this->guard)->get();
     }
 
-    public function createNewRole(array|string $roles): void
+    public function createRole(array|string $roles,?array $permissons = null ):  Collection|Role
     {
+        $collection = [];
         if(is_array($roles))
         {
             foreach($roles as $role)
             {
-                Role::create(['name' => $role, 'guard_name' => $this->guard]);
+                $new_role = Role::create(['name' => $role, 'guard_name' => $this->guard]);
+                if($permissons)
+                {
+                    $new_role->syncPermissions($permissons);
+                }
+                $collection[] = $new_role;
             }
+            $collection = collect($collection);
         }
         else{
-            Role::create(['name' => $roles, 'guard_name' => $this->guard]);
+            $new_role = Role::create(['name' => $roles, 'guard_name' => $this->guard]);
+
+            if($permissons)
+            {
+                $new_role->syncPermissions($permissons);
+            }
+
+            $collection = $new_role;
         }
+
+        return $collection;
     }
 }
