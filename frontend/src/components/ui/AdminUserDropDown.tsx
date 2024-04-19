@@ -12,7 +12,6 @@ import {
 import { memo } from "react"
 import { Link } from "react-router-dom"
 import { useTheme } from "../theme-provider"
-import { IoIosArrowForward } from "react-icons/io";
 
 const AdminUserDropDownRaw = () => {
   const { setTheme } = useTheme();
