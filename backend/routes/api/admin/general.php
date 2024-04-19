@@ -10,8 +10,8 @@ Route::middleware(['auth:sanctum'])->name('admin.')->group(function(){
 
    Route::get('/permissions',[AdminController::class,'permissions'])->name('permissions.index');
 
-
    Route::get('/members',[AdminController::class,'members'])->name('members.index');
+
 
 
 });

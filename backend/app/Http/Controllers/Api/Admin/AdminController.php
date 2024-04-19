@@ -51,8 +51,7 @@ class AdminController extends Controller
 
     public function members(Request $request)
     {
-
-        $members =  Admin::role(AdminRole::Moderator->value,'admin')->with('roles')->get();
+        $members =  Admin::with('roles')->get();
 
         return response()->json([
             'members' => $members

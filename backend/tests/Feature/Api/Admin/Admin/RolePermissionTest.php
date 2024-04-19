@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Admin;
 use Database\Seeders\AdminPermissionSeeder;
 use Illuminate\Support\Facades\Route;
 
@@ -14,7 +15,6 @@ uses()->beforeEach(function () {
     ]);
 
 });
-
 
 test("can get role route exists",function(){
     $this->assertTrue(Route::has('api.admin.roles.index'));
@@ -77,39 +77,23 @@ test('can get permissions',function(){
 
 });
 
-test("get members with roles",function(){
-    $this->createOrgAdmin(8);
+test("get members with roles and pagination",function(int $count){
+    $this->createOrgAdmin($count);
 
     $response = $this->setupAdmin()->getJson(route('api.admin.members.index'))
         ->assertOk();
 
-    // check counting is correct
-    expect(count($response['members']))->toBe(8);
+    $total_count = Admin::count();
+    expect(count($response['members']))->toBe($total_count);
 
-    // check all the roles are moderator
     $role_collection = collect($response['members'])->pluck('roles.0.name')->toArray();
 
     expect($role_collection)->toBeArray();
+
     foreach($role_collection as $role){
-        expect($role)->toBe('moderator');
+        expect($role)->toBeIn(['moderator','admin']);
     }
-});
-
-test("get members with roles and pagination",function(){
-    $this->createOrgAdmin(20);
-
-    $response = $this->setupAdmin()->getJson(route('api.admin.members.index'))
-        ->assertOk();
-
-    // check counting is correct
-    expect(count($response['members']))->toBe(20);
-
-    // check all the roles are moderator
-    $role_collection = collect($response['members'])->pluck('roles.0.name')->toArray();
-
-    expect($role_collection)->toBeArray();
-    foreach($role_collection as $role){
-        expect($role)->toBe('moderator');
-    }
-});
-
+})->with([
+    10,
+    20
+]);

@@ -26,6 +26,7 @@ trait UserAuthenticated
     public function setupAdmin(array $body = [])
     {
         $this->admin = Admin::factory()->create($body);
+        $this->admin->assignRole(AdminRole::Admin->value);
         return $this->authenticatedAdmin($this->admin);
     }
 
