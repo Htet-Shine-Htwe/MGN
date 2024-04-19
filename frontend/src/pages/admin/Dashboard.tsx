@@ -1,24 +1,12 @@
 import DashboardStat from "@/components/charts/DashboardStat";
 import OverViewChart from "@/components/charts/OverViewChart"
-import AdminUserDropDown from "@/components/ui/AdminUserDropDown"
-import { FaUsers,FaEye,FaUpload,FaChartArea } from "react-icons/fa";
+import { FaUsers, FaEye, FaUpload, FaChartArea } from "react-icons/fa";
 
 const Dashboard = () => {
   return (
-    <div className="flex flex-col gap-8 w-full pt-2 text-white">
 
-      {/* main nav bar */}
-      <div className="flex min-w-full justify-between">
-        <h1 className="text-3xl font-bold">Dashboard</h1>
-        <div className="flex gap-4">
-
-          <AdminUserDropDown />
-        </div>
-      </div>
-
-      {/* section-one chart */}
-
-      <div className="flex flex-col lg:flex-row gap-5">
+    <>
+      <div className="flex flex-col lg:flex-row gap-5 text-white px-4 md:px-0 pb-20">
         <div className="w-full">
           <div className="bg-white w-full min-h-[500px] rounded-3xl">
             <div className="bg-primary w-full h-[500px] rounded-2xl flex flex-col gap-4 px-4 py-4 text-primary-foreground font-bold">
@@ -33,29 +21,30 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="w-full min-h-[50vh] flex flex-wrap gap-6">
-          <div className="w-full flex gap-5">
-            <div className="bg-primary w-1/2   rounded-2xl">
-                <DashboardStat Icon={FaUsers} stat="100" label="Total Users"/>
+          <div className="w-full flex gap-5 flex-wrap md:flex-nowrap">
+            <div className="bg-primary w-full md:w-1/2  h-44 md:h-full  rounded-2xl">
+              <DashboardStat Icon={FaUsers} stat="100" label="Total Users" />
             </div>
-            <div className="bg-primary w-1/2  rounded-2xl">
-              <DashboardStat Icon={FaEye} stat="304.k" label="Total Views"/>
+            <div className="bg-primary w-full md:w-1/2  h-44 md:h-full rounded-2xl">
+              <DashboardStat Icon={FaEye} stat="304.k" label="Total Views" />
 
             </div>
           </div>
-          <div className="w-full flex gap-5">
-            <div className="bg-primary w-1/2   rounded-2xl">
-            <DashboardStat Icon={FaUpload} stat="93" label="Uploaded"/>
+          <div className="w-full flex gap-5 flex-wrap md:flex-nowrap">
+            <div className="bg-primary w-full md:w-1/2  h-44 md:h-full  rounded-2xl">
+              <DashboardStat Icon={FaUpload} stat="93" label="Uploaded" />
 
             </div>
-            <div className="bg-primary w-1/2  rounded-2xl">
-             <DashboardStat Icon={FaChartArea} stat="1.1K" label="Today Views"/>
+            <div className="bg-primary w-full md:w-1/2  h-44 md:h-full rounded-2xl">
+              <DashboardStat Icon={FaChartArea} stat="1.1K" label="Today Views" />
             </div>
           </div>
         </div>
 
       </div>
+    </>
 
-    </div>
+
   )
 }
 

@@ -2,33 +2,57 @@ import Sidebar from "@/components/admin/Sidebar";
 import { Toaster } from "@/components/ui/toaster"
 import { useToast } from "@/components/ui/use-toast";
 import { useEffect } from "react";
+import Navbar from "@/components/admin/Navbar";
 
 type AdminLayoutProps = {
-    children: React.ReactNode;
-    };
+  children: React.ReactNode;
+  title: string;
+};
 
-const AdminLayout = ({children}:AdminLayoutProps) => {
+const AdminLayout = ({ children, title = "" }: AdminLayoutProps) => {
 
   const { toast } = useToast()
+  // const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const windowWidth = window.innerWidth;
 
-  useEffect(()=>{
-    toast({
-      title: "Scheduled: Catch up",
-      description: "Friday, February 10, 2023 at 5:57 PM",
-      variant: "success",
-    });
-  },[])
+  useEffect(() => {
+    // toast({
+    //   title: "Scheduled: Catch up",
+    //   description: "Friday, February 10, 2023 at 5:57 PM",
+    //   variant: "success",
+    // });
+  }, [toast])
 
   return (
-    <div className="flex min-h-screen">
-        <div className="w-[10%] min-w-[160px] flex justify-center py-6">
-            <Sidebar />
+    <div className="flex min-h-screen bg-muted/40 pb-10">
+
+      {
+        windowWidth > 768 && (
+          <div className="hidden md:w-[10%] min-w-[160px] md:flex justify-center py-6">
+          <Sidebar />
         </div>
-        <div className="w-[90%] pt-6 pe-20">
-            {children}
+        )
+      }
+
+      <div className="w-full md:w-[90%] pt-6 md:pe-20">
+
+        <div className="flex flex-col gap-8 w-full pt-2">
+
+          <Navbar title={title} />
+
+          <div className="flex min-h-screen w-full flex-col ">
+
+            <div className="flex flex-col sm:gap-4 sm:py-4 ">
+              {children}
+
+            </div>
+
+          </div>
         </div>
 
-        <Toaster  />
+      </div>
+
+      <Toaster />
     </div>
   )
 }

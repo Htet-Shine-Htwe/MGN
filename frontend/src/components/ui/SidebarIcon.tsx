@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import { ElementType, useCallback } from "react"
+import { ElementType, memo, useCallback } from "react"
 import {
     Tooltip,
     TooltipContent,
@@ -7,28 +7,39 @@ import {
     TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { useNavigate } from "react-router-dom"
+import { IconType } from "react-icons/lib"
 
 type SidebarIconProps = {
-    Icon: ElementType,
+    Icon: ElementType | IconType,
     to: string,
-    tooltip: string
+    tooltip: string,
+    onClick?: () => void
 }
 
-const SidebarIcon = ({ Icon,to="home",tooltip =  "Default"}: SidebarIconProps) => {
+const SidebarIconRaw = ({ Icon, to = "home", tooltip = "Default", onClick }: SidebarIconProps) => {
 
     const navigate = useNavigate();
 
     const handleNavigation = useCallback(() => {
-        navigate(to)
-    },[navigate, to]);
+
+        if (onClick) {
+            onClick();
+        }
+        else {
+            navigate(to);
+        }
+
+    }, [navigate, onClick, to]);
 
     return (
-        <div className="flex items-center justify-center ">
-            <TooltipProvider delayDuration={300}>
-                <Tooltip>
+        <div className="flex items-center justify-center cursor-pointer">
+            <TooltipProvider delayDuration={300} >
+                <Tooltip  >
                     <TooltipTrigger asChild>
-                        <Button size="icon" onClick={()=> handleNavigation()} >
-                            <Icon className="h-5 w-5" />
+                        <Button asChild size="icon" onClick={() => handleNavigation()} >
+                            <div>
+                                <Icon className="h-5 w-5" />
+                            </div>
                         </Button>
                     </TooltipTrigger>
                     <TooltipContent side="right" className="bg-phover" >
@@ -39,5 +50,7 @@ const SidebarIcon = ({ Icon,to="home",tooltip =  "Default"}: SidebarIconProps) =
         </div>
     )
 }
+
+const SidebarIcon = memo(SidebarIconRaw)
 
 export default SidebarIcon
