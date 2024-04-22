@@ -1,8 +1,7 @@
-import { Search } from "lucide-react"
 import AdminUserDropDown from "@/components/ui/AdminUserDropDown"
-import { Input } from "@/components/ui/input";
 import { memo } from "react";
 import MobileDrawer from "./MobileDrawer";
+import CommandSearch from "./CommandSearch";
 
 type NavbarProps = {
   title: string
@@ -20,12 +19,14 @@ const NavbarRaw = ({ title }: NavbarProps) => {
       </div>
       <div className="w-fit flex gap-0 items-center justify-between">
         <div className="relative ml-auto hidden md:flex md:grow-0 ">
-          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+          {/* <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input
             type="search"
             placeholder="Search..."
             className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
-          />
+          /> */}
+
+          <CommandSearch />
         </div>
         
         {

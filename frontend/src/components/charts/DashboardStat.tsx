@@ -11,7 +11,7 @@ const DashboardStat = ({Icon,stat,label} : DashboardStatProps) => {
     <div className="w-full h-full flex justify-center items-center flex-col">
     <Icon className="text-6xl"/>
     <h1 className="font-bold">{stat}</h1>
-    <p className="text-muted">{label}</p>
+    <p className="">{label}</p>
 </div>
   )
 }

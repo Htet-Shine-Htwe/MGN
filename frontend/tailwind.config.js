@@ -51,6 +51,8 @@ export const theme = {
         DEFAULT: "hsl(var(--card))",
         foreground: "hsl(var(--card-foreground))",
       },
+      gold: "hsl(var(--gold))",
+      silver: "hsl(var(--silver))",
     },
     borderRadius: {
       lg: "var(--radius)",

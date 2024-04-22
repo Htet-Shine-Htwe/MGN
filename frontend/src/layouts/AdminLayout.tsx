@@ -24,7 +24,7 @@ const AdminLayout = ({ children, title = "" }: AdminLayoutProps) => {
   }, [toast])
 
   return (
-    <div className="flex min-h-screen bg-muted/40 pb-10">
+    <div className="flex min-h-screen  pb-10">
 
       {
         windowWidth > 768 && (
@@ -34,13 +34,13 @@ const AdminLayout = ({ children, title = "" }: AdminLayoutProps) => {
         )
       }
 
-      <div className="w-full md:w-[90%] pt-6 md:pe-20">
+      <div className="w-full md:w-[90%] pt-6 md:pe-20 max-h-screen overflow-y-scroll">
 
         <div className="flex flex-col gap-8 w-full pt-2">
 
           <Navbar title={title} />
 
-          <div className="flex min-h-screen w-full flex-col ">
+          <div className="flex  w-full flex-col ">
 
             <div className="flex flex-col sm:gap-4 sm:py-4 ">
               {children}
