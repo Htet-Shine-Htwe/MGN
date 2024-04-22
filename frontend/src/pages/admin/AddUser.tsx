@@ -30,9 +30,8 @@ const AddUser = () => {
                         Published
                     </Badge> */}
                     <div className="hidden items-center gap-2 md:ml-auto md:flex">
-                        <Button variant="outline" size="sm">
-                            Discard
-                        </Button>
+                        <Goback to="/users" label="Discard"/>
+
                         <Button size="sm">Register</Button>
                     </div>
                 </div>

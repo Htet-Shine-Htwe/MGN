@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom"
 
 import { lazy, Suspense } from 'react';
 import { ThemeProvider } from "@/components/theme-provider"
+import Index from "./pages/admin/Comics/Index";
 
 
 const AdminLayout = lazy(() => import('./layouts/AdminLayout'));
@@ -27,7 +28,10 @@ const AppRoute = () => {
           <Route path="/" element={<AdminLayout title="Dashboard"><Dashboard /></AdminLayout>} />
           <Route path="/dashboard" element={<AdminLayout title="Dashboard"><Dashboard /></AdminLayout>} />
           <Route path="/setting" element={<AdminLayout title="Setting"><Setting /></AdminLayout>} />
-          <Route path="/comics" element={<AdminLayout title="Comics"><Action /></AdminLayout>} />
+
+
+          <Route path="/comics" element={<AdminLayout title="Comics"><Index /></AdminLayout>} />
+          <Route path="/comics/actions" element={<AdminLayout title="Comics"><Action /></AdminLayout>} />
 
 
           <Route path="/users" element={<AdminLayout title="Subscribed Users"><Users /></AdminLayout>} />

@@ -1,26 +1,37 @@
-import { ChevronLeft } from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
-import { Button } from './ui/button'
-import { memo } from 'react'
-
+import { ChevronLeft } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Button } from './ui/button';
+import { memo } from 'react';
 
 type GobackProps = {
-    to: string
-}
+    to: string;
+    label?: string;
+    variant?: "outline" | "default" | "destructive" | "secondary" | "ghost" | "link" | null | undefined;
+};
 
-const GobackRaw = ({ to }: GobackProps) => {
+const GobackRaw = ({ to, label = "back", variant = "outline" }: GobackProps) => {
     const navigate = useNavigate();
-    
-    return (
-        <Button
-        onClick={() => navigate(to)}
-        variant="outline" size="icon" className="h-7 w-7">
-            <ChevronLeft className="h-4 w-4" />
-            <span className="sr-only">Back</span>
-        </Button>
-    )
-}
 
-const Goback = memo(GobackRaw)
+    const renderBtn = () => {
+        if (label === 'back') {
+            return (
+                <Button variant={variant} onClick={() => navigate(to)}>
+                    <ChevronLeft className="h-5 w-5" />
+                    <span className='sr-only'>{label}</span>
+                </Button>
+            );
+        } else {
+            return (
+                <Button variant="outline" size="sm" onClick={() => navigate(to)} >
+                    {label}
+                </Button>
+            );
+        }
+    };
 
-export default Goback
+    return renderBtn(); // Call the renderBtn function here to render the button
+};
+
+const Goback = memo(GobackRaw);
+
+export default Goback;
