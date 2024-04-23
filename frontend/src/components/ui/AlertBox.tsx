@@ -15,7 +15,8 @@ type AlertBoxProps={
     alertTitle?:string,
     alertDescription?:string,
     alertActionConfirmText?:string,
-    alertConfirmAction : ()=>void
+    alertConfirmAction : ()=>void,
+    className?:string
 }
 
 
@@ -24,12 +25,15 @@ const AlertBox = ({
     alertTitle="Alert",
     alertDescription="Are you sure you want to delete this item?",
     alertActionConfirmText="Sure",
-    alertConfirmAction
+    alertConfirmAction,
+    className
 } : AlertBoxProps) => {
     return (
-        <AlertDialog>
-            <AlertDialogTrigger >{btnText}</AlertDialogTrigger>
-            <AlertDialogContent>
+        <AlertDialog > 
+            <AlertDialogTrigger
+            className={className}
+            >{btnText}</AlertDialogTrigger>
+            <AlertDialogContent >
                 <AlertDialogHeader>
                     <AlertDialogTitle>{alertTitle}</AlertDialogTitle>
                     <AlertDialogDescription>

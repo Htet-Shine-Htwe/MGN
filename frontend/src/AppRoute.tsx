@@ -13,7 +13,7 @@ const Fallback = lazy(() => import('./pages/Fallback'));
 const Action = lazy(() => import('./pages/admin/Comics/Action'));
 const Users = lazy(()=>import('./pages/admin/Users'))
 const AddUser = lazy(()=>import('./pages/admin/AddUser'))
-
+const CategoryIndex = lazy(()=>import('./pages/admin/Category/CategoryIndex'))
 
 const AppRoute = () => {
   return (
@@ -33,6 +33,7 @@ const AppRoute = () => {
           <Route path="/comics" element={<AdminLayout title="Comics"><Index /></AdminLayout>} />
           <Route path="/comics/actions" element={<AdminLayout title="Comics"><Action /></AdminLayout>} />
 
+          <Route path="/categories" element={<AdminLayout title="Categories"><CategoryIndex /></AdminLayout>} />
 
           <Route path="/users" element={<AdminLayout title="Subscribed Users"><Users /></AdminLayout>} />
           <Route path="/add/user" element={<AdminLayout title="Register New User"><AddUser /></AdminLayout>} />

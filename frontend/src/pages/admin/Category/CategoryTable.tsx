@@ -25,27 +25,30 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { TablePagination } from "@/components/TablePagination"
+import { Category } from "./type"
+import AlertBox from "@/components/ui/AlertBox"
 
-const ComicTable = () => {
+type CategoryTableProps = {
+    setCategory: (category: Category) => void;
+    setOpen: (open: boolean) => void;
+};
 
+const CategoryTable = ({
+    setCategory,
+    setOpen
+}: CategoryTableProps) => {
 
-   const comics = Array.from({ length: 10 }, (_, index) => (
+    const comics = Array.from({ length: 10 }, (_, index) => (
         <TableRow key={index}>
-            <TableCell className="hidden sm:table-cell">
-                <Avatar className="w-16 h-16  md:h-24 md:w-24 !rounded-sm">
-                    <AvatarFallback  className="!rounded-sm"  >CN</AvatarFallback>
-                </Avatar>
-            </TableCell>
+
             <TableCell className="font-medium">
                 Laser Lemonade Machine
             </TableCell>
             <TableCell>
-                <Badge variant="outline">Published</Badge>
+                <Badge variant="outline">33</Badge>
             </TableCell>
-            <TableCell className="hidden md:table-cell">331</TableCell>
-            <TableCell className="hidden md:table-cell">25.k</TableCell>
+
             <TableCell className="hidden md:table-cell">
                 2023-07-12 10:42 AM
             </TableCell>
@@ -59,34 +62,47 @@ const ComicTable = () => {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem>Edit</DropdownMenuItem>
-                        <DropdownMenuItem>Delete</DropdownMenuItem>
+                        <DropdownMenuItem
+                            onClick={() => {
+                                setCategory({
+                                    id: 1,
+                                    name: "Edit Name",
+                                    created_at: "2023-07-12 10:42 AM",
+                                    updated_at: "2023-07-12 10:42 AM"
+                                })
+                                setOpen(true)
+                            }}
+                        >Edit</DropdownMenuItem>
+
+                        
+                        {/* <DropdownMenuItem slot=""> */}
+                        <AlertBox alertTitle="Delete" alertDescription="Are you sure you want to Delete" alertActionConfirmText="Delete" alertConfirmAction={() => alert('deleted')}
+                        className="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+                                btnText="Delete" />
+                        {/* </DropdownMenuItem> */}
                     </DropdownMenuContent>
                 </DropdownMenu>
             </TableCell>
         </TableRow>
     ));
 
-  return (
-    <Card>
+    return (
+        <Card>
             <CardHeader>
-                <CardTitle>Manga & Manhwas</CardTitle>
+                <CardTitle>Category Table</CardTitle>
                 <CardDescription>
-                    Manage your manga and manhwas here.
+                    List of all categories
                 </CardDescription>
             </CardHeader>
             <CardContent>
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            <TableHead className="hidden w-[100px] sm:table-cell">
-                                <span className="sr-only">Cover</span>
+                            <TableHead className="">
+                                <span className="">Category Name</span>
                             </TableHead>
-                            <TableHead>Name</TableHead>
-                            <TableHead>Status</TableHead>
-                            <TableHead className="hidden md:table-cell">Today Views</TableHead>
-                            <TableHead className="hidden md:table-cell">
-                                Total Views
+                            <TableHead>
+                                Total
                             </TableHead>
                             <TableHead className="hidden md:table-cell">Created at</TableHead>
                             <TableHead>
@@ -101,12 +117,12 @@ const ComicTable = () => {
                 </Table>
             </CardContent>
             <CardFooter>
-                
+
 
                 <TablePagination />
             </CardFooter>
         </Card>
-  )
+    )
 }
 
-export default ComicTable
+export default CategoryTable
