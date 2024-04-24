@@ -14,6 +14,9 @@ const Action = lazy(() => import('./pages/admin/Comics/Action'));
 const Users = lazy(()=>import('./pages/admin/Users'))
 const AddUser = lazy(()=>import('./pages/admin/AddUser'))
 const CategoryIndex = lazy(()=>import('./pages/admin/Category/CategoryIndex'))
+const SubscriptionIndex = lazy(()=>import('./pages/admin/Subscription/SubscriptionIndex'))
+const SubscriptionCreateEdit = lazy(()=>import('./pages/admin/Subscription/SubscriptionCreateEdit'))
+
 
 const AppRoute = () => {
   return (
@@ -34,6 +37,9 @@ const AppRoute = () => {
           <Route path="/comics/actions" element={<AdminLayout title="Comics"><Action /></AdminLayout>} />
 
           <Route path="/categories" element={<AdminLayout title="Categories"><CategoryIndex /></AdminLayout>} />
+
+          <Route path="/subscriptions" element={<AdminLayout title="Subscriptions"><SubscriptionIndex /></AdminLayout>} />
+          <Route path="/subscriptions/add" element={<AdminLayout title="New Subscription"><SubscriptionCreateEdit /></AdminLayout>} />
 
           <Route path="/users" element={<AdminLayout title="Subscribed Users"><Users /></AdminLayout>} />
           <Route path="/add/user" element={<AdminLayout title="Register New User"><AddUser /></AdminLayout>} />
