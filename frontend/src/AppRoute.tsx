@@ -11,8 +11,8 @@ const Login = lazy(() => import('./pages/admin/Login'));
 const Setting = lazy(() => import('./pages/admin/Setting'));
 const Fallback = lazy(() => import('./pages/Fallback'));
 const Action = lazy(() => import('./pages/admin/Comics/Action'));
-const Users = lazy(()=>import('./pages/admin/Users'))
-const AddUser = lazy(()=>import('./pages/admin/AddUser'))
+const Users = lazy(()=>import('./pages/admin/Users/Users.tsx'))
+const AddUser = lazy(()=>import('./pages/admin/Users/AddUser'))
 const CategoryIndex = lazy(()=>import('./pages/admin/Category/CategoryIndex'))
 const SubscriptionIndex = lazy(()=>import('./pages/admin/Subscription/SubscriptionIndex'))
 const SubscriptionCreateEdit = lazy(()=>import('./pages/admin/Subscription/SubscriptionCreateEdit'))
