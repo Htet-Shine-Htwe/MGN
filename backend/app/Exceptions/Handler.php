@@ -2,7 +2,10 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Response;
+use Illuminate\Support\Str;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -27,4 +30,25 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    public function render($request,Throwable $e)
+    {
+        if($e instanceof \Illuminate\Database\Eloquent\ModelNotFoundException){
+            return response()->json([
+                'message' => "{$this->prettyModelNotFound($e)} not found"
+            ],Response::HTTP_NOT_FOUND);
+        }
+
+        return parent::render($request, $e);
+    }
+
+    protected function prettyModelNotFound(ModelNotFoundException $exception): string
+    {
+        if (! is_null($exception->getModel())) {
+            return ltrim(preg_replace('/[A-Z]/', ' $0', class_basename($exception->getModel())));
+        }
+
+        return 'resource';
+    }
+
 }

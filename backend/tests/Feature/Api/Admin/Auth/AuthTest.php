@@ -77,6 +77,7 @@ test("change password request body is required", function () {
     $this->setupAdmin();
     $response = $this->authenticatedAdmin($this->admin)->postJson(route('api.admin.change-password'),[]);
 
+
     $response->assertStatus(422)
         ->assertJsonStructure([
             'message' ,
@@ -91,6 +92,7 @@ test("change password with invalid current password", function () {
         'password' => 'password',
         'password_confirmation' => 'password',
     ]);
+
 
     $response->assertStatus(422)
         ->assertJson([

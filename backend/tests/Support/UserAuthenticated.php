@@ -4,6 +4,7 @@ namespace Tests\Support;
 use App\Enum\AdminRole;
 use App\Models\User;
 use App\Models\Admin;
+use Database\Seeders\AdminPermissionSeeder;
 use Illuminate\Contracts\Auth\Authenticatable;
 
 trait UserAuthenticated
@@ -45,5 +46,4 @@ trait UserAuthenticated
 
         return $assistant_admins;
     }
-
 }

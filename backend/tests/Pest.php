@@ -1,4 +1,5 @@
 <?php
+use Database\Seeders\AdminPermissionSeeder;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +15,13 @@
 uses(
     Tests\TestCase::class,
     Illuminate\Foundation\Testing\RefreshDatabase::class,
-)->in('Feature');
+)
+->beforeEach(function () {
+    $this->seed([
+        AdminPermissionSeeder::class
+    ]);
+})
+->in('Feature');
 
 /*
 |--------------------------------------------------------------------------

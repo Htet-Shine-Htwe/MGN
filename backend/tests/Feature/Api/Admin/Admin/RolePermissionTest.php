@@ -9,12 +9,6 @@ use Tests\Support\UserAuthenticated;
 uses()->group('admin','api','admin-roles');
 uses(UserAuthenticated::class);
 
-uses()->beforeEach(function () {
-    $this->seed([
-        AdminPermissionSeeder::class
-    ]);
-
-});
 
 test("can get role route exists",function(){
     $this->assertTrue(Route::has('api.admin.roles.index'));
