@@ -2,11 +2,12 @@
 
 namespace App\Repo\Admin;
 
+use App\Contracts\ModelRepoInterface;
 use App\Http\Requests\SubscriptionCreateRequest;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
 
-class SubscriptionRepo
+class SubscriptionRepo implements ModelRepoInterface
 {
 
     protected Request $request;

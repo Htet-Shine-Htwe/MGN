@@ -1,15 +1,13 @@
 <?php
 
-use App\Models\Admin;
 use App\Models\User;
 use Database\Seeders\SubscriptionSeeder;
 use Database\Seeders\UserSeeder;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Tests\Support\UserAuthenticated;
 
 
-uses()->group('admin','api','admin-subscription-test');
+uses()->group('admin','api','admin-subscription');
 uses(UserAuthenticated::class);
 
 beforeEach(function(){

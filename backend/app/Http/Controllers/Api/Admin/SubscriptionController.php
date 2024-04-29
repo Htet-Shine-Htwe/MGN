@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SubscriptionCreateRequest;
 use App\Models\Subscription;
 use App\Repo\Admin\SubscriptionRepo;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -17,7 +18,7 @@ class SubscriptionController extends Controller
 
     }
 
-    public function index(Request $request)
+    public function index(Request $request) : JsonResponse
     {
         $subscriptions = $this->subscriptionRepo->get($request);
         $total_user_subscription = $this->subscriptionRepo->total_user_subscription();
@@ -27,7 +28,7 @@ class SubscriptionController extends Controller
         ]);
     }
 
-    public function create(SubscriptionCreateRequest $request)
+    public function create(SubscriptionCreateRequest $request) : JsonResponse
     {
         $subscription = $this->subscriptionRepo->create($request);
         return response()->json([
@@ -36,7 +37,7 @@ class SubscriptionController extends Controller
         ], Response::HTTP_CREATED);
     }
 
-    public function update(SubscriptionCreateRequest $request,Subscription $subscription)
+    public function update(SubscriptionCreateRequest $request,Subscription $subscription)  : JsonResponse
     {
         $updated_subscription = $this->subscriptionRepo->update($request, $subscription);
         return response()->json([
@@ -45,7 +46,7 @@ class SubscriptionController extends Controller
         ],Response::HTTP_OK);
     }
 
-    public function delete(Subscription $subscription)
+    public function delete(Subscription $subscription)  : JsonResponse
     {
         $this->subscriptionRepo->delete($subscription);
         return response()->json([
