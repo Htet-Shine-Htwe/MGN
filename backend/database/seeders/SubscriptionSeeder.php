@@ -35,7 +35,7 @@ class SubscriptionSeeder extends Seeder
 
         foreach ($subscription_collection as $subscription) {
             \App\Models\Subscription::factory()->create([
-                'title' => $subscription
+                'title' => $subscription,
             ]);
         }
     }

@@ -22,6 +22,7 @@ class UserSeeder extends Seeder
                 'email' => 'user' . $i . '@example.com',
                 'password' => '$2y$10$7',
                 'subscription_id' => rand(1, 17),
+                'subscription_end_date' => now()->subDays(rand(1, 30))
             ];
         }
 
