@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryCreateRequest;
+use App\Models\Category;
 use App\Repo\Admin\CategoryRepo;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -31,7 +32,7 @@ class CategoryController extends Controller
         ],Response::HTTP_CREATED);
     }
 
-    public function update(CategoryCreateRequest $request, $category)  : JsonResponse
+    public function update(CategoryCreateRequest $request,Category $category)  : JsonResponse
     {
         $updated_category = $this->categoryRepo->update($request, $category);
         return response()->json([
@@ -40,7 +41,7 @@ class CategoryController extends Controller
         ],Response::HTTP_OK);
     }
 
-    public function delete($category)  : JsonResponse
+    public function delete(Category $category)  : JsonResponse
     {
         $this->categoryRepo->delete($category);
         return response()->json([
