@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\Admin\AdminController;
 use App\Http\Controllers\Api\Admin\CategoryController;
 use App\Http\Controllers\Api\Admin\SubscriptionController;
+use App\Http\Controllers\Api\Admin\UserSubscriptionController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth:sanctum'])->name('admin.')->group(function(){
@@ -26,6 +27,12 @@ Route::middleware(['auth:sanctum'])->name('admin.')->group(function(){
         Route::post('/categories','create')->name('categories.store');
         Route::put('/categories/{category}','update')->name('categories.update');
         Route::post('/categories/{category}','delete')->name('categories.delete');
+    });
+
+    Route::controller(UserSubscriptionController::class)->group(function(){
+        Route::get('/users','index')->name('subscription-users.index');
+        Route::post('/users','create')->name('subscription-users.store');
+        Route::post('/users/{user}','update')->name('subscription-users.update');
     });
 
 });
