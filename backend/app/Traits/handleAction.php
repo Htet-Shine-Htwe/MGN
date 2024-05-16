@@ -8,7 +8,7 @@ trait handleAction
 
     public function handle()
     {
-        return 'hi';
+
     }
 
 }
