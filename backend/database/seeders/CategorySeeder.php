@@ -13,6 +13,6 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        Category::factory()->count(22)->create();
+        Category::factory()->count(config('control.test.categories_count'))->create();
     }
 }
