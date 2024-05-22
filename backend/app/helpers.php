@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Storage;
+
 if(!function_exists('tryCatch')){
 
     function tryCatch($callback, $message = null){
@@ -20,6 +22,14 @@ if(!function_exists('tryCatch')){
             }
             return response()->json(['message' => $e->getMessage()],$status);
         }
+    }
+
+}
+
+if(!function_exists('appDriver')){
+
+    function appDriver(){
+        return Storage::disk(config('control.mongou_storage'));
     }
 
 }
