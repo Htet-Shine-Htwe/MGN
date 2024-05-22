@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('mogous', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->sting('slug')->unique();
+            $table->string('slug')->unique();
             $table->text('description');
             $table->string('author')->nullable();
             $table->string('cover');

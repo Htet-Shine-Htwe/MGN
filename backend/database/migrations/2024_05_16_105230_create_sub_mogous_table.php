@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->text('description');
-            $table->string('path');
+            $table->string('cover');
 
             $table->integer('status')->default(0);
             $table->integer("chapter_number");
