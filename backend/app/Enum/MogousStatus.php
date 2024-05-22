@@ -9,14 +9,14 @@ enum MogousStatus : int
     case ARCHIVED = 2;
     case DELETED = 3;
 
-    public static function getStatuses(): array
+    public static function getRandomStatus(): int
     {
-        return [
-            self::DRAFT => 'Draft',
-            self::PUBLISHED => 'Published',
-            self::ARCHIVED => 'Archived',
-            self::DELETED => 'Deleted',
-        ];
+        return match (rand(0, 3)) {
+            0 => self::DRAFT->value,
+            1 => self::PUBLISHED->value,
+            2 => self::ARCHIVED->value,
+            3 => self::DELETED->value
+        };
     }
 
 }
