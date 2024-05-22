@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Admin\AdminController;
 use App\Http\Controllers\Api\Admin\CategoryController;
+use App\Http\Controllers\Api\Admin\MogouController;
 use App\Http\Controllers\Api\Admin\SubscriptionController;
 use App\Http\Controllers\Api\Admin\UserSubscriptionController;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,10 @@ Route::middleware(['auth:sanctum'])->name('admin.')->group(function(){
         Route::get('/users','index')->name('subscription-users.index');
         Route::post('/users','create')->name('subscription-users.store');
         Route::post('/users/{user}','update')->name('subscription-users.update');
+    });
+
+    Route::controller(MogouController::class)->group(function(){
+        Route::get('/mogous','index')->name('mogous.index');
     });
 
 });

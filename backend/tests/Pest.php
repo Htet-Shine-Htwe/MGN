@@ -1,4 +1,6 @@
 <?php
+
+use App\Console\Kernel;
 use Database\Seeders\AdminPermissionSeeder;
 
 /*
@@ -49,7 +51,9 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+function bootstrapApp()
 {
-    // ..
+    $app = require_once __DIR__.'/../bootstrap/app.php';
+    $kernel = $app->make(Kernel::class);
+    $kernel->bootstrap();
 }
