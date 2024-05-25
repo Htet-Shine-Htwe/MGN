@@ -41,6 +41,22 @@ test("check category have expected count 10",function(){
     $this->categories->assertJsonCount(10,'categories.data');
 });
 
+test("each category has mogous count",function(){
+
+    $response = $this->authenticatedAdmin()->getJson(route('api.admin.categories.index').'?with_mogous_count=1');
+
+    $response->assertJsonStructure([
+        'categories' => [
+            'data' => [
+                '*' => [
+                    'mogous_count'
+                ]
+            ]
+        ]
+    ]);
+});
+
+
 test("request body validation in creating category",function(){
     $response = $this->authenticatedAdmin()->postJson(route('api.admin.categories.store'),[]);
 

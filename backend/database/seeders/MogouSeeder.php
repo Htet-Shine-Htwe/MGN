@@ -16,3 +16,4 @@ class MogouSeeder extends Seeder
         Mogou::factory()->count(config('control.test.mogous_count'))->create();
     }
 }
+

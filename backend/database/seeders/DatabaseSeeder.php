@@ -20,11 +20,15 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
+            AdminSeeder::class,
             PermissionSeeder::class,
             AdminPermissionSeeder::class,
             SubscriptionSeeder::class,
             UserSeeder::class,
             CategorySeeder::class,
+            MogouSeeder::class,
+            MogousCategorySeeder::class,
+            SubMogouSeeder::class,
         ]);
     }
 }

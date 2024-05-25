@@ -40,4 +40,6 @@ Route::middleware(['auth:sanctum'])->name('admin.')->group(function(){
         Route::get('/mogous','index')->name('mogous.index');
     });
 
+
+
 });

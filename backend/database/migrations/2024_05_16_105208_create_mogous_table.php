@@ -22,6 +22,8 @@ return new class extends Migration
             $table->year('release_year')->nullable();
             $table->timestamp('released_at')->nullable();
             $table->timestamps();
+
+            $table->index('title');
         });
     }
 

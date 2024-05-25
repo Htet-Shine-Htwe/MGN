@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SubMogou extends Model
 {
-    use HasFactory;
+    use HasFactory,\Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
     protected $fillable = [
         'title',

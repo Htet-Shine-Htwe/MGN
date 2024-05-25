@@ -9,20 +9,45 @@ class MogouRepo implements \App\Contracts\ModelRepoInterface
 {
     protected Request $request;
 
-    public function get(Request $request) : mixed
+    protected $collection;
+
+    public function __construct()
+    {
+        $this->collection = Mogou::query();
+    }
+
+    public function get(Request $request,bool $withFilter = true) : mixed
     {
         $this->request = $request;
-        return $this->collection();
+
+        if($withFilter){
+            $this->collection();
+        }
+
+        return $this->collection->paginate($request->input('per_page', 10));
     }
 
 
     public function collection() : mixed
     {
-        return Mogou::search()
+        $this->collection = $this->collection
+        ->search()
         ->filterStatus()
         ->filterCategory()
-        ->year()
-        ->paginate($this->request->limit ?? 10)
-        ->withQueryString();
+        ->year();
+
+        return $this->collection;
+    }
+
+    public function withLastFourChapters() : self
+    {
+        $this->collection =  $this->collection->lastFourChapters();
+        return $this;
+    }
+
+    public function withCategories() : self
+    {
+        $this->collection = $this->collection->with('categories:id,title');
+        return $this;
     }
 }

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Mogou extends Model
 {
-    use HasFactory;
+    use HasFactory,\Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
     protected $fillable = [
         'title',
@@ -20,9 +20,7 @@ class Mogou extends Model
         'released_at',
     ];
 
-    protected $appends = ['mogou_categories'];
 
-    protected $hidden = ['categories','sub_mogous'];
 
     public function categories()
     {
@@ -40,22 +38,18 @@ class Mogou extends Model
         return 'slug';
     }
 
-    public function getMogouCategoriesAttribute()
+
+    public function scopeLastFourChapters($query)
     {
-        return $this->categories->map(function($category){
-            return [
-                'id' => $category->id,
-                'title' => $category->title,
-            ];
-        });
+        // add select
+        return $query->with(['subMogous' => function($q){
+            $q->select('id','chapter_number','mogou_id')
+                ->orderBy('id', 'desc')
+                ->limit(3);
+        }]);
     }
 
-    public function getLastFourChaptersAttribute()
-    {
-        return $this->subMogous->take(4)->pluck('chapter_number');
-    }
-
-    public function scopeFilterStatus($query,bool $orWhere = false)
+    public function scopeFilterStatus($query,bool $orWhere = true)
     {
         $status = request()->input('status');
         return $query->when($status, function($query) use ($orWhere,$status){
@@ -72,7 +66,7 @@ class Mogou extends Model
         });
     }
 
-    public function scopeFilterCategory($query,bool $orWhere = false)
+    public function scopeFilterCategory($query,bool $orWhere = true)
     {
         $category = request()->input('category');
         return $query->when($category, function($query) use ($orWhere,$category){

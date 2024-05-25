@@ -16,7 +16,10 @@ class MogouController extends Controller
 
     public function index(Request $request)
     {
-        $mogous = $this->mogouRepo->get($request);
+        $mogous = $this->mogouRepo
+        ->withCategories()
+        ->withLastFourChapters()
+        ->get($request);
 
         return response()->json([
             'mogous' => $mogous
