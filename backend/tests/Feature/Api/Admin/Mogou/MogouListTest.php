@@ -28,7 +28,7 @@ beforeEach(function(){
         'author',
         'cover',
         'status',
-        'release_year',
+        'released_year',
         'released_at',
         'categories',
     ];
@@ -38,12 +38,12 @@ dataset('mogou-data-collection',[
     fn() => [
         'title' => 'mogou alpha',
         'status' => 2,
-        'release_year' => 2020
+        'released_year' => 2020
     ],
     fn() => [
         'title' => 'mogou beta',
         'status' => 2,
-        'release_year' => 2020
+        'released_year' => 2020
     ],
 ]);
 
@@ -119,11 +119,11 @@ test("mogou data can be filtered by status",function($data)
 test("mogou data can be filtered by release year",function($data)
 {
     \App\Models\Mogou::factory()->create([
-        'release_year' => $data['release_year']
+        'released_year' => $data['released_year']
     ]);
 
     $response = $this->authenticatedAdmin()->getJson(route('api.admin.mogous.index',[
-        'year' => $data['release_year']
+        'year' => $data['released_year']
     ]));
 
     $response->assertOk();
@@ -133,7 +133,7 @@ test("mogou data can be filtered by release year",function($data)
     $this->assertNotEmpty($mogous);
 
     collect($mogous)->each(function($mogou) use ($data){
-        $this->assertEquals($data['release_year'],$mogou['release_year']);
+        $this->assertEquals($data['released_year'],$mogou['released_year']);
     });
 
 })->with('mogou-data-collection');
@@ -142,12 +142,12 @@ test("mogou data filtered with status & year",function($data)
 {
     \App\Models\Mogou::factory()->create([
         'status' => $data['status'],
-        'release_year' => $data['release_year']
+        'released_year' => $data['released_year']
     ]);
 
     $response = $this->authenticatedAdmin()->getJson(route('api.admin.mogous.index',[
         'status' => $data['status'],
-        'year' => $data['release_year']
+        'year' => $data['released_year']
     ]));
 
     $response->assertOk();
@@ -158,7 +158,7 @@ test("mogou data filtered with status & year",function($data)
 
     collect($mogous)->each(function($mogou) use ($data){
         $this->assertEquals($data['status'],$mogou['status']);
-        $this->assertEquals($data['release_year'],$mogou['release_year']);
+        $this->assertEquals($data['released_year'],$mogou['released_year']);
     });
 
 })->with('mogou-data-collection');
@@ -167,7 +167,7 @@ test("mogou data filtered with status & category & year",function($data){
 
     $mogou = \App\Models\Mogou::factory()->create([
         'status' => $data['status'],
-        'release_year' => $data['release_year']
+        'released_year' => $data['released_year']
     ]);
 
     $category = \App\Models\Category::factory()->create();
@@ -177,7 +177,7 @@ test("mogou data filtered with status & category & year",function($data){
     $response = $this->authenticatedAdmin()->getJson(route('api.admin.mogous.index',[
         'status' => $data['status'],
         'category' => $category->id,
-        'year' => $data['release_year']
+        'year' => $data['released_year']
     ]));
 
     $response->assertOk();
@@ -188,7 +188,7 @@ test("mogou data filtered with status & category & year",function($data){
 
     collect($mogous)->each(function($mogou) use ($data){
         $this->assertEquals($data['status'],$mogou['status']);
-        $this->assertEquals($data['release_year'],$mogou['release_year']);
+        $this->assertEquals($data['released_year'],$mogou['released_year']);
     });
 
 })->with('mogou-data-collection');

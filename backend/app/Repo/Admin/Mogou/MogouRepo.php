@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repo\Admin;
+namespace App\Repo\Admin\Mogou;
 
 use App\Models\Mogou;
 use Illuminate\Http\Request;
@@ -24,7 +24,7 @@ class MogouRepo implements \App\Contracts\ModelRepoInterface
             $this->collection();
         }
 
-        return $this->collection->paginate($request->input('per_page', 10));
+        return $this->collection->latest('id')->paginate($request->input('per_page', 10));
     }
 
 

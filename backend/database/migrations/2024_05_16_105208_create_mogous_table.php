@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('author')->nullable();
             $table->string('cover');
             $table->smallInteger('status')->default(0);
-            $table->year('release_year')->nullable();
+            $table->year('released_year')->nullable();
             $table->timestamp('released_at')->nullable();
             $table->timestamps();
 

@@ -38,6 +38,9 @@ Route::middleware(['auth:sanctum'])->name('admin.')->group(function(){
 
     Route::controller(MogouController::class)->group(function(){
         Route::get('/mogous','index')->name('mogous.index');
+
+        Route::post('/mogous','create')->name('mogous.store');
+        Route::put('/mogous/{mogou}','update')->name('mogous.update');
     });
 
 

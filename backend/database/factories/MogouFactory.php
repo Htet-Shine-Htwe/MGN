@@ -25,7 +25,7 @@ class MogouFactory extends Factory
             'author' => $this->faker->name,
             'cover' => $this->faker->imageUrl(),
             'status' => MogousStatus::getRandomStatus(),
-            'release_year' => $this->faker->year,
+            'released_year' => $this->faker->year,
             'released_at' => $this->faker->dateTimeThisYear,
         ];
     }
