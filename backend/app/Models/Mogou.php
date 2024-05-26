@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use App\Enum\MogousStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Str;
 class Mogou extends Model
 {
     use HasFactory,\Staudenmeir\EloquentEagerLimit\HasEagerLimit;
@@ -20,7 +21,26 @@ class Mogou extends Model
         'released_at',
     ];
 
+    protected $casts = [
+        'status' => MogousStatus::class,
+        'released_at' => 'datetime',
+    ];
 
+    protected $appends = ['status_name'];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function($mogou){
+            $mogou->slug = Str::slug($mogou->title);
+
+        });
+
+        static::updating(function($mogou){
+            $mogou->slug = Str::slug($mogou->title);
+        });
+    }
 
     public function categories()
     {
@@ -38,6 +58,10 @@ class Mogou extends Model
         return 'slug';
     }
 
+    protected function getStatusNameAttribute()
+    {
+        return MogousStatus::getStatusName($this->status);
+    }
 
     public function scopeLastFourChapters($query)
     {
@@ -69,6 +93,7 @@ class Mogou extends Model
     public function scopeFilterCategory($query,bool $orWhere = true)
     {
         $category = request()->input('category');
+
         return $query->when($category, function($query) use ($orWhere,$category){
             return $orWhere ? $query->orWhereHas('categories', function($query) use ($category){
                 return $query->where('categories.id', $category);
@@ -82,7 +107,7 @@ class Mogou extends Model
     {
         $year = request()->input('year');
         return $query->when($year, function($query) use ($year){
-            return $query->where('release_year', $year);
+            return $query->where('released_year', $year);
         });
     }
 

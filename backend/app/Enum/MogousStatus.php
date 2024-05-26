@@ -19,4 +19,24 @@ enum MogousStatus : int
         };
     }
 
+    public static function getStatusName(MogousStatus $status): string
+    {
+        return match ($status) {
+            self::DRAFT => "Draft",
+            self::PUBLISHED => "Published",
+            self::ARCHIVED => "Archived",
+            self::DELETED =>  "Deleted"
+        };
+    }
+
+    public static function getStatus(string $status): int
+    {
+        return match ($status) {
+            "Draft" => self::DRAFT->value,
+            "Published" => self::PUBLISHED->value,
+            "Archived" => self::ARCHIVED->value,
+            "Deleted" => self::DELETED->value
+        };
+    }
+
 }
