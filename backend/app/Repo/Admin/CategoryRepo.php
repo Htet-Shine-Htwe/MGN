@@ -19,7 +19,7 @@ class CategoryRepo  implements \App\Contracts\ModelRepoInterface
     public function collection() : mixed
     {
         return Category::search($this->request->search)
-        ->withMogousCount()
+        ->orderByMogousCount()
         ->paginate($this->request->limit ?? 10)
         ->withQueryString();
     }

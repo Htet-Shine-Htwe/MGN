@@ -25,3 +25,15 @@ Route::prefix('v1')
     {
         \App\Services\Route\RouteHelper::includedRouteFiles(__DIR__ . '/api');
     });
+
+Route::get('test', function () {
+    return response()->json([
+        'message' => "request was successful"
+    ]);
+});
+
+Route::post('test',function(Request $request){
+    return response()->json(
+        $request->input()
+    );
+});

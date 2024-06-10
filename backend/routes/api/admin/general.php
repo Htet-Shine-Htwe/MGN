@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\Admin\CategoryController;
 use App\Http\Controllers\Api\Admin\MogouController;
 use App\Http\Controllers\Api\Admin\SubscriptionController;
 use App\Http\Controllers\Api\Admin\UserSubscriptionController;
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth:sanctum'])->name('admin.')->group(function(){
@@ -44,5 +45,9 @@ Route::middleware(['auth:sanctum'])->name('admin.')->group(function(){
     });
 
 
+});
 
+
+Route::controller(TestController::class)->group(function(){
+    Route::post('/test','test')->name('test');
 });

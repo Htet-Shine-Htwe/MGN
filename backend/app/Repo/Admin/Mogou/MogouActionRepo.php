@@ -5,12 +5,12 @@ namespace App\Repo\Admin\Mogou;
 use App\Enum\MogousStatus;
 use App\Http\Requests\MogouActionRequest;
 use App\Models\Mogou;
-use App\Traits\HydraStorage;
+use HydraStorage\HydraStorage\Traits\HydraMedia;
 
 class MogouActionRepo
 {
 
-    use HydraStorage;
+    use HydraMedia;
 
     public function create(MogouActionRequest $request)
     {
@@ -20,7 +20,7 @@ class MogouActionRepo
             'cover' => 'required|image'
         ]);
 
-        $data['cover'] = $this->storeImage($request->file('cover'), 'mogou/cover');
+        $data['cover'] = $this->storeMedia($request->file('cover'), 'mogou/cover',false);
         $data['status'] = MogousStatus::ARCHIVED;
 
         $mogou = Mogou::create($data);
@@ -41,7 +41,7 @@ class MogouActionRepo
         ]);
 
         if ($request->hasFile('cover')) {
-            $data['cover'] = $this->storeImage($request->file('cover'), 'mogou/cover');
+            $data['cover'] = $this->storeMedia($request->file('cover'), 'mogou/cover',false);
         }
 
         $mogou->update($data);

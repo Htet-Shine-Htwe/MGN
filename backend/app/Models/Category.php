@@ -45,4 +45,11 @@ class Category extends Model
         });
     }
 
+    public function scopeOrderByMogousCount($query)
+    {
+        return $query->when(request('order_by_mogous_count'), function($query){
+            return $query->withCount('mogous')->orderBy('mogous_count', request('order_by_mogous_count'));
+        });
+    }
+
 }

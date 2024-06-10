@@ -17,7 +17,7 @@ class Mogou extends Model
         'author',
         'cover',
         'status',
-        'release_year',
+        'released_year',
         'released_at',
     ];
 

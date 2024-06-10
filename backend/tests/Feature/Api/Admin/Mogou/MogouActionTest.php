@@ -7,7 +7,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Schema;
 use Tests\Support\UserAuthenticated;
 
-uses()->group('admin','api','mogou-create');
+uses()->group('admin','api','mogou-action');
 uses(UserAuthenticated::class);
 
 beforeEach(function(){

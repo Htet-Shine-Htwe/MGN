@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "dede/hydrastorage": "^0.4.3",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
@@ -40,6 +41,12 @@
             "app/helpers.php"
         ]
     },
+    "repositories":[
+        {
+            "type": "vcs",
+            "url": "https://github.com/Dede182/HydraStorage"
+        }
+    ],
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
@@ -68,7 +75,5 @@
             "pestphp/pest-plugin": true,
             "php-http/discovery": true
         }
-    },
-    "minimum-stability": "stable",
-    "prefer-stable": true
+    }
 }
