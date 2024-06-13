@@ -19,10 +19,12 @@ return new class extends Migration
             $table->string('author')->nullable();
             $table->string('cover');
             $table->smallInteger('status')->default(0);
+            $table->smallInteger('finish_status')->default(0);
+            $table->smallInteger('legal_age')->default(0);
+            $table->smallInteger('rating')->default(0);
             $table->year('released_year')->nullable();
             $table->timestamp('released_at')->nullable();
             $table->timestamps();
-
             $table->index('title');
         });
     }

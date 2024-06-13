@@ -22,6 +22,9 @@ return new class extends Migration
             $table->integer("chapter_number");
             $table->unsignedBigInteger('views')->default(0);
 
+            $table->integer('subscription_only')->default(0);
+            $table->json('subscription_collection')->nullable();
+
             $table->foreignId('mogou_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
