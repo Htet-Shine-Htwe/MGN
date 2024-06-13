@@ -29,6 +29,16 @@ enum MogousStatus : int
         };
     }
 
+    public static function getValues(): array
+    {
+        return [
+            self::DRAFT->value,
+            self::PUBLISHED->value,
+            self::ARCHIVED->value,
+            self::DELETED->value
+        ];
+    }
+
     public static function getStatus(string $status): int
     {
         return match ($status) {

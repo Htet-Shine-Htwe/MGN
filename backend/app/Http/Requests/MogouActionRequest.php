@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Enum\MogouFinishStatus;
+use App\Vaildations\MogouValidation;
 use Illuminate\Foundation\Http\FormRequest;
 
 class MogouActionRequest extends FormRequest
@@ -24,13 +26,30 @@ class MogouActionRequest extends FormRequest
         return [
             'title' => 'required',
             'description' => 'required',
-            'status' => 'required',
+            'status' =>  MogouValidation::status(),
             'author' => 'nullable',
             'cover' => 'required|image',
+            'legal_age' => 'required|boolean',
+            'rating' => 'required|numeric|between:0,5',
+            'finish_status' => MogouValidation::finishStatus(),
             'categories' => 'required|array',
             'categories.*' => 'exists:categories,id',
             'released_year' => 'nullable|integer',
             'released_at' => 'nullable|date',
+        ];
+    }
+
+    /**
+     * Get the validation messages that apply to the request.
+     *
+     * @return array<string, string>
+     */
+
+    public function messages(): array
+    {
+        return [
+            'status.in' => MogouValidation::invalidStatusMessages(),
+            'finish_status.in' => MogouValidation::invalidFinishStatusMessages(),
         ];
     }
 }
