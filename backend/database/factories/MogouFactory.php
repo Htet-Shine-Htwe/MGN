@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Enum\MogousStatus;
+use App\Enum\MogouFinishStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 /**
@@ -25,6 +26,9 @@ class MogouFactory extends Factory
             'author' => $this->faker->name,
             'cover' => $this->faker->imageUrl(),
             'status' => MogousStatus::getRandomStatus(),
+            'finish_status' => MogouFinishStatus::getRandomStatus(),
+            'legal_age' => $this->faker->boolean,
+            'rating' => $this->faker->randomFloat(1, 0, 5),
             'released_year' => $this->faker->year,
             'released_at' => $this->faker->dateTimeThisYear,
         ];

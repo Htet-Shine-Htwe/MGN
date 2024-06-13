@@ -32,8 +32,10 @@ class MogouRepo implements \App\Contracts\ModelRepoInterface
     {
         $this->collection = $this->collection
         ->search()
+        ->legalOnly()
         ->filterStatus()
         ->filterCategory()
+        ->orderByRating()
         ->year();
 
         return $this->collection;

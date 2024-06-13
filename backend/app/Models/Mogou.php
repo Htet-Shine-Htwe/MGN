@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enum\MogouFinishStatus;
 use App\Enum\MogousStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,6 +18,9 @@ class Mogou extends Model
         'author',
         'cover',
         'status',
+        'finish_status',
+        'legal_age',
+        'rating',
         'released_year',
         'released_at',
     ];
@@ -24,6 +28,9 @@ class Mogou extends Model
     protected $casts = [
         'status' => MogousStatus::class,
         'released_at' => 'datetime',
+        'rating' => 'double',
+        'legal_age' => 'boolean',
+        'finish_status' => MogouFinishStatus::class,
     ];
 
     protected $appends = ['status_name'];
@@ -65,7 +72,6 @@ class Mogou extends Model
 
     public function scopeLastFourChapters($query)
     {
-        // add select
         return $query->with(['subMogous' => function($q){
             $q->select('id','chapter_number','mogou_id')
                 ->orderBy('id', 'desc')
@@ -73,11 +79,25 @@ class Mogou extends Model
         }]);
     }
 
+    public function scopeOrderByRating($query)
+    {
+        return $query->when(request('order_by_rating'), function($query){
+            return $query->orderBy('rating', request('order_by_rating'));
+        });
+    }
+
     public function scopeFilterStatus($query,bool $orWhere = true)
     {
         $status = request()->input('status');
         return $query->when($status, function($query) use ($orWhere,$status){
             return $orWhere ? $query->orWhere('status', $status) : $query->where('status', $status);
+        });
+    }
+
+    public function scopeLegalOnly($query)
+    {
+        return $query->when(request('legal_only'), function($query){
+            return $query->where('legal_age', true);
         });
     }
 
