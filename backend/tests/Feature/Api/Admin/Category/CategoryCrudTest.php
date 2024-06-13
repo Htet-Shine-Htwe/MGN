@@ -1,6 +1,9 @@
 <?php
 
+use App\Models\Mogou;
 use Database\Seeders\CategorySeeder;
+use Database\Seeders\MogousCategorySeeder;
+use Database\Seeders\MogouSeeder;
 use Database\Seeders\UserSeeder;
 use Illuminate\Support\Facades\Schema;
 use Tests\Support\UserAuthenticated;
@@ -20,9 +23,12 @@ dataset('category_test_data',[
 
 beforeEach(function(){
     config(['control.test.users_count' => 10]);
+    config(['control.test.mogous_count' => 50]);
 
     $this->seed([
-        CategorySeeder::class
+        CategorySeeder::class,
+        MogouSeeder::class,
+        MogousCategorySeeder::class,
     ]);
     $this->setupAdmin();
 
@@ -41,9 +47,11 @@ test("check category have expected count 10",function(){
     $this->categories->assertJsonCount(10,'categories.data');
 });
 
-test("each category has mogous count",function(){
+test("each category has mogous count and order by much popular",function(){
 
-    $response = $this->authenticatedAdmin()->getJson(route('api.admin.categories.index').'?with_mogous_count=1');
+    $response = $this->authenticatedAdmin()->getJson(route('api.admin.categories.index',[
+        'order_by_mogous_count' => 'desc'
+    ]));
 
     $response->assertJsonStructure([
         'categories' => [
@@ -54,6 +62,25 @@ test("each category has mogous count",function(){
             ]
         ]
     ]);
+
+    $mogou = $response['categories']['data'];
+
+    for($i = 0; $i < count($mogou) - 1; $i++){
+        $this->assertLessThanOrEqual($mogou[$i]['mogous_count'],$mogou[$i+1]['mogous_count']);
+    }
+});
+
+test("each category has mogous count and order by less popular",function(){
+
+    $response = $this->authenticatedAdmin()->getJson(route('api.admin.categories.index',[
+        'order_by_mogous_count' => 'asc'
+    ]));
+
+    $mogou = $response['categories']['data'];
+
+    for($i = 0; $i < count($mogou) - 1; $i++){
+        $this->assertGreaterThanOrEqual($mogou[$i]['mogous_count'],$mogou[$i+1]['mogous_count']);
+    }
 });
 
 
