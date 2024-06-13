@@ -12,6 +12,9 @@ uses()->group('admin','api','mogou-data-collection');
 uses(UserAuthenticated::class);
 
 beforeEach(function(){
+
+    config(['control.test.mogous_count' => 50]);
+
     $this->seed([
         CategorySeeder::class,
         MogouSeeder::class,
@@ -28,6 +31,9 @@ beforeEach(function(){
         'author',
         'cover',
         'status',
+        'finish_status',
+        'legal_age',
+        'rating',
         'released_year',
         'released_at',
         'categories',
@@ -209,4 +215,51 @@ test("each mogou has last 3 chapters",function()
         $this->assertCount(3,$mogou['sub_mogous']);
     });
 
+});
+
+test("Mogou collection order by rating",function()
+{
+    $response = $this->authenticatedAdmin()->getJson(route('api.admin.mogous.index',[
+        'order_by_rating' => 'desc'
+    ]));
+
+    $response->assertOk();
+
+    $mogous = $response->json('mogous.data');
+
+    $this->assertNotEmpty($mogous);
+
+    for($i = 0; $i < count($mogous) - 1; $i++){
+        $this->assertLessThanOrEqual($mogous[$i]['rating'],$mogous[$i+1]['rating']);
+    }
+
+    $response = $this->authenticatedAdmin()->getJson(route('api.admin.mogous.index',[
+        'order_by_rating' => 'asc'
+    ]));
+
+    $mogous = $response->json('mogous.data');
+
+    $this->assertNotEmpty($mogous);
+
+    for($i = 0; $i < count($mogous) - 1; $i++){
+        $this->assertGreaterThanOrEqual($mogous[$i+1]['rating'],$mogous[$i]['rating']);
+    }
+
+});
+
+test("Only Age Legal Mogou returned",function(){
+
+        $response = $this->authenticatedAdmin()->getJson(route('api.admin.mogous.index',[
+            'legal_only' => true
+        ]));
+
+        $response->assertOk();
+
+        $mogous = $response->json('mogous.data');
+
+        $this->assertNotEmpty($mogous);
+
+        collect($mogous)->each(function($mogou){
+            $this->assertEquals(1,$mogou['legal_age']);
+        });
 });

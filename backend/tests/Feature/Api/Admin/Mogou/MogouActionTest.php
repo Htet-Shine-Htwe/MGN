@@ -1,8 +1,8 @@
 <?php
 
+use App\Enum\MogouFinishStatus;
 use App\Enum\MogousStatus;
 use Database\Seeders\CategorySeeder;
-use Illuminate\Http\Testing\File;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Schema;
 use Tests\Support\UserAuthenticated;
@@ -23,7 +23,10 @@ beforeEach(function(){
         'author',
         'cover',
         'status',
-        'release_year',
+        'finish_status',
+        'legal_age',
+        'rating',
+        'released_year',
         'released_at',
         'categories',
     ];
@@ -39,6 +42,9 @@ dataset('mogou-data-collection',[
         'categories' => [
             1,2,3
         ],
+        'legal_age' => 0,
+        'rating' => 3.3,
+        'finish_status' => MogouFinishStatus::ONGOING->value,
         'released_at' => '2020-01-01 00:00:00'
     ],
 
@@ -61,6 +67,22 @@ test("create mogou body validation",function()
         'status',
     ]);
 });
+
+test("prevent creating mogou with invalid status and invalid finish status",function($mogou_data)
+{
+    $mogou_data['status'] = 10;
+    $mogou_data['finish_status'] = 10;
+
+    $response = $this->authenticatedAdmin()->postJson(route('api.admin.mogous.store'),$mogou_data);
+    $response->assertStatus(422);
+    $response->assertJsonValidationErrors([
+        'status',
+        'finish_status'
+    ]);
+})
+->with('mogou-data-collection')
+->group('prevention');
+
 
 test("mogou title unique validation",function($mogou_data)
 {
