@@ -5,6 +5,7 @@ namespace App\Repo\Admin;
 use App\Http\Requests\UserRegistrationRequest;
 use App\Models\Subscription;
 use App\Models\User;
+use App\Models\UserSubscription;
 use Illuminate\Http\Request;
 
 class UserRegistrationRepo
@@ -39,22 +40,47 @@ class UserRegistrationRepo
         ]);
 
         $data = $request->validated();
-        $data = self::mutateDataSubscription($data);
         $user = User::where('user_code',$id)->firstOrFail();
+
+        UserSubscription::create([
+            'user_id' => $user->id,
+            'subscription_id' => $data['current_subscription_id'],
+        ]);
+
+
+        $data = self::updateDataSubscription($data,$user);
         $user->update($data);
         return $user;
     }
 
     protected static function mutateDataSubscription($data)
     {
-        $data['current_subscription_id'] = $data['current_subscription_id'] ?? 1;
         if(isset($data['current_subscription_id'])){
-
             $end_date = Subscription::where('id',$data['current_subscription_id'])->first()->max;
+
+
 
             $data['subscription_end_date'] = now()->addDays($end_date);
         }
         return $data;
+    }
+
+    protected static function updateDataSubscription($data,$user)
+    {
+
+        if($user->current_subscription_id != $data['current_subscription_id']){
+            $end_date = Subscription::where('id',$data['current_subscription_id'])->first()->max;
+
+            UserSubscription::create([
+                'user_id' => $user->id,
+                'subscription_id' => $data['current_subscription_id'],
+            ]);
+
+            $data['subscription_end_date'] = now()->addDays($end_date);
+        }
+
+        return $data;
+
     }
 
 

@@ -34,12 +34,14 @@ dataset('sample_user',[
         'email' => 'alpha@gmail.com',
         'password' => 'password',
         'password_confirmation' => 'password',
+        'current_subscription_id' => 1,
     ],
     fn() =>[
         'name' => 'beta',
         'email' => 'beta@gmail.com',
         'password' => 'password',
         'password_confirmation' => 'password',
+        'current_subscription_id' => 2,
     ]
 ]);
 

@@ -35,7 +35,7 @@ class UserSubscriptionController extends Controller
                 'message' => 'User registered successfully',
                 'user' => $user
             ]);
-        },'User registration failed');
+        });
     }
 
     public function update(UserRegistrationRequest $request) :JsonResponse

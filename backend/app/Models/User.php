@@ -102,8 +102,8 @@ class User extends Authenticatable
         });
     }
 
-    public function getSubscriptionNameAttribute() : string
+    public function getSubscriptionNameAttribute() : string | null
     {
-        return $this->subscription->title;
+        return $this->subscription?->title;
     }
 }
