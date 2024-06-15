@@ -2,12 +2,14 @@
 
 use App\Enum\MogouFinishStatus;
 use App\Enum\MogousStatus;
+use App\Models\Mogou;
+use App\Models\SubMogou;
 use Database\Seeders\CategorySeeder;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Schema;
 use Tests\Support\UserAuthenticated;
 
-uses()->group('admin','api','mogou-action');
+uses()->group('admin','api','mogou-action','mogou');
 uses(UserAuthenticated::class);
 
 beforeEach(function(){
@@ -200,3 +202,47 @@ test("mogou can't update due to invalid mogou",function($mogou_data){
 })
 ->with('mogou-data-collection');
 
+test("mogou can be deleted",function($mogou_data){
+
+    $mogou = Mogou::factory()->create([
+        'title' => 'Solo Leveling'
+    ]);
+
+    $response = $this->authenticatedAdmin()->postJson(route('api.admin.mogous.delete'),[
+        'mogou_id' => $mogou['id']
+    ]);
+
+    $response->assertOk();
+
+    $this->assertDatabaseMissing('mogous',[
+        'id' => $mogou['id']
+    ]);
+
+    $this->assertFileDoesNotExist(storage_path('app/public/mogou/cover/'.$mogou['cover']));
+})
+->with('mogou-data-collection');
+
+test("all related sub mogous and chapters should be deleted",function($mogou_data){
+    $mogou = Mogou::factory()->create([
+        'title' => 'Solo Leveling'
+    ]);
+
+    $sub_mogou = SubMogou::factory()->create([
+        'mogou_id' => $mogou['id']
+    ]);
+
+    $response = $this->authenticatedAdmin()->postJson(route('api.admin.mogous.delete'),[
+        'mogou_id' => $mogou['id']
+    ]);
+
+    $response->assertOk();
+
+    $this->assertDatabaseMissing('mogous',[
+        'id' => $mogou['id']
+    ]);
+
+    $this->assertDatabaseMissing('sub_mogous',[
+        'id' => $sub_mogou['id']
+    ]);
+})
+->with('mogou-data-collection');

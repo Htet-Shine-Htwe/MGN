@@ -101,6 +101,14 @@ class Mogou extends Model
         });
     }
 
+    public function scopeByFinishStatus($query)
+    {
+        $finishStatus = request()->input('finish_status');
+        return $query->when($finishStatus, function($query) use ($finishStatus){
+            return $query->where('finish_status', $finishStatus);
+        });
+    }
+
     public function scopeSearch($query)
     {
         $search = request()->input('search');

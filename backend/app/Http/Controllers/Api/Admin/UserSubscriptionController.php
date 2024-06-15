@@ -38,13 +38,33 @@ class UserSubscriptionController extends Controller
         },'User registration failed');
     }
 
-    public function update(UserRegistrationRequest $request, int $id) :JsonResponse
+    public function update(UserRegistrationRequest $request) :JsonResponse
     {
+        $id = $request->input('user_code');
         return tryCatch(function() use($request,$id){
             $this->userRegistrationRepo->updateUser($request,$id);
             return response()->json([
                 'message' => 'User updated successfully'
             ]);
         },'User update failed');
+    }
+
+    // public function delete(Request $request) :JsonResponse
+    // {
+    //     return tryCatch(function() use($request){
+    //         $this->userRegistrationRepo->deleteUser($request->input('user_id'));
+    //         return response()->json([
+    //             'message' => 'User deleted successfully'
+    //         ]);
+    //     },'User delete failed');
+    // }
+
+    public function subscriptions(string $user_code) :JsonResponse
+    {
+        $user_subscriptions = $this->userSubscriptionRepo->setUser($user_code)->subscriptions();
+
+        return response()->json([
+            'subscriptions' => $user_subscriptions
+        ]);
     }
 }

@@ -17,8 +17,17 @@ class SubMogou extends Model
         'status',
         'chapter_number',
         'views',
+        'subscription_only',
+        'subscription_collection',
         'mogou_id',
     ];
+
+
+
+    public function getSubscriptionCollectionAttribute($value)
+    {
+        return json_decode($value, true);
+    }
 
     public function mogou()
     {

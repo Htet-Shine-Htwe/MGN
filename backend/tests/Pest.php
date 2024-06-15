@@ -25,6 +25,14 @@ uses(
 })
 ->in('Feature');
 
+// use testcase in unit test
+uses(
+    Tests\TestCase::class,
+    Illuminate\Foundation\Testing\RefreshDatabase::class,
+)
+->in('Unit');
+
+
 /*
 |--------------------------------------------------------------------------
 | Expectations

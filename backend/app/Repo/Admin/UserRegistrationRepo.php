@@ -31,7 +31,7 @@ class UserRegistrationRepo
         return $users;
     }
 
-    public function updateUser(UserRegistrationRequest $request, int $id) :User
+    public function updateUser(UserRegistrationRequest $request,string $id) :User
     {
 
         $request->validate([
@@ -40,21 +40,22 @@ class UserRegistrationRepo
 
         $data = $request->validated();
         $data = self::mutateDataSubscription($data);
-        $user = User::findOrFail($id);
+        $user = User::where('user_code',$id)->firstOrFail();
         $user->update($data);
         return $user;
     }
 
     protected static function mutateDataSubscription($data)
     {
-        $data['subscription_id'] = $data['subscription_id'] ?? 1;
-        if(isset($data['subscription_id'])){
+        $data['current_subscription_id'] = $data['current_subscription_id'] ?? 1;
+        if(isset($data['current_subscription_id'])){
 
-            $end_date = Subscription::where('id',$data['subscription_id'])->first()->max;
+            $end_date = Subscription::where('id',$data['current_subscription_id'])->first()->max;
 
             $data['subscription_end_date'] = now()->addDays($end_date);
         }
         return $data;
     }
+
 
 }

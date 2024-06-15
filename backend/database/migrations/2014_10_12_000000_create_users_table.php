@@ -16,13 +16,14 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->foreignId('subscription_id')->nullable()->constrained('subscriptions')->nullOnDelete();
+            $table->foreignId('current_subscription_id')->nullable()->constrained('subscriptions','id')->nullOnDelete();
             $table->timestamp('subscription_end_date')->nullable();
+            $table->string('user_code',125)->unique();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
 
-            $table->index(['name', 'email']);
+            $table->index(['user_code','name', 'email']);
         });
     }
 

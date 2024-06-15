@@ -53,4 +53,17 @@ class MogouActionRepo
         return $mogou;
     }
 
+
+    public function delete(Mogou $mogou)
+    {
+
+        $cover_prefix = config('control.mogou.cover.path');
+
+        $full_path = "public/". $cover_prefix  . '/' . $mogou->cover;
+
+        $this->removeMedia($full_path);
+
+        $mogou->delete();
+    }
+
 }

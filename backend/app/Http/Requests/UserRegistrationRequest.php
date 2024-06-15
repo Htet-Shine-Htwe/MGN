@@ -22,10 +22,11 @@ class UserRegistrationRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'user_code' => 'nullable|string|max:255',
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
             'password' => 'required|string|min:8|confirmed',
-            'subscription_id' => 'nullable|exists:subscriptions,id',
+            'current_subscription_id' => 'nullable|exists:subscriptions,id',
         ];
     }
 }

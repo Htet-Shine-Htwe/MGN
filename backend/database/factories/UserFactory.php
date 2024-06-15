@@ -29,7 +29,8 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
-            'subscription_id' => 1,
+            'user_code' => Str::random(10),
+            'current_subscription_id' => fake()->numberBetween(1, 10),
             'subscription_end_date' => "2024-06-01 16:25:33"
         ];
     }

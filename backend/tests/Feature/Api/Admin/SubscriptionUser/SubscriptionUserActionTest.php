@@ -21,8 +21,9 @@ beforeEach(function(){
         'id',
         'name',
         'email',
-        'subscription_id',
-        'subscription_name'
+        'current_subscription_id',
+        'subscription_name',
+        'user_code',
     ];
 
 });
@@ -88,7 +89,9 @@ test("subscription user can registered successfully",function($data){
 test("subscription user can be updated",function($data){
     $user = User::factory()->create();
 
-    $response = $this->authenticatedAdmin()->postJson(route('api.admin.subscription-users.update',$user->id),$data);
+    $data['user_code'] = $user->user_code;
+
+    $response = $this->authenticatedAdmin()->postJson(route('api.admin.subscription-users.update'),$data);
 
 
     $response->assertOk()
@@ -108,7 +111,10 @@ test("subscription user can't update with same email",function($data){
         'email' => $data['email']
     ]);
 
-    $response = $this->authenticatedAdmin()->postJson(route('api.admin.subscription-users.update',$user->id),$data);
+    $data['user_code'] = $user->user_code;
+
+
+    $response = $this->authenticatedAdmin()->postJson(route('api.admin.subscription-users.update'),$data);
 
     $response->assertStatus(422)
         ->assertJsonStructure([

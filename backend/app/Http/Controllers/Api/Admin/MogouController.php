@@ -48,4 +48,15 @@ class MogouController extends Controller
         ]);
     }
 
+    public function delete(Request $request)
+    {
+        $mogou = Mogou::find($request->input('mogou_id'));
+
+        $this->mogouActionRepo->delete($mogou);
+
+        return response()->json([
+            'message' => 'Mogou deleted successfully'
+        ]);
+    }
+
 }

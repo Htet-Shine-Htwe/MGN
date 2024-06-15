@@ -18,6 +18,8 @@ class SubMogouFactory extends Factory
     public function definition(): array
     {
         $title = $this->faker->sentence(4);
+
+        //
         return [
             'title' => $title,
             'slug' => Str::slug($title),
@@ -26,6 +28,8 @@ class SubMogouFactory extends Factory
             'status' => MogousStatus::getRandomStatus(),
             'chapter_number' => $this->faker->numberBetween(1, 100),
             'views' => $this->faker->numberBetween(1, 1000),
+            'subscription_only' => $this->faker->numberBetween(0, 1),
+            'subscription_collection' => $this->faker->numberBetween(1, 5),
             'mogou_id' => rand(1, config('control.test.mogous_count')),
         ];
     }

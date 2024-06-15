@@ -34,7 +34,11 @@ Route::middleware(['auth:sanctum'])->name('admin.')->group(function(){
     Route::controller(UserSubscriptionController::class)->group(function(){
         Route::get('/users','index')->name('subscription-users.index');
         Route::post('/users','create')->name('subscription-users.store');
-        Route::post('/users/{user}','update')->name('subscription-users.update');
+        Route::post('/users/update','update')->name('subscription-users.update');
+
+        Route::get('/users/{user_code}/subscriptions','subscriptions')->name('subscription-users.subscriptions');
+
+
     });
 
     Route::controller(MogouController::class)->group(function(){
@@ -42,6 +46,7 @@ Route::middleware(['auth:sanctum'])->name('admin.')->group(function(){
 
         Route::post('/mogous','create')->name('mogous.store');
         Route::put('/mogous/{mogou}','update')->name('mogous.update');
+        Route::post('/delete/mogous','delete')->name('mogous.delete');
     });
 
 

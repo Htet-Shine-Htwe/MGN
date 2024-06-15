@@ -36,6 +36,7 @@ class MogouRepo implements \App\Contracts\ModelRepoInterface
         ->filterStatus()
         ->filterCategory()
         ->orderByRating()
+        ->byFinishStatus()
         ->year();
 
         return $this->collection;

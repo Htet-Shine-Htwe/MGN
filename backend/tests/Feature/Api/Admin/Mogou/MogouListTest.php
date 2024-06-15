@@ -1,5 +1,6 @@
 <?php
 
+use App\Enum\MogouFinishStatus;
 use Database\Seeders\CategorySeeder;
 use Database\Seeders\MogousCategorySeeder;
 use Database\Seeders\MogouSeeder;
@@ -8,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
 use Tests\Support\UserAuthenticated;
 
-uses()->group('admin','api','mogou-data-collection');
+uses()->group('admin','api','mogou-data-collection','mogou');
 uses(UserAuthenticated::class);
 
 beforeEach(function(){
@@ -263,3 +264,20 @@ test("Only Age Legal Mogou returned",function(){
             $this->assertEquals(1,$mogou['legal_age']);
         });
 });
+
+test("Only Completed Mogou returned",function(){
+
+    $response = $this->authenticatedAdmin()->getJson(route('api.admin.mogous.index',[
+        'finish_status' => MogouFinishStatus::COMPLETED->value
+    ]));
+
+    $response->assertOk();
+
+    $mogous = $response->json('mogous.data');
+
+    $this->assertNotEmpty($mogous);
+
+    collect($mogous)->each(function($mogou){
+        $this->assertEquals(MogouFinishStatus::COMPLETED->value,$mogou['finish_status']);
+    });
+})->group('completed-returned');

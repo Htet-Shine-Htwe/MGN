@@ -22,7 +22,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'subscription_id',
+        'user_code',
+        'current_subscription_id',
         'subscription_end_date'
     ];
 
@@ -40,6 +41,11 @@ class User extends Authenticatable
         'subscription'
     ];
 
+    public function getRouteKeyName()
+    {
+        return 'user_code';
+    }
+
 
     /**
      * The attributes that should be cast.
@@ -51,9 +57,26 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function($user){
+            // with current time and unique id
+            $user->user_code = time() . uniqid();
+        });
+
+    }
+
+
     public function subscription()
     {
-        return $this->belongsTo(Subscription::class);
+        return $this->belongsTo(Subscription::class,'current_subscription_id','id');
+    }
+
+    public function subscriptions()
+    {
+        return $this->hasMany(UserSubscription::class);
     }
 
     public function scopeSearch($query,$search) : Builder
@@ -67,7 +90,7 @@ class User extends Authenticatable
     public function scopeFilter($query,$filter) : Builder
     {
         return $query->when($filter, function($query,$filter){
-            return $query->where('subscription_id',$filter);
+            return $query->where('current_subscription_id',$filter);
         });
     }
 

@@ -8,33 +8,27 @@ class UserSubscriptionRepo
 {
 
     public User $user;
-    public function __construct(User $user)
+
+    public function setUser(User|string $user) : UserSubscriptionRepo
     {
-        $this->user = $user;
+        if(is_string($user))
+        {
+            $this->user = User::where('user_code',$user)->firstOrFail();
+        }
+        else{
+            $this->user = $user;
+        }
+        return $this;
     }
 
-    public function subscribe(int $subscription_id)  : User
+    public function subscriptions()
     {
-        $this->user->subscription_id = $subscription_id;
-        $this->user->save();
-        return $this->user;
-    }
-
-    public function unsubscribe() : User
-    {
-        $this->user->subscription_id = null;
-        $this->user->save();
-        return $this->user;
-    }
-
-    public function isSubscribed() : bool
-    {
-        return $this->user->subscription_id ? true : false;
-    }
-
-    public function getSubscription() : int
-    {
-        return $this->user->subscription_id;
+        return $this->user->subscriptions->map(function($subscription){
+            return [
+                'id' => $subscription->id,
+                'name' => $subscription->subscription->title,
+            ];
+        });
     }
 
 }
