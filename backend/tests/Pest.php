@@ -58,10 +58,3 @@ expect()->extend('toBeOne', function () {
 | global functions to help you to reduce the number of lines of code in your test files.
 |
 */
-
-function bootstrapApp()
-{
-    $app = require_once __DIR__.'/../bootstrap/app.php';
-    $kernel = $app->make(Kernel::class);
-    $kernel->bootstrap();
-}
