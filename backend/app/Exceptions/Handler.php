@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Throwable;
 
@@ -27,7 +28,16 @@ class Handler extends ExceptionHandler
     public function register(): void
     {
         $this->reportable(function (Throwable $e) {
-            //
+
+            if(env('APP_ENV') === 'production'){
+                Log::channel('slack')->error($e->getMessage(),[
+                    'file' => $e->getFile(),
+                    'Line' => $e->getLine(),
+                    'code' => $e->getCode(),
+                ]);
+            }
+
+
         });
     }
 

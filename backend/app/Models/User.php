@@ -68,6 +68,9 @@ class User extends Authenticatable
 
     }
 
+    /*
+    * Relationships
+    */
 
     public function subscription()
     {
@@ -78,6 +81,17 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserSubscription::class);
     }
+
+    public function favorites()
+    {
+        return $this->hasMany(UserFavorite::class);
+    }
+
+
+    /**
+     * Scope a query to search users
+     *
+     */
 
     public function scopeSearch($query,$search) : Builder
     {
