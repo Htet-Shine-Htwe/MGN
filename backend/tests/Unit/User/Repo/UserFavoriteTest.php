@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Repo\User\Favorite\UserFavoriteRepo;
 
 // Group the test
-uses()->group('unit', 'user-favorite');
+uses()->group('unit', 'user-favorite-repo');
 
 beforeEach(function() {
     // Set configuration

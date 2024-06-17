@@ -14,7 +14,7 @@ uses(UserAuthenticated::class);
 
 beforeEach(function(){
 
-    config(['control.test.mogous_count' => 50]);
+    config(['control.test.mogous_count' => 30]);
 
     $this->seed([
         CategorySeeder::class,

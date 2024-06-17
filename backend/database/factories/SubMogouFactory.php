@@ -17,7 +17,7 @@ class SubMogouFactory extends Factory
      */
     public function definition(): array
     {
-        $title = $this->faker->sentence(4);
+        $title = $this->faker->sentence(4) . ' ' . $this->faker->sentence(2);
 
         //
         return [
