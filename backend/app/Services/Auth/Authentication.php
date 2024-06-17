@@ -90,7 +90,7 @@ class Authentication
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::guard('admin')->attempt($this->request->only('email', 'password'), $this->request->boolean('remember'))) {
+        if (! Auth::guard($guard)->attempt($this->request->only('email', 'password'), $this->request->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
             // session_alert('error','Login Failed');
