@@ -7,7 +7,7 @@ import Index from "./pages/admin/Comics/Index";
 
 const AdminLayout = lazy(() => import('./layouts/AdminLayout'));
 const Dashboard = lazy(() => import('./pages/admin/Dashboard'));
-const Login = lazy(() => import('./pages/admin/Login'));
+const Login = lazy(() => import('./pages/admin/Login/Login.tsx'));
 const Setting = lazy(() => import('./pages/admin/Setting'));
 const Fallback = lazy(() => import('./pages/Fallback'));
 const Action = lazy(() => import('./pages/admin/Comics/Action'));

@@ -1,34 +1,25 @@
 
 import { IoLogOutSharp } from "react-icons/io5";
-
-
 import SidebarIcon from "../ui/SidebarIcon";
 import AlertBox from "../ui/AlertBox";
-import { useNavigate } from "react-router-dom";
-import { toast } from "../ui/use-toast";
-import { memo, useCallback } from "react";
+import { memo } from "react";
 import { navigateMenu } from "@/constants/constants";
+import Logo from "@/assets/imgs/logo-icon.png";
+import useLogout  from "@/hooks/useLogout";
+
 
 const SidebarRaw = () => {
 
-  const navigate = useNavigate();
-
   const icons = navigateMenu;
-
-  const redirectToLogin = useCallback(()=>{
-   
-      toast({
-        title: "Logout",
-        description: "You have been logged out successfully",
-        variant: "success",
-      })
-      navigate("/login");
-    
-  },[navigate])
+  const logout = useLogout();
 
   return (
     <div className="bg-primary w-[80px] h-[90vh] rounded-3xl">
         <div className="flex flex-col gap-8 pt-6 h-[90%]" >
+
+          <div className="flex justify-center">
+            <img src={Logo} alt="logo" className="w-12" />
+          </div>
 
           {
             icons.map((icon,index)=>(
@@ -41,7 +32,7 @@ const SidebarRaw = () => {
         <hr className="border-t-2 border-gray-300 w-10/12 mx-auto" />
         <div className="flex flex-col justify-center h-[10%]  ">
 
-            <AlertBox alertTitle="Logout" alertDescription="Are you sure you want to logout?" alertActionConfirmText="Logout" alertConfirmAction={()=>redirectToLogin()} 
+            <AlertBox alertTitle="Logout" alertDescription="Are you sure you want to logout?" alertActionConfirmText="Logout" alertConfirmAction={logout} 
             btnText={ <SidebarIcon Icon={IoLogOutSharp} to="/logout" tooltip="logout"  onClick={()=>{}}/>}/>
         </div>
     </div>
