@@ -5,45 +5,79 @@ import { Button } from "@/components/ui/button"
 import { Toaster } from "@/components/ui/toaster"
 import { toast } from "@/components/ui/use-toast"
 import { useNavigate } from "react-router-dom"
+import Logo from "@/assets/imgs/logo.png"
+import { loginValidationSchema } from "./LoginValidation"
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import InputError from "@/components/ui/input-error"
+
+
+interface loginSubmitForm {
+    email: string,
+    password: string
+  }
 
 
 const Login = () => {
-
     const navigate = useNavigate();
+      const {
+        register,
+        handleSubmit,
+        formState: { errors }
+      } = useForm<loginSubmitForm>({
+        resolver: yupResolver(loginValidationSchema)
+      });
 
-    const testLogin = () => {
+      const onSubmit = (data: loginSubmitForm) => {
+        console.log(data);
+      }
+
+      const loginOnSuccess = () => {
         toast({
-          title: "Logged In",
+          title: "Login Successful",
           description: "You have been logged in successfully",
           variant: "success",
-        })
+        });
         navigate("/dashboard");
       }
 
 
     return (
         <div className="w-full h-screen flex justify-center items-center">
+
+            <div className="">
+                <img src={Logo} alt="logo" className="w-40 mx-auto" />
+
             <Card className="mx-auto max-w-sm">
+                
                 <CardHeader className="space-y-1">
                     <CardTitle className="text-2xl font-bold">Login</CardTitle>
                     <CardDescription>Enter your email and password to login to your account</CardDescription>
                 </CardHeader>
                 <CardContent>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="space-y-4">
                         <div className="space-y-2">
                             <Label htmlFor="email">Email</Label>
-                            <Input id="email" placeholder="m@example.com" required type="email" />
+                            <Input id="email" placeholder="example.com" type="email"
+                            {...register("email")} />
+                            <InputError field={errors.email} />
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="password">Password</Label>
-                            <Input id="password" required type="password" />
+                            <Input id="password"  type="password" 
+                            {...register("password")}
+                            />
+                            <InputError field={errors.password} />
                         </div>
-                        <Button className="w-full" type="submit" onClick={testLogin}>
+                        <Button className="w-full" type="submit" >
                             Login
                         </Button>
                     </div>
+                </form>
                 </CardContent>
             </Card>
+            </div>
 
         <Toaster  />
 
