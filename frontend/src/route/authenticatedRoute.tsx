@@ -15,6 +15,14 @@ const ComicIndex = lazy(() => import('../pages/admin/Comics/Index.tsx'));
 
 const authenticatedRoutes : AppRouteInterface[] = [
     {
+        path: '/',
+        element : (
+            <AdminLayout title="Dashboard">
+                <Dashboard />
+            </AdminLayout>
+        )
+    },
+        {
         path: '/dashboard',
         element: (
           <AdminLayout title="Dashboard">
