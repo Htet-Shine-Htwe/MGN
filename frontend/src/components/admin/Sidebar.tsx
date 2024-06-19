@@ -18,7 +18,7 @@ const SidebarRaw = () => {
         <div className="flex flex-col gap-8 pt-6 h-[90%]" >
 
           <div className="flex justify-center">
-            <img src={Logo} alt="logo" className="w-12" />
+            <img src={Logo} alt="logo" className="w-12 hover:motion-safe:animate-spin-slow cursor-pointer " />
           </div>
 
           {

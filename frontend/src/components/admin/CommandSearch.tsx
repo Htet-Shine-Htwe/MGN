@@ -20,6 +20,7 @@ import {
 import React from "react"
 import { Search } from "lucide-react"
 import { Input } from "@/components/ui/input";
+import { useNavigate } from "react-router-dom";
 
 
 const CommandSearch = () => {
@@ -27,6 +28,14 @@ const CommandSearch = () => {
 
     const handleClick = () => {
         setOpen(!open)
+    }
+
+    const navigate = useNavigate(); 
+
+    const navigateToSpecific = (route:string) : void => {
+        navigate(route);
+
+        setOpen(false);
     }
    
     React.useEffect(() => {
@@ -61,9 +70,10 @@ const CommandSearch = () => {
                 <Calendar className="mr-2 h-4 w-4" />
                 <span>Calendar</span>
               </CommandItem>
-              <CommandItem>
+              <CommandItem onSelect={() => navigateToSpecific("/setting")}>
                 <Smile className="mr-2 h-4 w-4" />
-                <span>Search Emoji</span>
+                <span>Upload Logo</span>
+                <CommandShortcut>⌘U</CommandShortcut>
               </CommandItem>
               <CommandItem>
                 <Calculator className="mr-2 h-4 w-4" />

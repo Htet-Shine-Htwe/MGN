@@ -12,7 +12,7 @@ const useLogout = () => {
     toast({
       title: "Logged Out",
       description: "You have been logged out successfully",
-      variant: "success",
+      variant: "destructive",
     });
 
     navigate("/login");
