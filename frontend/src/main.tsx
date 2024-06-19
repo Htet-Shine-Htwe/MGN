@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import AppRoute from './AppRoute.tsx'
+import AppRoute from './route/appRoute.tsx'
 import './global.css'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { ErrorBoundary } from "react-error-boundary";

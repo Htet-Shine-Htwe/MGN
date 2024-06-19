@@ -24,17 +24,17 @@ const AdminLayout = ({ children, title = "" }: AdminLayoutProps) => {
   }, [toast])
 
   return (
-    <div className="flex min-h-screen  pb-10">
+    <div className="flex min-h-screen  pb-10 relative">
 
       {
         windowWidth > 768 && (
-          <div className="hidden md:w-[10%] min-w-[160px] md:flex justify-center py-6">
+          <div className="hidden md:w-[10%] min-w-[160px] md:flex justify-center py-6 fixed">
           <Sidebar />
         </div>
         )
       }
 
-      <div className="w-full md:w-[90%] pt-6 md:pe-20 max-h-screen overflow-y-scroll">
+      <div className="w-full md:w-[90%] pt-6 md:pe-20 max-h-screen md:ms-[10%] ">
 
         <div className="flex flex-col gap-8 w-full pt-2">
 

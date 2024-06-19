@@ -3,7 +3,7 @@ import { toast } from "@/components/ui/use-toast"
 import { usePostDataMutation } from "@/redux/api/queryApi";
 import useLogout from "./useLogout";
 import { NavigateFunction, useNavigate } from "react-router-dom";
-import { useAppDispatch } from "@/redux/hooks";
+// import { useAppDispatch } from "@/redux/hooks";
 
 type MethodType = "GET" | "POST" | "PUT" | "DELETE";
 
