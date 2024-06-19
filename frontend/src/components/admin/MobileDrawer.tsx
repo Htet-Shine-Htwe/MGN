@@ -41,8 +41,8 @@ const MobileDrawer = () => {
 
             {
               navigateMenuCollection.map((menu, index) => (
-                <div className="flex flex-col">
-                  <Button key={index} asChild size="icon" onClick={() => handleNavigation(menu.to)} className="w-16  h-16">
+                <div key={index} className="flex flex-col">
+                  <Button  asChild size="icon" onClick={() => handleNavigation(menu.to)} className="w-16  h-16">
                     <div>
                       <menu.Icon className="w-8 h-8" />
                     </div>

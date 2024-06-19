@@ -12,8 +12,8 @@ import { Label } from "@/components/ui/label"
 const SubscriptionCreateEdit = () => {
   return (
     <main className="flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
-      <div className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4">
-        <div className="flex items-center gap-4">
+      <div className="mx-auto  flex-1 auto-rows-max gap-4 ">
+        <div className="flex items-center gap-4 mb-10">
           <Goback to="/subscriptions" />
           <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
             Subscription
@@ -60,7 +60,7 @@ const SubscriptionCreateEdit = () => {
 
           </Card>
         </div>
-        <div className="flex items-center justify-center gap-2 md:hidden">
+        <div className="flex items-center justify-center gap-2 md:hidden mt-4">
           <Goback to="/comics" label="Discard" />
 
           <Button size="sm">Save</Button>

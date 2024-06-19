@@ -54,11 +54,11 @@ const Users = () => {
     ));
 
     return (
-        <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
-            <div className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4 grid-cols-1">
+        <main className="flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
+            <div className="mx-auto  flex-1 auto-rows-max gap-4 ">
 
             <Tabs defaultValue="all" className="w-full justify-between">
-            <div className="flex items-center w-full justify-between">
+            <div className="flex items-center w-full justify-between mb-10">
               <TabsList>
                 <TabsTrigger value="all">All</TabsTrigger>
                 <TabsTrigger value="active">Active</TabsTrigger>
@@ -79,7 +79,7 @@ const Users = () => {
             </div>
 
             </Tabs>
-            <div className="mx-auto grid max-w-[59rem] grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-10  auto-rows-max  col-span-2 ">
+            <div className="mx-auto grid  grid-cols-2 md:grid-cols-3 lg:grid-cols-5  gap-10 md:gap-8 auto-rows-max  col-span-2 ">
                 {cards}
             </div>
             </div>

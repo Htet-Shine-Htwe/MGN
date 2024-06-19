@@ -12,9 +12,13 @@ import {
 import { memo } from "react"
 import { Link } from "react-router-dom"
 import { useTheme } from "../theme-provider"
+import useLogout from "@/hooks/useLogout"
+import AlertBox from "./AlertBox"
 
 const AdminUserDropDownRaw = () => {
   const { setTheme } = useTheme();
+  const logout = useLogout();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="flex items-center px-3 font-bold">
@@ -27,7 +31,7 @@ const AdminUserDropDownRaw = () => {
         <DropdownMenuItem>
           <Link
             to="/manage-restaurant"
-            className="font-bold mb-2"
+            className="font-bold "
           >
             Profile
           </Link>
@@ -36,13 +40,13 @@ const AdminUserDropDownRaw = () => {
 
         <DropdownMenuSub>
 
-            <DropdownMenuSubTrigger className="flex items-center px-2 font-bold">
-              <span className="text-sm flex  items-center justify-between w-full"> Theme
-                
-              </span>
-            </DropdownMenuSubTrigger>
-            <DropdownMenuPortal>
-            <DropdownMenuSubContent  className="DropdownMenuContent" sideOffset={10}>
+          <DropdownMenuSubTrigger className="flex items-center px-2 font-bold">
+            <span className="text-sm flex  items-center justify-between w-full"> Theme
+
+            </span>
+          </DropdownMenuSubTrigger>
+          <DropdownMenuPortal>
+            <DropdownMenuSubContent className="DropdownMenuContent" sideOffset={10}>
               <DropdownMenuItem onClick={() => setTheme("light")}>
                 Light
               </DropdownMenuItem>
@@ -50,9 +54,18 @@ const AdminUserDropDownRaw = () => {
                 Dark
               </DropdownMenuItem>
             </DropdownMenuSubContent>
-            </DropdownMenuPortal>
+          </DropdownMenuPortal>
 
         </DropdownMenuSub>
+
+
+        <DropdownMenuItem className="font-bold w-full" asChild  >
+          <AlertBox alertTitle="Logout" alertDescription="Are you sure you want to logout?" alertActionConfirmText="Logout" alertConfirmAction={logout}
+            btnText={<>Logout</>} />
+        </DropdownMenuItem>
+
+
+
 
       </DropdownMenuContent>
     </DropdownMenu>
