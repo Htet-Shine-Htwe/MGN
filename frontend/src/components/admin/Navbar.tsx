@@ -2,7 +2,8 @@ import AdminUserDropDown from "@/components/ui/AdminUserDropDown"
 import { memo } from "react";
 import MobileDrawer from "./MobileDrawer";
 import CommandSearch from "./CommandSearch";
-
+import Logo from "@/assets/imgs/logo-icon.png";
+import LogoTitle from "@/assets/imgs/logo-title.png";
 type NavbarProps = {
   title: string
 }
@@ -15,7 +16,17 @@ const NavbarRaw = ({ title }: NavbarProps) => {
   return (
     <div className="flex min-w-full justify-between px-4">
       <div className="flex items-center gap-10">
-        <h1 className="text-3xl font-bold">{title}</h1>
+
+        {windowWidth <= 768 ?(  
+          <div className="flex items-center gap-0">
+          <img src={Logo} alt="logo" className="w-12 hover:motion-safe:animate-spin-slow cursor-pointer " />
+          <img src={LogoTitle} alt="logo-title" className="w-16  cursor-pointer " />
+          </div>
+        ) :
+        (
+          <h1 className="text-3xl font-bold">{title}</h1>
+        )}
+
       </div>
       <div className="w-fit flex gap-0 items-center justify-between">
         <div className="relative ml-auto hidden md:flex md:grow-0 ">
