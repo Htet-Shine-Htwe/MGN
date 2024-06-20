@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SubscriptionCreateRequest;
+use App\Http\Requests\SubscriptionActionRequest;
 use App\Models\Subscription;
 use App\Repo\Admin\SubscriptionRepo;
 use Illuminate\Http\JsonResponse;
@@ -28,7 +28,7 @@ class SubscriptionController extends Controller
         ]);
     }
 
-    public function create(SubscriptionCreateRequest $request) : JsonResponse
+    public function create(SubscriptionActionRequest $request) : JsonResponse
     {
         $subscription = $this->subscriptionRepo->create($request);
         return response()->json([
@@ -37,7 +37,7 @@ class SubscriptionController extends Controller
         ], Response::HTTP_CREATED);
     }
 
-    public function update(SubscriptionCreateRequest $request,Subscription $subscription)  : JsonResponse
+    public function update(SubscriptionActionRequest $request,Subscription $subscription)  : JsonResponse
     {
         $updated_subscription = $this->subscriptionRepo->update($request, $subscription);
         return response()->json([

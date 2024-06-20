@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CategoryCreateRequest;
+use App\Http\Requests\CategoryActionRequest;
 use App\Models\Category;
 use App\Repo\Admin\CategoryRepo;
 use Illuminate\Http\JsonResponse;
@@ -23,7 +23,7 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function create(CategoryCreateRequest $request)  : JsonResponse
+    public function create(CategoryActionRequest $request)  : JsonResponse
     {
         $category = $this->categoryRepo->create($request);
         return response()->json([
@@ -32,7 +32,7 @@ class CategoryController extends Controller
         ],Response::HTTP_CREATED);
     }
 
-    public function update(CategoryCreateRequest $request,Category $category)  : JsonResponse
+    public function update(CategoryActionRequest $request,Category $category)  : JsonResponse
     {
         $updated_category = $this->categoryRepo->update($request, $category);
         return response()->json([

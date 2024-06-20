@@ -2,7 +2,7 @@
 
 namespace App\Repo\Admin;
 
-use App\Http\Requests\CategoryCreateRequest;
+use App\Http\Requests\CategoryActionRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -24,7 +24,7 @@ class CategoryRepo  implements \App\Contracts\ModelRepoInterface
         ->withQueryString();
     }
 
-    public function create(CategoryCreateRequest $request) : Category
+    public function create(CategoryActionRequest $request) : Category
     {
         $request->validate([
             'title' => 'unique:categories,title'
@@ -33,7 +33,7 @@ class CategoryRepo  implements \App\Contracts\ModelRepoInterface
         return Category::create($request->validated());
     }
 
-    public function update(CategoryCreateRequest $request, Category $category) : Category
+    public function update(CategoryActionRequest $request, Category $category) : Category
     {
         $request->validate([
             'title' => 'unique:categories,title,'.$category->id

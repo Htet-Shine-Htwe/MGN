@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SubscriptionCreateRequest extends FormRequest
+class CategoryActionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +23,7 @@ class SubscriptionCreateRequest extends FormRequest
     {
         return [
             'title' => 'required|string',
-            'max' => 'required|integer|max:4294967',
-            'duration' => 'required|integer|max:4294967'
+
         ];
     }
 }
