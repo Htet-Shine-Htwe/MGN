@@ -65,7 +65,6 @@ class User extends Authenticatable
             // with current time and unique id
             $user->user_code = time() . uniqid();
         });
-
     }
 
     /*

@@ -32,6 +32,12 @@ class UserRegistrationRepo
         return $users;
     }
 
+    public function show(string $id)
+    {
+        return User::where('user_code',$id)
+        ->firstOrFail();
+    }
+
     public function updateUser(UserRegistrationRequest $request,string $id) :User
     {
 

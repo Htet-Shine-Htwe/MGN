@@ -19,6 +19,7 @@ class UserSubscriptionFactory extends Factory
         return [
             'user_id' => 1,
             'subscription_id' => fake()->numberBetween(1, 10),
+            'created_at' => fake()->dateTimeBetween('-10 days', '-1 days'),
         ];
     }
 }

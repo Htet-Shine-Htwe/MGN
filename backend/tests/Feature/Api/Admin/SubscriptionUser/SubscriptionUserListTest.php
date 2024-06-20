@@ -86,14 +86,12 @@ test("return empty data when no user subscription found",function(){
 
 });
 
-
 test("can filter subscription users who are expired theirs subscription",function(){
     $response = $this->authenticatedAdmin()->getJson(route('api.admin.subscription-users.index',[
         'expired' => true
     ]));
 
     $data = $response->json('users.data');
-
 
     foreach($data as $user){
         $this->assertTrue($user['subscription_end_date'] < now());
@@ -102,7 +100,7 @@ test("can filter subscription users who are expired theirs subscription",functio
     $response->assertOk();
 });
 
-test("collection of subscription with user can be fetched",function(){
+test("collection of subscription of user can be fetched",function(){
 
     $user = User::first();
 
@@ -119,3 +117,30 @@ test("collection of subscription with user can be fetched",function(){
     $response->assertJsonCount(5,'subscriptions');
 
 });
+
+test("can successfully view the single user with his subscription history",function(){
+    $user = User::first();
+
+    UserSubscription::factory()->count(5)->create([
+        'user_id' => $user->id
+    ]);
+
+    $response = $this->authenticatedAdmin()->getJson(route('api.admin.subscription-users.show',[
+        'user_code' => $user->user_code
+    ]));
+
+    $response->assertOk();
+
+    $response->assertJsonStructure([
+        'user' => [
+            'user_code',
+            'name',
+            'email',
+            'current_subscription_id',
+            'subscription_name'
+        ],
+        'subscriptions'
+    ]);
+
+    $response->assertJsonCount(5,'subscriptions');
+})->group('single-user');

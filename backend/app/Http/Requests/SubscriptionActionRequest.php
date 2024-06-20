@@ -23,6 +23,7 @@ class SubscriptionActionRequest extends FormRequest
     {
         return [
             'title' => 'required|string',
+            'price' => 'required|numeric',
             'max' => 'required|integer|max:4294967',
             'duration' => 'required|integer|max:4294967'
         ];

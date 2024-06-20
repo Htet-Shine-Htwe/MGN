@@ -68,6 +68,7 @@ test("create subscription",function($title, $max, $duration){
 
     $data = [
         'title' => $title,
+        'price' => 100,
         'max' => $max,
         'duration' => $duration,
     ];
@@ -101,6 +102,7 @@ test("can update subscription",function($title, $max, $duration){
     $data = [
         'title' => $title,
         'max' => $max,
+        'price' => 100,
         'duration' => $duration,
     ];
 
@@ -119,6 +121,7 @@ test("can update subscription",function($title, $max, $duration){
 test("can update same subscription with same title",function($title, $max, $duration){
     $data = [
         'title' => $title,
+        'price' => 100,
         'max' => $max,
         'duration' => $duration,
     ];
@@ -129,6 +132,7 @@ test("can update same subscription with same title",function($title, $max, $dura
 
     $new_body = [
         'title' => $title,
+        'price' => 100,
         'max' => 200,
         'duration' => 60,
     ];
@@ -150,6 +154,7 @@ test("can't update the duplicate title",function($title, $max, $duration){
 
     $new_body = [
         'title' => $title,
+        'price' => 100,
         'max' => 200,
         'duration' => 60,
     ];
@@ -172,6 +177,7 @@ test("can't update because subscription not found",function($title, $max, $durat
 
     $new_body = [
         'title' => $title,
+        'price' => 100,
         'max' => 200,
         'duration' => 60,
     ];

@@ -27,8 +27,10 @@ class UserSubscriptionRepo
             return [
                 'id' => $subscription->id,
                 'name' => $subscription->subscription->title,
+                'price' => $subscription->subscription->price,
+                'created_at' => $subscription->created_at->format('Y-m-d'),
             ];
-        });
+        })->sortByDesc('created_at');
     }
 
 }
