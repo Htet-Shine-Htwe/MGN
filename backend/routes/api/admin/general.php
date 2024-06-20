@@ -37,7 +37,7 @@ Route::middleware(['auth:sanctum'])->name('admin.')->group(function(){
         Route::post('/users/update','update')->name('subscription-users.update');
 
         Route::get('/users/{user_code}/subscriptions','subscriptions')->name('subscription-users.subscriptions');
-
+        Route::get('/users/show/{user_code}','show')->name('subscription-users.show');
 
     });
 

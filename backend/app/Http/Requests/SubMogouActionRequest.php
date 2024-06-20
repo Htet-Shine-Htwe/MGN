@@ -22,7 +22,14 @@ class SubMogouActionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required|string',
+            'description' => 'required|string',
+            'cover' => 'required|file|mimes:jpeg,png,jpg,gif,svg|max:8192',
+            'status' => 'nullable',
+            'chapter_number' => 'required|integer',
+            'subscription_only' => 'required|boolean',
+            'subscription_collection' => 'nullable|json',
+            'mogou_id' => 'required|integer|exists:mogous,id',
         ];
     }
 }
