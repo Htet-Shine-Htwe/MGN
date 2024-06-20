@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Admin\AdminController;
+use App\Http\Controllers\Api\Admin\ApplicationConfigController;
 use App\Http\Controllers\Api\Admin\CategoryController;
 use App\Http\Controllers\Api\Admin\MogouController;
 use App\Http\Controllers\Api\Admin\SubscriptionController;
@@ -49,7 +50,10 @@ Route::middleware(['auth:sanctum'])->name('admin.')->group(function(){
         Route::post('/delete/mogous','delete')->name('mogous.delete');
     });
 
-
+    Route::controller(ApplicationConfigController::class)->group(function(){
+        Route::get('/application-configs','index')->name('application-configs.index');
+        Route::post('/application-configs','update')->name('application-configs.store');
+    });
 });
 
 
