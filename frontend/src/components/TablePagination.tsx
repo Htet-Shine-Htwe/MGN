@@ -1,38 +1,80 @@
 import {
-    Pagination,
-    PaginationContent,
-    PaginationEllipsis,
-    PaginationItem,
-    PaginationLink,
-    PaginationNext,
-    PaginationPrevious,
-  } from "@/components/ui/pagination"
-  
-  export function TablePagination() {
-    return (
-      <Pagination>
-        <PaginationContent>
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+
+interface TablePaginationInterface {
+  url: string;
+  lastPage: number;
+  currentPage: number;
+  setCurrentPage : (currentPage:number) => void
+}
+
+type OptionalTablePaginationInterface = Partial<TablePaginationInterface>;
+
+export function TablePagination({
+  url = "",
+  lastPage = 10,
+  currentPage =1,
+  setCurrentPage = (currentPage:number) => {}
+}: OptionalTablePaginationInterface) {
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page)
+  };
+
+  const getPageLinks = () => {
+    const pages = [];
+    for (let i = 1; i <= lastPage; i++) {
+      pages.push(
+        <PaginationItem key={i}>
+          <PaginationLink
+            href={`${url}?page=${i}`}
+            isActive={i === currentPage}
+            onClick={(e) => {
+              e.preventDefault();
+              handlePageChange(i);
+            }}
+          >
+            {i}
+          </PaginationLink>
+        </PaginationItem>
+      );
+    }
+    return pages;
+  };
+
+  return (
+    <Pagination>
+      <PaginationContent>
+        {currentPage > 1 && (
           <PaginationItem>
-            <PaginationPrevious href="#" />
+            <PaginationPrevious
+              href={`${url}?page=${currentPage - 1}`}
+              onClick={(e) => {
+                e.preventDefault();
+                handlePageChange(currentPage - 1);
+              }}
+            />
           </PaginationItem>
+        )}
+        {getPageLinks()}
+        {currentPage < lastPage && (
           <PaginationItem>
-            <PaginationLink href="#">1</PaginationLink>
+            <PaginationNext
+              href={`${url}?page=${currentPage + 1}`}
+              onClick={(e) => {
+                e.preventDefault();
+                handlePageChange(currentPage + 1);
+              }}
+            />
           </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#" isActive>
-              2
-            </PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#">3</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationEllipsis />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationNext href="#" />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
-    )
-  }
+        )}
+      </PaginationContent>
+    </Pagination>
+  );
+}

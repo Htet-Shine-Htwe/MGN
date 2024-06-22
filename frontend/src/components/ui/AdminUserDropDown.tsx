@@ -14,10 +14,14 @@ import { Link } from "react-router-dom"
 import { useTheme } from "../theme-provider"
 import useLogout from "@/hooks/useLogout"
 import AlertBox from "./AlertBox"
+import { useAppSelector } from "@/redux/hooks"
+import { adminAuthSelector } from "@/redux/slices/admin-auth-slice"
 
 const AdminUserDropDownRaw = () => {
   const { setTheme } = useTheme();
   const logout = useLogout();
+
+  const admin = useAppSelector(adminAuthSelector);
 
   return (
     <DropdownMenu>

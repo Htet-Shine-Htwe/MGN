@@ -15,6 +15,7 @@ class AuthController extends Controller
     {
         $process =  new \App\Services\Auth\Authentication($request);
 
+
         return $process->returnResponse('api')->signIn('admin','');
     }
 

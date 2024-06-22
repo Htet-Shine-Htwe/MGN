@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
 import config from "@/config";
 import Cookies from "js-cookie";
 
@@ -10,7 +8,12 @@ const baseQuery = fetchBaseQuery({
 
     const token = Cookies.get("auth-token");
 
-    headers.set("Authorization", `Bearer ${token}`);
+    if (token) {
+      headers.set("Authorization", `Bearer ${token}`);
+    }
+
+    headers.set("Content-Type", "application/json");
+    headers.set("Accept", "application/json")
     return headers;
   },
 });
@@ -35,30 +38,10 @@ export const queryApi = createApi({
       },
       invalidatesTags: ["Data"],
     }),
-    sendMessage: builder.mutation<any, any>({
-      query: ({ url, body, method }) => {
-        return {
-          url,
-          method,
-          body,
-        };
-      },
-    }),
-    deleteData: builder.mutation<any, any>({
-      query: ({ url, body, method }) => {
-        return {
-          url,
-          method,
-          body,
-        };
-      },
-    }),
   }),
 });
 
 export const {
   useGetDataQuery,
   usePostDataMutation,
-  useSendMessageMutation,
-  useDeleteDataMutation,
 } = queryApi;

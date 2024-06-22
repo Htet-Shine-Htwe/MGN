@@ -14,7 +14,7 @@ const SidebarRaw = () => {
   const logout = useLogout();
 
   return (
-    <div className="bg-primary w-[80px] h-[90vh] rounded-3xl">
+    <div className="bg-primary w-[80px] h-[90vh] rounded-3xl sticky ">
         <div className="flex flex-col gap-8 pt-6 h-[90%]" >
 
           <div className="flex justify-center">

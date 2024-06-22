@@ -20,7 +20,7 @@ const Users = () => {
 
     const navigate = useNavigate();
 
-    const cards = Array.from({ length: 10 }, (_, index) => (
+    const cards = Array.from({ length: 30 }, (_, index) => (
         <Card key={index} className="md:min-w-[200px] max-w-[400px] ">
             <CardHeader className="items-center">
                 <Avatar className="w-16 h-16  md:h-24 md:w-24">

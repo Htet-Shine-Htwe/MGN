@@ -40,6 +40,7 @@ class Authentication
             ]);
         }
         else{
+
             $this->request->session()->regenerate();
 
             return redirect()->intended($path);
@@ -49,7 +50,15 @@ class Authentication
 
     public function signIn(string $guard ="web",string $path = '/dashboard') :  RedirectResponse| JsonResponse
     {
-        $this->authenticate($guard);
+        try{
+            $this->authenticate($guard);
+
+        }
+        catch (ValidationException $e){
+           return response()->json([
+               'message' => $e->getMessage()
+           ],$e->status ?? 403);
+        }
 
         return $this->signInResponse($path,$guard);
     }
@@ -99,6 +108,7 @@ class Authentication
                 'message' => trans('auth.failed'),
             ]);
         }
+
 
         RateLimiter::clear($this->throttleKey());
     }

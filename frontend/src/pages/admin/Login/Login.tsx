@@ -10,6 +10,11 @@ import { loginValidationSchema } from "./LoginValidation"
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import InputError from "@/components/ui/input-error"
+import useMutate, { useMutateCallbackType } from "@/hooks/useMutate"
+import useServerValidation from "@/hooks/useServerValidation"
+import Cookies from "js-cookie"
+import { useAppDispatch } from "@/redux/hooks"
+import { setAdmin } from "@/redux/slices/admin-auth-slice"
 
 
 interface loginSubmitForm {
@@ -20,19 +25,25 @@ interface loginSubmitForm {
 
 const Login = () => {
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
       const {
         register,
         handleSubmit,
+        setError,
         formState: { errors }
       } = useForm<loginSubmitForm>({
         resolver: yupResolver(loginValidationSchema)
       });
+      const {handleServerErrors} = useServerValidation();
 
-      const onSubmit = (data: loginSubmitForm) => {
-        console.log(data);
-      }
 
-      const loginOnSuccess = () => {
+      const loginOnSuccess : useMutateCallbackType = (response : any) => {
+        console.log(response);
+        Cookies.set("auth-token", response.token);
+        Cookies.set("expiresAt", (new Date().getTime() + 24 * 60 * 60 * 1000).toString());
+
+        dispatch(setAdmin(response.user));
+
         toast({
           title: "Login Successful",
           description: "You have been logged in successfully",
@@ -40,6 +51,14 @@ const Login = () => {
         });
         navigate("/dashboard");
       }
+
+      const [postLogin, { isLoading }] = useMutate({ callback: loginOnSuccess, navigateBack: false});
+      const onSubmit =  async (data: loginSubmitForm) => {
+        const response =  await postLogin("admin/login", data) as any;
+        if (response && response.error) {
+          handleServerErrors(response.error.data.errors,setError);
+         }
+        }
 
 
     return (
@@ -70,7 +89,7 @@ const Login = () => {
                             />
                             <InputError field={errors.password} />
                         </div>
-                        <Button className="w-full" type="submit" >
+                        <Button className="w-full" type="submit" disabled={isLoading}>
                             Login
                         </Button>
                     </div>

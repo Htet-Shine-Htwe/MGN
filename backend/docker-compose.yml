@@ -52,8 +52,18 @@ services:
         networks:
             - mgn-network
 
+    redis:
+        image: redis:alpine
+        container_name: mgn-redis
+        restart: always
+        ports:
+            - "6379:6379"
+        networks:
+            - mgn-network
+
 volumes:
     db_data:
+
 
 networks:
     mgn-network:

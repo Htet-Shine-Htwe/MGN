@@ -20,8 +20,9 @@ const AppRoute = () => {
       element: <Fallback />
     }];
 
-  // const routes = isAuthenticated ? authenticatedRoutes : guestRoutes;
-  const routes = [...guestRoutes, ...authenticatedRoutes,...commonRoutes]
+  const coll = isAuthenticated ? authenticatedRoutes : guestRoutes;
+  // const routes = [...guestRoutes, ...authenticatedRoutes,...commonRoutes];
+  const routes = [...coll,...commonRoutes];
 
 
   const routeCollection = useRoutes([...routes]);

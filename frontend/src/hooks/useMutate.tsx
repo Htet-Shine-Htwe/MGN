@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { toast } from "@/components/ui/use-toast"
+import { toast } from "@/components/ui/use-toast";
 import { usePostDataMutation } from "@/redux/api/queryApi";
 import useLogout from "./useLogout";
 import { NavigateFunction, useNavigate } from "react-router-dom";
-// import { useAppDispatch } from "@/redux/hooks";
 
 type MethodType = "GET" | "POST" | "PUT" | "DELETE";
 
@@ -17,8 +15,10 @@ type ReturnType = [
   { isLoading: boolean }
 ];
 
+type CallbackType = (value: any, navigate: NavigateFunction) => void;
+
 type ParamsType = {
-  callback?: (value: any, navigate: NavigateFunction) => void;
+  callback?: CallbackType;
   navigateBack?: boolean;
   disableAlert?: boolean;
   disableInvalidate?: boolean;
@@ -34,58 +34,68 @@ const useMutate = (params: ParamsType = {}): ReturnType => {
 
   const logout = useLogout();
   const navigate = useNavigate();
-  const [mutate, { isLoading }] = usePostDataMutation();
+  const [mutate, { isLoading, isSuccess, isError, error }] = usePostDataMutation();
 
   const onSubmit = async (
     url: string,
     values: any | undefined = undefined,
     method: MethodType = "POST"
   ) => {
-    const { data, error } = (await mutate({
-      url,
-      method,
-      body: values ?? {},
-    })) as any;
+    try {
 
-    if (error) {
-      if (error?.status === 401) {
-        toast({
-            title: "Unauthorized",
-            description: "You have been logged out",
+      const result = await mutate({ url, method, body: values ?? {} }) as any;
+      if (result.error) {
+        if (result.error.data) {
+          toast({
+            title: "❗️Error",
+            description: result.error.data.message,
             variant: "destructive",
-        })
+          });
 
-        return logout();
+        }
+        return result;
+
       }
 
+      if (result?.data?.message && !disableAlert) {
         toast({
-            title: "Error",
-            description: error?.data?.message || "Something went wrong",
-            variant: "destructive",
-        })
-        return error;
-    }
+          title: "Success",
+          description: result?.data.message,
+          variant: "success",
+        });
+      }
 
-    if (data?.message) {
-      if (!disableAlert) toast({
-        title: "Success",
-        description: data?.message,
+      if (callback) {
+        return callback(result?.data, navigate);
+      }
+
+      if (navigateBack && method !== "DELETE") {
+        return navigate(-1);
+      }
+
+
+    } catch (err: any) {
+
+      // if (err?.status === 401) {
+      //   toast({
+      //     title: "Unauthorized",
+      //     description: "You have been logged out",
+      //     variant: "destructive",
+      //   });
+      //   return logout();
+      // }
+      toast({
+        title: "Unexpected Error",
+        description: err?.data?.message || "Something went wrong",
         variant: "success",
-      })
-
-      
+      });
     }
 
-    if (callback) {
-      return callback(data.data, navigate);
-    }
-
-    if (navigateBack && method !== "DELETE") {
-      return navigate(-1);
-    }
   };
 
   return [onSubmit, { isLoading }];
 };
+
+export type useMutateCallbackType = CallbackType;
 
 export default useMutate;

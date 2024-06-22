@@ -14,9 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
 
 Route::prefix('v1')
@@ -26,14 +23,18 @@ Route::prefix('v1')
         \App\Services\Route\RouteHelper::includedRouteFiles(__DIR__ . '/api');
     });
 
-Route::get('test', function () {
+Route::get('v1/test', function () {
+
+    sleep(2);
     return response()->json([
         'message' => "request was successful"
     ]);
 });
 
-Route::post('test',function(Request $request){
+Route::post('v1/test',function(Request $request){
+    sleep(2);
     return response()->json(
-        $request->input()
+        ['message' => 'Wrong credentials. Please try again.',
+        'body' =>$request->input()],403
     );
 });

@@ -12,23 +12,56 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { PlusCircle } from "lucide-react"
 import { Category } from "./type"
-
+import { categoryValidationSchema } from "./CategoryValidation"
+import { useForm } from "react-hook-form"
+import { yupResolver } from "@hookform/resolvers/yup"
+import useMutate from "@/hooks/useMutate"
+import InputError from "@/components/ui/input-error"
+import useServerValidation from "@/hooks/useServerValidation"
 
 
 type CategoryModalProps = {
-  initCategory ?: Category;
-  setInitCategory : (category: Category | undefined) => void;
+  initCategory?: Category;
+  setInitCategory: (category: Category | undefined) => void;
   open: boolean;
   setOpen: (open: boolean) => void;
 };
 
-export function CategoryModal({initCategory,setInitCategory,open,setOpen}: CategoryModalProps) {
+export function CategoryModal({ initCategory, setInitCategory, open, setOpen }: CategoryModalProps) {
 
   const category = initCategory;
 
   const isCreate = !category;
 
-  return (
+  const {
+    register, handleSubmit, setError, formState: { errors }
+  } = useForm<Category>({
+    resolver: yupResolver(categoryValidationSchema)
+  });
+
+  const {handleServerErrors} = useServerValidation();
+
+
+  const onSuccessCallback = (response: any) => {
+    setInitCategory(undefined);
+    setOpen(false);
+  }
+
+
+  const [postCategory, { isLoading }] = useMutate({ callback:onSuccessCallback});
+
+  const onSubmit = async (data: Category) => {
+
+    if (isCreate) {
+      const response = await postCategory("categories", data) as any;
+      if (response && response.error) {
+        handleServerErrors(response.error.data.errors,setError);
+      }
+    } else {
+    }
+  }
+
+  return ( 
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button size="sm" className="h-8 gap-1"  >
@@ -38,8 +71,8 @@ export function CategoryModal({initCategory,setInitCategory,open,setOpen}: Categ
           </span>
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]" onCloseAutoFocus={()=>{
-          setInitCategory(undefined);
+      <DialogContent className="sm:max-w-[425px]" onCloseAutoFocus={() => {
+        setInitCategory(undefined);
       }}>
         <DialogHeader>
           <DialogTitle>
@@ -49,25 +82,30 @@ export function CategoryModal({initCategory,setInitCategory,open,setOpen}: Categ
             Fill in the form below to create a new category.
           </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-1 items-center gap-4">
-            <Label htmlFor="name" className="text-left">
-              Category Name
-            </Label>
-            <Input
-              id="name"
-              defaultValue={category?.name}
-              className="col-span-3"
-            />
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-1 items-center gap-4">
+              <Label htmlFor="name" className="text-left">
+                Category Name
+              </Label>
+              <Input
+                id="name"
+                {...register("title")}
+                defaultValue={category?.title}
+                className="col-span-3"
+              />
+            <InputError field={errors.title} />
+
+            </div>
           </div>
-        </div>
-        <DialogFooter>
-          <Button type="submit">
-            {
-              isCreate ? "Create" : "Update"
-            }
-          </Button>
-        </DialogFooter>
+          <DialogFooter>
+            <Button type="submit" disabled={isLoading}>
+              {
+                isCreate ? "Create" : "Update"
+              }
+            </Button>
+          </DialogFooter>
+        </form>
       </DialogContent>
     </Dialog>
   )
