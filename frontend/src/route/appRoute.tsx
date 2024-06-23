@@ -17,7 +17,7 @@ const AppRoute = () => {
   const commonRoutes = [
     {
       path: "*",
-      element: <Fallback />
+      element: isAuthenticated ?  <Fallback /> : <Fallback unauthorized />
     }];
 
   const coll = isAuthenticated ? authenticatedRoutes : guestRoutes;

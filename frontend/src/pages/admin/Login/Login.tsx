@@ -56,7 +56,7 @@ const Login = () => {
       const onSubmit =  async (data: loginSubmitForm) => {
         const response =  await postLogin("admin/login", data) as any;
         if (response && response.error) {
-          handleServerErrors(response.error.data.errors,setError);
+          handleServerErrors(response.error,setError);
          }
         }
 

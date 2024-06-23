@@ -7,18 +7,31 @@ import SubscriptionTable from "./SubscriptionTable"
 import { Button } from "@/components/ui/button"
 import { PlusCircle } from "lucide-react"
 import { useNavigate } from "react-router-dom"
+import { SingleFilterSelect } from "@/components/ui/custom/SIngleFilterSelect"
+
+
+const fruitsObject = {
+    apple: "Apple",
+    banana: "Banana",
+    cherry: "Cherry",
+    date: 1234
+  };
 
 
 const SubscriptionIndex = () => {
 
     const navigate = useNavigate();
 
+
+
     return (
         <main className=" flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
             <div className="mx-auto flex-1 auto-rows-max gap-4 grid-cols-1">
 
                 <Tabs defaultValue="all" className="w-full justify-between">
+
                     <div className="flex items-center w-full justify-between">
+                    <SingleFilterSelect data={fruitsObject} onSelect={(value:any) => console.log(value)} placeholder="choose fruit" />
                        
                         <div className="ml-auto flex items-center gap-2">
 
@@ -30,8 +43,9 @@ const SubscriptionIndex = () => {
                             </Button>
                         </div>
                     </div>
-
                 </Tabs>
+                
+
                 <div className="mt-8">
                     <SubscriptionTable />
                 </div>
