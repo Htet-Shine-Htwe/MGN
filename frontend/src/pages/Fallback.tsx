@@ -1,7 +1,22 @@
 import fallback from '@/assets/fallback.png';
+import useLogout from '@/hooks/useLogout';
+import { useEffect } from 'react';
 
 
-const Fallback = () => {
+
+const Fallback = ({
+  unauthorized = false
+}) => {
+
+  const logout = useLogout();
+
+  useEffect(()=>{
+    if(unauthorized){
+      setTimeout(() => {
+        logout(false)
+      }, 1000);
+    }
+  },[])
 
   return (
     <div className='w-full h-screen flex justify-center items-center '>
