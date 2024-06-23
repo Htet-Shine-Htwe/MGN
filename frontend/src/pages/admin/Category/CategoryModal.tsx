@@ -51,13 +51,12 @@ export function CategoryModal({ initCategory, setInitCategory, open, setOpen }: 
   const [postCategory, { isLoading }] = useMutate({ callback:onSuccessCallback});
 
   const onSubmit = async (data: Category) => {
-
-    if (isCreate) {
-      const response = await postCategory("categories", data) as any;
-      if (response && response.error) {
-        handleServerErrors(response.error.data.errors,setError);
-      }
-    } else {
+    
+    const response = isCreate ?  await postCategory("categories", data) :await postCategory(`categories/${category?.id}`, data,"PUT") as any;
+   
+    if (response && response.error) {
+      console.log(response)
+      handleServerErrors(response.error,setError);
     }
   }
 

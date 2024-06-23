@@ -15,8 +15,6 @@ const CategoryIndex = () => {
   const [category, setCategory] = useState<Category | undefined>(undefined);
   const [modalOpen, setModalOpen] = useState(false);
 
-  console.log(category);
-
   return (
     <main className=" flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
       <div className="mx-auto flex-1 auto-rows-max gap-4 grid-cols-1">

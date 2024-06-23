@@ -1,4 +1,4 @@
-import { MoreHorizontal } from "lucide-react"
+import { MoreHorizontal, Search, SearchIcon } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -28,39 +28,49 @@ import {
 import { TablePagination } from "@/components/TablePagination"
 import { Category } from "./type"
 import AlertBox from "@/components/ui/AlertBox"
-import { useEffect, useState } from "react"
-import { useGetDataQuery } from "@/redux/api/queryApi"
+import React, { useState } from "react"
+import useMutate from "@/hooks/useMutate"
+import useQuery from "@/hooks/useQuery"
+import { Input } from "@/components/ui/input"
+import InputSearch from "@/components/ui/custom/InputSearch"
+import { useParams, useSearchParams } from "react-router-dom"
 
 type CategoryTableProps = {
     setCategory: (category: Category) => void;
     setOpen: (open: boolean) => void;
-  
+
 };
 
 const CategoryTable = ({
     setCategory,
     setOpen,
-   
+
 }: CategoryTableProps) => {
-    const [currentPage,setCurrentPage] = useState<number>(1);
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [queryParameters] = useSearchParams()
+    const [search, setSearch] = useState<string>(queryParameters.get('search') ?? "");
 
-    const { data : categories, isLoading,refetch } = useGetDataQuery(`categories?page=${currentPage}&order_by_mogous_count=asc`);
+    const searchRef = React.useRef<HTMLInputElement>(null);
 
-    useEffect(() => { 
-        refetch()
-    }, [currentPage])
+    const { data: categories, isLoading, isFetching, error, refetch } = useQuery(`categories?page=${currentPage}&search=${search}&order_by_mogous_count=asc`);
 
-    if (isLoading) {
-        return <p>Loading</p>
+    const submitSearch = () => {
+        console.log('worked')
+        setSearch(searchRef.current?.value as string)
     }
 
     return (
         <Card>
-            <CardHeader>
-                <CardTitle>Category Table</CardTitle>
-                <CardDescription>
-                    List of all categories
-                </CardDescription>
+            <CardHeader className="flex flex-row  items-center justify-between">
+                <div className="hidden md:inline">
+                    <CardTitle>Category Table</CardTitle>
+                    <CardDescription>
+                        List of all categories
+                    </CardDescription>
+                </div>
+                <div className="flex items-center w-full md:w-fit">
+                    <InputSearch placeholder="Search" value={search} onAction={submitSearch} ref={searchRef} />
+                </div>
             </CardHeader>
             <CardContent>
                 <Table>
@@ -79,10 +89,20 @@ const CategoryTable = ({
                         </TableRow>
                     </TableHeader>
                     <TableBody>
+
                         {
-                            categories.categories.data.map((cata: Category) => {
-                                return <CategoryTableRow  key={cata.id} category={cata} index={cata.id} setCategory={setCategory} setOpen={setOpen} />
-                            })
+                            isLoading ? (<TableRow>
+                                <TableCell align="center"  colSpan={4}>Loading...</TableCell>
+                            </TableRow>)
+                                :
+                                (
+                                    categories.categories.data.length === 0 ? <TableRow >
+                                        <TableCell align="center" colSpan={4}>No data found</TableCell>
+                                    </TableRow> :
+                                    categories.categories.data.map((cata: Category) => {
+                                        return <CategoryTableRow key={cata.id} category={cata} index={cata.id} setCategory={setCategory} setOpen={setOpen} />
+                                    })
+                                )
                         }
 
                     </TableBody>
@@ -90,8 +110,10 @@ const CategoryTable = ({
             </CardContent>
             <CardFooter>
 
+                {
+                    (categories && categories.categories.data.length > 0 ) && <TablePagination url={categories.categories.path} lastPage={categories.categories.last_page} currentPage={currentPage} setCurrentPage={setCurrentPage} isFetching={isFetching} />
+                }
 
-                <TablePagination url={categories.categories.path} lastPage={categories.categories.last_page} currentPage={currentPage} setCurrentPage={setCurrentPage}    />
             </CardFooter>
         </Card>
     )
@@ -104,6 +126,18 @@ const CategoryTableRow = ({ category, index, setCategory, setOpen }: {
     setCategory: any,
     setOpen: any
 }) => {
+
+    const onSuccessCallback = () => {
+        setOpen(false);
+    }
+
+    const [postCategory, { isLoading }] = useMutate({ callback: onSuccessCallback });
+
+    const deleteCategory = async (id: number) => {
+        const response = await postCategory(`categories/${id}`) as any;
+
+    }
+
 
     return <TableRow key={index}>
 
@@ -141,8 +175,8 @@ const CategoryTableRow = ({ category, index, setCategory, setOpen }: {
 
 
                     {/* <DropdownMenuItem slot=""> */}
-                    <AlertBox alertTitle="Delete" alertDescription="Are you sure you want to Delete" alertActionConfirmText="Delete" alertConfirmAction={() => alert('deleted')}
-                        className="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+                    <AlertBox alertTitle="Delete" alertDescription="Are you sure you want to Delete" alertActionConfirmText="Delete" alertConfirmAction={() => deleteCategory(category.id as number)}
+                        className="relative flex cursor-default select-none w-full hover:bg-accent text-destructive items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
                         btnText="Delete" />
                     {/* </DropdownMenuItem> */}
                 </DropdownMenuContent>

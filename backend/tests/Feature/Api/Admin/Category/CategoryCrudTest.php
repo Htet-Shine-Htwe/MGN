@@ -14,7 +14,7 @@ uses(UserAuthenticated::class);
 
 dataset('category_test_data',[
     [
-        'title' =>  "Slice of life",
+        'title' =>  "Mobile Adventure",
     ],
     [
         'title' =>  "Another world",
