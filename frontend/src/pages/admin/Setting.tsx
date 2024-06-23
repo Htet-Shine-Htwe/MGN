@@ -25,7 +25,7 @@ const Setting = () => {
 
                     <div className="hidden items-center gap-2 md:ml-auto md:flex">
 
-                        <Button size="sm">Apply Setting</Button>
+                        <Button size="sm">Apply</Button>
                     </div>
                 </div>
                 <div className="grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8">
@@ -93,7 +93,7 @@ const Setting = () => {
                     <Button variant="outline" size="sm">
                         Discard
                     </Button>
-                    <Button size="sm">Save Product</Button>
+                    <Button size="sm">Apply</Button>
                 </div>
 
             </div>
