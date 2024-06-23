@@ -13,7 +13,7 @@ import { useCallback, useState } from "react";
 
 const MobileDrawer = () => {
 
-  const [open,setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const navigateMenuCollection = navigateMenu;
 
@@ -27,7 +27,7 @@ const MobileDrawer = () => {
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        <Button variant="ghost" onClick={()=>setOpen(true)} >
+        <Button variant="ghost" onClick={() => setOpen(true)} >
           <IoMenu className="w-6 h-6" />
         </Button>
       </DrawerTrigger>
@@ -41,12 +41,16 @@ const MobileDrawer = () => {
 
             {
               navigateMenuCollection.map((menu, index) => (
-                <div key={index} className="flex flex-col">
-                  <Button  asChild size="icon" onClick={() => handleNavigation(menu.to)} className="w-16  h-16">
-                    <div>
+                <div key={index} className="grid grid-cols-1  gap-2">
+                  <Button asChild size="icon" onClick={() => handleNavigation(menu.to)} className="w-16 h-16 pt-2">
+                    <div className="flex flex-col overflow-hidden gap-1">
                       <menu.Icon className="w-8 h-8" />
+                      <span className="text-[10px] text-muted-foreground text-wrap ">{
+                        menu.title
+                      }</span>
                     </div>
                   </Button>
+
 
                 </div>
               ))

@@ -1,12 +1,12 @@
 import AdminUserDropDown from "@/components/ui/AdminUserDropDown"
-import { memo } from "react";
-import MobileDrawer from "./MobileDrawer";
+import { lazy, memo } from "react";
 import CommandSearch from "./CommandSearch";
 import Logo from "@/assets/imgs/logo-icon.png";
 import LogoTitle from "@/assets/imgs/logo-title.png";
 type NavbarProps = {
   title: string
 }
+const MobileDrawer = lazy(() => import('./MobileDrawer'))
 
 const NavbarRaw = ({ title }: NavbarProps) => {
 

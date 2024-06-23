@@ -33,7 +33,7 @@ const SidebarRaw = () => {
         <div className="flex flex-col justify-center h-[10%]  ">
 
             <AlertBox alertTitle="Logout" alertDescription="Are you sure you want to logout?" alertActionConfirmText="Logout" alertConfirmAction={logout} 
-            btnText={ <SidebarIcon Icon={IoLogOutSharp} to="/logout" tooltip="logout"  onClick={()=>{}}/>}/>
+            btnText={ <SidebarIcon  Icon={IoLogOutSharp} to="/logout" tooltip="logout" onClick={()=>{}}/>}/>
         </div>
     </div>
   )

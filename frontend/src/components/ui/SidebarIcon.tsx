@@ -33,10 +33,10 @@ const SidebarIconRaw = ({ Icon, to = "home", tooltip = "Default", onClick }: Sid
 
     return (
         <div className="flex items-center justify-center cursor-pointer">
-            <TooltipProvider delayDuration={300} >
-                <Tooltip  >
-                    <TooltipTrigger asChild>
-                        <Button asChild size="icon" onClick={() => handleNavigation()} className="bg-phover" >
+            <TooltipProvider delayDuration={300}   >
+                <Tooltip >
+                    <TooltipTrigger  asChild >
+                        <Button asChild size="icon" onClick={handleNavigation} className="bg-phover" >
                             <div>
                                 <Icon className="h-5 w-5" />
                             </div>

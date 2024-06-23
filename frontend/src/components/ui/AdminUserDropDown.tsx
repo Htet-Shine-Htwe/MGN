@@ -63,7 +63,7 @@ const AdminUserDropDownRaw = () => {
         </DropdownMenuSub>
 
 
-        <DropdownMenuItem className="font-bold w-full" asChild  >
+        <DropdownMenuItem className="font-bold w-full"   >
           <AlertBox alertTitle="Logout" alertDescription="Are you sure you want to logout?" alertActionConfirmText="Logout" alertConfirmAction={logout}
             btnText={<>Logout</>} />
         </DropdownMenuItem>

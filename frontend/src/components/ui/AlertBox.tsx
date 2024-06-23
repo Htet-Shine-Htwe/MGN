@@ -30,7 +30,7 @@ const AlertBox = ({
 } : AlertBoxProps) => {
     return (
         <AlertDialog > 
-            <AlertDialogTrigger
+            <AlertDialogTrigger 
             className={className}
             >{btnText}</AlertDialogTrigger>
             <AlertDialogContent >
