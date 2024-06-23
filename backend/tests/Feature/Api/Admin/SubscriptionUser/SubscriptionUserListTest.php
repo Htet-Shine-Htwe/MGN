@@ -7,7 +7,7 @@ use Database\Seeders\UserSeeder;
 use Tests\Support\UserAuthenticated;
 
 
-uses()->group('admin','api','users-subscription-list');
+uses()->group('admin','api','admin-subscription-list','users-subscription');
 uses(UserAuthenticated::class);
 
 beforeEach(function(){

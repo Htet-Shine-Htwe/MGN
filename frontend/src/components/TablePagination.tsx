@@ -1,18 +1,19 @@
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { Loader2 } from "lucide-react";
 
 interface TablePaginationInterface {
   url: string;
   lastPage: number;
   currentPage: number;
-  setCurrentPage : (currentPage:number) => void
+  setCurrentPage: (currentPage: number) => void;
+  isFetching?: boolean;
 }
 
 type OptionalTablePaginationInterface = Partial<TablePaginationInterface>;
@@ -20,11 +21,12 @@ type OptionalTablePaginationInterface = Partial<TablePaginationInterface>;
 export function TablePagination({
   url = "",
   lastPage = 10,
-  currentPage =1,
-  setCurrentPage = (currentPage:number) => {}
+  currentPage = 1,
+  setCurrentPage = (currentPage: number) => {},
+  isFetching = false,
 }: OptionalTablePaginationInterface) {
   const handlePageChange = (page: number) => {
-    setCurrentPage(page)
+    setCurrentPage(page);
   };
 
   const getPageLinks = () => {
@@ -40,7 +42,11 @@ export function TablePagination({
               handlePageChange(i);
             }}
           >
-            {i}
+            {isFetching && i === currentPage ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              i
+            )}
           </PaginationLink>
         </PaginationItem>
       );

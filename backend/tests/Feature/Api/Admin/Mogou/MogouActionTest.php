@@ -9,7 +9,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Schema;
 use Tests\Support\UserAuthenticated;
 
-uses()->group('admin','api','mogou-action','mogou');
+uses()->group('admin','api','admin-mogou','admin-mogou-action');
 uses(UserAuthenticated::class);
 
 beforeEach(function(){

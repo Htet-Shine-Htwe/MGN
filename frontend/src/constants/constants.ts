@@ -18,10 +18,10 @@ type navigateMenu = navigateMenuItem[];
 
 export const navigateMenu: navigateMenu = [
     { Icon: MdHomeFilled, to: "/dashboard", tooltip: "home",title:"Home"},
-    { Icon: SiBookstack, to: "/comics", tooltip: "Manga & Manhwas",title:"Manga & Manhwa"},
+    { Icon: SiBookstack, to: "/comics", tooltip: "Manga & Manhwas",title:"Mogous"},
     { Icon: BiCategory, to: "/categories", tooltip: "Manage Categories",title:"Categories" },
     { Icon : MdSubscriptions , to : "/subscriptions", tooltip : "Manage Subscriptions",title:"Subscriptions"},
     { Icon: FaUsersGear, to: "/users", tooltip: "Manage Users" ,title:"Users"},
-    { Icon: FaTelegram, to: "/sync/telegram", tooltip: "Your Telegram Channels",title:"Your Channel" },
+    { Icon: FaTelegram, to: "/sync/telegram", tooltip: "Your Telegram Channels",title:"Channel" },
     { Icon: IoSettings, to: "/setting", tooltip: "Cutomize Your Application",title:"Setting" },
 ];

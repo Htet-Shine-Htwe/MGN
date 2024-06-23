@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
 use Tests\Support\UserAuthenticated;
 
-uses()->group('admin','api','mogou-data-collection','mogou');
+uses()->group('admin','api','admin-mogou','admin-mogou-list');
 uses(UserAuthenticated::class);
 
 beforeEach(function(){
