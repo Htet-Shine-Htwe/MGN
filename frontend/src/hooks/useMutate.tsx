@@ -54,7 +54,11 @@ const useMutate = (params: ParamsType = {}): ReturnType => {
 
         }
         return result;
+      }
 
+      if(isError)
+      {
+        console.log('server error',error);  
       }
 
       if (result?.data?.message && !disableAlert) {

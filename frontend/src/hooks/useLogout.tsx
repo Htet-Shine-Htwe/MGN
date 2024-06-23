@@ -10,10 +10,10 @@ const useLogout = () => {
 
   const dispatch = useAppDispatch();
 
-  const logout = useCallback(() => {
+  const logout = useCallback((withToast=true) => {
     Cookies.remove('auth-token');
 
-    toast({
+    withToast && toast({
       title: "Logged Out",
       description: "You have been logged out successfully",
       variant: "destructive",
