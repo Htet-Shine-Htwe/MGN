@@ -40,8 +40,10 @@ const MobileDrawer = () => {
           <div className="flex gap-12 flex-wrap">
 
             {
-              navigateMenuCollection.map((menu, index) => (
-                <div key={index} className="grid grid-cols-1  gap-2">
+              Object.keys(navigateMenuCollection).map((key) => {
+                const menu = navigateMenuCollection[key];
+
+                return <div key={key} className="grid grid-cols-1  gap-2">
                   <Button asChild size="icon" onClick={() => handleNavigation(menu.to)} className="w-16 h-16 pt-2">
                     <div className="flex flex-col overflow-hidden gap-1">
                       <menu.Icon className="w-8 h-8" />
@@ -53,7 +55,7 @@ const MobileDrawer = () => {
 
 
                 </div>
-              ))
+              })
             }
 
           </div>

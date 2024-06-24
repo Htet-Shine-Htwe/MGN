@@ -4,7 +4,7 @@ import { Button } from './ui/button';
 import { memo } from 'react';
 
 type GobackProps = {
-    to: string;
+    to: string | number;
     label?: string;
     variant?: "outline" | "default" | "destructive" | "secondary" | "ghost" | "link" | null | undefined;
 };

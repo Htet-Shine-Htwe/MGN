@@ -4,7 +4,7 @@ type InputErrorProps = {
 
 const InputError = ({ field }: InputErrorProps) => {
     return (
-        <p className="text-red-500 text-xs">{field?.message}</p>
+        field?.message && <p className="text-red-500 text-xs font-bold ">{"*" + field?.message}</p>
     )
 }
 

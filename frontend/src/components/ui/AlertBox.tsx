@@ -16,7 +16,8 @@ type AlertBoxProps={
     alertDescription?:string,
     alertActionConfirmText?:string,
     alertConfirmAction : ()=>void,
-    className?:string
+    className?:string,
+    disabled?:boolean,
 }
 
 
@@ -26,7 +27,8 @@ const AlertBox = ({
     alertDescription="Are you sure you want to delete this item?",
     alertActionConfirmText="Sure",
     alertConfirmAction,
-    className
+    className,
+    disabled=false
 } : AlertBoxProps) => {
     return (
         <AlertDialog > 
@@ -43,6 +45,7 @@ const AlertBox = ({
                 <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
                     <AlertDialogAction
+                    disabled={disabled}
                     onClick={alertConfirmAction}
                     >{alertActionConfirmText}</AlertDialogAction>
                 </AlertDialogFooter>
