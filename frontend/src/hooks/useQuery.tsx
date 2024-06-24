@@ -9,10 +9,14 @@ interface QueryErrorInterface {
 }
 
 const useQuery = (
-    url: string,
+    url?: string,
     callback?: (value: any, meta: any) => void,
     refetchOnUrlChange: boolean = true
 ) => {
+    if(!url)
+    {
+        return {};
+    }
     const { data, isLoading, refetch, error, isFetching } = useGetDataQuery(url);
     const logout = useLogout();
 

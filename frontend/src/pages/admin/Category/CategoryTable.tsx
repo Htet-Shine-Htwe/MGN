@@ -31,9 +31,9 @@ import AlertBox from "@/components/ui/AlertBox"
 import React, { useState } from "react"
 import useMutate from "@/hooks/useMutate"
 import useQuery from "@/hooks/useQuery"
-import { Input } from "@/components/ui/input"
 import InputSearch from "@/components/ui/custom/InputSearch"
-import { useParams, useSearchParams } from "react-router-dom"
+import { useSearchParams } from "react-router-dom"
+import ContentTableRow from "@/components/ui/custom/ContentTableRow"
 
 type CategoryTableProps = {
     setCategory: (category: Category) => void;
@@ -47,12 +47,12 @@ const CategoryTable = ({
 
 }: CategoryTableProps) => {
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const [queryParameters] = useSearchParams()
+    const [queryParameters] = useSearchParams();
     const [search, setSearch] = useState<string>(queryParameters.get('search') ?? "");
 
     const searchRef = React.useRef<HTMLInputElement>(null);
 
-    const { data: categories, isLoading, isFetching, error, refetch } = useQuery(`categories?page=${currentPage}&search=${search}&order_by_mogous_count=asc`);
+    const { data: categories, isLoading, isFetching, error, refetch } = useQuery(`admin/categories?page=${currentPage}&search=${search}&order_by_mogous_count=asc`);
 
     const submitSearch = () => {
         console.log('worked')
@@ -80,7 +80,7 @@ const CategoryTable = ({
                                 <span className="">Category Name</span>
                             </TableHead>
                             <TableHead>
-                                Total
+                                Total Comics Count
                             </TableHead>
                             <TableHead className="hidden md:table-cell">Created at</TableHead>
                             <TableHead>
@@ -91,14 +91,10 @@ const CategoryTable = ({
                     <TableBody>
 
                         {
-                            isLoading ? (<TableRow>
-                                <TableCell align="center"  colSpan={4}>Loading...</TableCell>
-                            </TableRow>)
+                            isLoading ? (<ContentTableRow />)
                                 :
                                 (
-                                    categories.categories.data.length === 0 ? <TableRow >
-                                        <TableCell align="center" colSpan={4}>No data found</TableCell>
-                                    </TableRow> :
+                                    categories.categories.data.length === 0 ?<ContentTableRow content="No data Found" /> :
                                     categories.categories.data.map((cata: Category) => {
                                         return <CategoryTableRow key={cata.id} category={cata} index={cata.id} setCategory={setCategory} setOpen={setOpen} />
                                     })
@@ -134,7 +130,7 @@ const CategoryTableRow = ({ category, index, setCategory, setOpen }: {
     const [postCategory, { isLoading }] = useMutate({ callback: onSuccessCallback });
 
     const deleteCategory = async (id: number) => {
-        const response = await postCategory(`categories/${id}`) as any;
+        const response = await postCategory(`admin/categories/${id}`) as any;
 
     }
 

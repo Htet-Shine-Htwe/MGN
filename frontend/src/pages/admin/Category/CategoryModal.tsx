@@ -52,7 +52,7 @@ export function CategoryModal({ initCategory, setInitCategory, open, setOpen }: 
 
   const onSubmit = async (data: Category) => {
     
-    const response = isCreate ?  await postCategory("categories", data) :await postCategory(`categories/${category?.id}`, data,"PUT") as any;
+    const response = isCreate ?  await postCategory("admin/categories", data) :await postCategory(`admin/categories/${category?.id}`, data,"PUT") as any;
    
     if (response && response.error) {
       console.log(response)
