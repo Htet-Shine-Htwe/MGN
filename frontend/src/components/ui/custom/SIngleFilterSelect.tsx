@@ -29,7 +29,7 @@ export function SingleFilterSelect({ data = [], placeholder = "Select", onSelect
     } else {
       return Object.keys(data).map((key) => (
         <SelectItem key={key} value={data[key] as string}>
-          {data[key]}
+          {key}
         </SelectItem>
       ));
     }
