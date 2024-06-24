@@ -8,20 +8,26 @@ import { Button } from "@/components/ui/button"
 import { PlusCircle } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { SingleFilterSelect } from "@/components/ui/custom/SIngleFilterSelect"
+import { adminRouteCollection } from "@/constants/constants"
+import { Label } from "@radix-ui/react-label"
+import { useState } from "react"
 
 
 const fruitsObject = {
-    apple: "Apple",
-    banana: "Banana",
-    cherry: "Cherry",
-    date: 1234
+    "Max Subscriptions" : "desc",
+    "Min Subscriptions" : "asc",
   };
 
 
 const SubscriptionIndex = () => {
 
     const navigate = useNavigate();
+    const [countBy,setCountBy] = useState<string>("");
 
+
+    const subscriptionCountOnChange = ((value:any)=>{
+        setCountBy(value)
+    })
 
 
     return (
@@ -31,11 +37,18 @@ const SubscriptionIndex = () => {
                 <Tabs defaultValue="all" className="w-full justify-between">
 
                     <div className="flex items-center w-full justify-between">
-                    <SingleFilterSelect data={fruitsObject} onSelect={(value:any) => console.log(value)} placeholder="choose fruit" />
+
+                        <div className="flex items-center gap-4">
+
+                            <Label >Sort By :</Label>
+
+                            <SingleFilterSelect data={fruitsObject} onSelect={(value:any) => subscriptionCountOnChange(value)} placeholder="Sort By Sub Count" />
+                        </div>
                        
                         <div className="ml-auto flex items-center gap-2">
 
-                            <Button size="sm" className="h-8 gap-1" onClick={() => navigate('/subscriptions/add')} >
+
+                            <Button size="sm" className="h-8 gap-1" onClick={() => navigate(adminRouteCollection.addSubscription)} >
                                 <PlusCircle className="h-3.5 w-3.5" />
                                 <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
                                     Add
@@ -47,7 +60,7 @@ const SubscriptionIndex = () => {
                 
 
                 <div className="mt-8">
-                    <SubscriptionTable />
+                    <SubscriptionTable countBy={countBy} />
                 </div>
             </div>
         </main>

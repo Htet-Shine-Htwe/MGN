@@ -1,7 +1,3 @@
-import { MoreHorizontal } from "lucide-react"
-
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
 import {
     Card,
     CardContent,
@@ -11,13 +7,6 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import {
     Table,
     TableBody,
     TableCell,
@@ -26,61 +15,23 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { TablePagination } from "@/components/TablePagination"
-import AlertBox from "@/components/ui/AlertBox"
-const SubscriptionTable = ( ) => {
+import { useState } from "react"
+import { useSearchParams } from "react-router-dom"
+import useQuery from "@/hooks/useQuery"
+import ContentTableRow from "@/components/ui/custom/ContentTableRow"
+import SubscriptionTableRow from "./SubscriptionTableRow"
+import { SubscriptionType } from "./type"
+const SubscriptionTable = ({countBy} : {countBy:string} ) => {
 
-    const comics = Array.from({ length: 10 }, (_, index) => (
-        <TableRow key={index}>
-
-            <TableCell className="font-medium">
-                Premium
-            </TableCell>
-            <TableCell>
-                <Badge variant="outline">30days</Badge>
-            </TableCell>
-
-            <TableCell className="">
-                <Badge variant="outline">{
-                    Math.round(Math.random() * 2 ) == 1 ? 'Unlimited' : Math.round(Math.random() * 200 )
-                } </Badge>
-            </TableCell>
-
-            <TableCell className="">
-                <Badge variant="outline">{Math.round(Math.random() * 200 )} </Badge>
-            </TableCell>
-
-            <TableCell className="hidden md:table-cell">
-                2023-07-12 10:42 AM
-            </TableCell>
-            <TableCell>
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button aria-haspopup="true" size="icon" variant="ghost">
-                            <MoreHorizontal className="h-4 w-4" />
-                            <span className="sr-only">Toggle menu</span>
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem
-                           
-                        >Edit</DropdownMenuItem>
-
-
-                        {/* <DropdownMenuItem slot=""> */}
-                        <AlertBox alertTitle="Delete" alertDescription="Are you sure you want to Delete" alertActionConfirmText="Delete" alertConfirmAction={() => alert('deleted')}
-                            className="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
-                            btnText="Delete" />
-                        {/* </DropdownMenuItem> */}
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            </TableCell>
-        </TableRow>
-    ));
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [queryParameters] = useSearchParams();
+    const [search, setSearch] = useState<string>(queryParameters.get('search') ?? "");
+    
+    const { data, isLoading, isFetching, error, refetch } = useQuery(`admin/subscriptions?page=${currentPage}&search=${search}&count_by=${countBy}`);
 
     return (
         <Card>
-            <CardHeader>
+            <CardHeader className="hidden md:flex">
                 <CardTitle>Subscription</CardTitle>
                 <CardDescription>
                     List of all subscriptions
@@ -94,7 +45,7 @@ const SubscriptionTable = ( ) => {
                                 <span className="">Subscription Name</span>
                             </TableHead>
                             <TableHead>
-                                Subscription Time Period
+                                Subscription Duration
                             </TableHead>
 
                             <TableHead>
@@ -102,25 +53,38 @@ const SubscriptionTable = ( ) => {
                             </TableHead>
 
                             <TableHead>
+                                Subscription Price
+                            </TableHead>
+
+                            <TableHead>
                                 Total Subscriptions
                             </TableHead>
 
-                            <TableHead className="hidden md:table-cell">Created at</TableHead>
                             <TableHead>
                                 <span className="sr-only">Actions</span>
                             </TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {comics}
+                    {
+                            isLoading ? (<ContentTableRow />)
+                                :
+                                (
+                                    data.subscriptions.data.length === 0 ?<ContentTableRow content="No data Found" /> :
+                                    data.subscriptions.data.map((sub: SubscriptionType) => {
+                                        return <SubscriptionTableRow  key={sub.id} index={sub.id as number}  subscription={sub}  />
+                                    })
+                                )
+                        }
 
                     </TableBody>
                 </Table>
             </CardContent>
             <CardFooter>
 
-
-                <TablePagination />
+            {
+                    (data && data.subscriptions.data.length > 0 ) && <TablePagination url={data.subscriptions.path} lastPage={data.subscriptions.last_page} currentPage={currentPage} setCurrentPage={setCurrentPage} isFetching={isFetching} />
+            }
             </CardFooter>
         </Card>
     )
