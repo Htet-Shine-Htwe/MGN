@@ -28,6 +28,15 @@ class SubscriptionController extends Controller
         ]);
     }
 
+    public function show($subscription)
+    {
+        $sub = $this->subscriptionRepo->getOne($subscription);
+
+        return response()->json([
+            'subscription' => $sub
+        ]);
+    }
+
     public function create(SubscriptionActionRequest $request) : JsonResponse
     {
         $subscription = $this->subscriptionRepo->create($request);

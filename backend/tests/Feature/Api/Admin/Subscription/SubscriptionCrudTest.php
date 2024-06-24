@@ -64,6 +64,28 @@ test("request body validation in creating subscription",function(){
         ]);
 });
 
+test("show subscription return success response",function(){
+    $response = $this->authenticatedAdmin()->getJson(route('api.admin.subscriptions.show',[
+        'subscription' => 1
+    ]));
+
+    $response->assertStatus(200);
+
+    $response->assertJsonStructure([
+        'subscription'
+    ]);
+
+});
+
+test("return 404 on non-existed subscription",function(){
+    $response = $this->authenticatedAdmin()->getJson(route('api.admin.subscriptions.show',[
+        'subscription' => 1000
+    ]));
+
+    $response->assertStatus(404);
+})->group('new');
+
+
 test("create subscription",function($title, $max, $duration){
 
     $data = [

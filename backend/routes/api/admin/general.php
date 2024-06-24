@@ -9,7 +9,9 @@ use App\Http\Controllers\Api\Admin\UserSubscriptionController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth:sanctum'])->name('admin.')->group(function(){
+Route::middleware(['auth:sanctum'])
+->prefix('admin')
+->name('admin.')->group(function(){
     // Change Password
     Route::get('/roles',[AdminController::class,'roles'])->name('roles.index');
     Route::post('/roles',[AdminController::class,'createRole'])->name('roles.store');
@@ -20,6 +22,7 @@ Route::middleware(['auth:sanctum'])->name('admin.')->group(function(){
 
     Route::controller(SubscriptionController::class)->group(function(){
         Route::get('/subscriptions','index')->name('subscriptions.index');
+        Route::get('/subscriptions/{subscription}','show')->name('subscriptions.show');
         Route::post('/subscriptions','create')->name('subscriptions.store');
         Route::put('/subscriptions/{subscription}','update')->name('subscriptions.update');
         Route::post('/subscriptions/{subscription}','delete')->name('subscriptions.delete');

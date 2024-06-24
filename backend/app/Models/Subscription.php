@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,13 +12,19 @@ class Subscription extends Model
 
     public $timestamps = false;
 
-
-    public function scopeSearch($query, $search) : \Illuminate\Database\Eloquent\Builder
+    public function scopeSearch($query, $search): \Illuminate\Database\Eloquent\Builder
     {
         return $query->where('title', 'like', '%' . $search . '%');
     }
 
-    public function users() : \Illuminate\Database\Eloquent\Relations\HasMany
+    public function scopeCountBy($query, $countBy): \Illuminate\Database\Eloquent\Builder
+    {
+        return $query->when($countBy, function ($q) use($countBy) {
+            return $q->orderBy('users_count',$countBy);
+        });
+    }
+
+    public function users(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(User::class, 'current_subscription_id');
     }

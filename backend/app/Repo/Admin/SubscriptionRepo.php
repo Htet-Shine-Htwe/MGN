@@ -18,10 +18,16 @@ class SubscriptionRepo implements ModelRepoInterface
         return $this->collection();
     }
 
+    public function getOne($subscription)
+    {
+        return Subscription::where('id',$subscription)->firstOrFail();
+    }
+
     public function collection() : mixed
     {
         return Subscription::search($this->request->search)
         ->withCount('users')
+        ->countBy($this->request->count_by)
         ->paginate($this->request->limit ?? 10)
         ->withQueryString();
     }
@@ -51,6 +57,7 @@ class SubscriptionRepo implements ModelRepoInterface
 
     public function delete(Subscription $subscription) : bool
     {
+        sleep(2);
         return $subscription->delete();
     }
 
