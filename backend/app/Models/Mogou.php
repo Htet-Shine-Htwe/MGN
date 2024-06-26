@@ -25,6 +25,8 @@ class Mogou extends Model
         'released_at',
     ];
 
+    public $rotate_key = "beta";
+
     protected $casts = [
         'status' => MogousStatus::class,
         'released_at' => 'datetime',
@@ -49,6 +51,7 @@ class Mogou extends Model
         });
     }
 
+
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'mogous_categories');
@@ -57,8 +60,14 @@ class Mogou extends Model
 
     public function subMogous()
     {
+        $this->rotate_key = "alpha";
+
         return $this->hasMany(SubMogou::class);
     }
+
+
+
+
 
     public function getRouteKeyName()
     {
@@ -139,5 +148,16 @@ class Mogou extends Model
         });
     }
 
+
+
+    protected function newRelatedInstance($class)
+    {
+        $table_name = $this->rotate_key."_".(new $class)->getTable();
+        return tap((new $class())->setTable($table_name), function ($instance) {
+            if (!$instance->getConnectionName()) {
+                $instance->setConnection($this->connection);
+            }
+        });
+    }
 
 }

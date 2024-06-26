@@ -23,7 +23,6 @@ class SubMogou extends Model
     ];
 
 
-
     public function getSubscriptionCollectionAttribute($value)
     {
         return json_decode($value, true);

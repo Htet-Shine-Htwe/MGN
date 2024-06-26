@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Mogou;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,16 +26,13 @@ Route::prefix('v1')
 
 Route::get('v1/test', function () {
 
-    sleep(2);
+    $mogou = Mogou::with('subMogous')->first();
+
+
+
+
     return response()->json([
-        'message' => "request was successful"
+        'mogou' => $mogou
     ]);
 });
 
-Route::post('v1/test',function(Request $request){
-    sleep(2);
-    return response()->json(
-        ['message' => 'Wrong credentials. Please try again.',
-        'body' =>$request->input()],403
-    );
-});
