@@ -25,6 +25,16 @@ class MogouController extends Controller
         ->withLastFourChapters()
         ->get($request);
 
+
+        $mogous->each(function($mogou){
+
+            $key = $mogou->rotation_key;
+
+            $subMogou = $mogou->subMogous($key)->select('title')->latest()->limit(3)->get();
+
+            $mogou->setRelation('subMogous',$subMogou);
+        });
+
         return response()->json([
             'mogous' => $mogous
         ]);

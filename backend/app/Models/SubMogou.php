@@ -9,6 +9,8 @@ class SubMogou extends Model
 {
     use HasFactory,\Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
+    protected $table = 'sub_mogous';
+
     protected $fillable = [
         'title',
         'slug',
@@ -17,6 +19,8 @@ class SubMogou extends Model
         'status',
         'chapter_number',
         'views',
+        'third_party_url',
+        'third_party_redirect',
         'subscription_only',
         'subscription_collection',
         'mogou_id',
@@ -42,5 +46,47 @@ class SubMogou extends Model
     {
         return $this->hasMany(SubMogouImage::class);
     }
+
+    public function newRelatedInstance($class)
+    {
+        $instance = new $class;
+
+
+        if ($this->relationLoaded('mogou')) {
+            $mogou = $this->getRelation('mogou');
+            $rotationKey = $mogou->title;
+
+            if ($rotationKey == 'alpha') {
+                $instance->setTable('alpha_sub_mogous');
+            } elseif ($rotationKey == 'beta') {
+                $instance->setTable('beta_sub_mogous');
+            }
+        }
+
+        return $instance;
+    }
+
+    // when this model is loaded, it will check the parent model and set the table name accordingly
+
+    // public function newQuery()
+    // {
+
+    //     $query = parent::newQuery();
+
+    //     // current loaded model
+
+    //         $rotationKey = $this->mogou()->first()->title;
+
+    //         // if ($rotationKey == 'alpha') {
+    //         //    $this->setTable('alpha_sub_mogous');
+    //         // } elseif ($rotationKey == 'beta') {
+    //         //     $this->setTable('beta_sub_mogous');
+    //         // }
+
+    //     if
+
+
+    //     return $query;
+    // }
 
 }

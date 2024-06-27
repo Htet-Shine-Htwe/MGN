@@ -12,6 +12,7 @@ class Mogou extends Model
     use HasFactory,\Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
     protected $fillable = [
+        'rotation_key',
         'title',
         'slug',
         'description',
@@ -24,8 +25,6 @@ class Mogou extends Model
         'released_year',
         'released_at',
     ];
-
-    public $rotate_key = "beta";
 
     protected $casts = [
         'status' => MogousStatus::class,
@@ -51,23 +50,21 @@ class Mogou extends Model
         });
     }
 
-
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'mogous_categories');
     }
 
 
-    public function subMogous()
+    public function subMogous($table_name="alpha")
     {
-        $this->rotate_key = "alpha";
+        $instance = new SubMogou();
+        $instance->setTable($table_name."_sub_mogous");
 
-        return $this->hasMany(SubMogou::class);
+        return $this->newHasMany(
+            $instance->newQuery(),$this,$instance->getTable().'.mogou_id','id'
+        );
     }
-
-
-
-
 
     public function getRouteKeyName()
     {
@@ -76,7 +73,11 @@ class Mogou extends Model
 
     protected function getStatusNameAttribute()
     {
-        return MogousStatus::getStatusName($this->status);
+        if($this->status)
+        {
+            return MogousStatus::getStatusName($this->status);
+        }
+
     }
 
     public function scopeLastFourChapters($query)
@@ -150,14 +151,14 @@ class Mogou extends Model
 
 
 
-    protected function newRelatedInstance($class)
-    {
-        $table_name = $this->rotate_key."_".(new $class)->getTable();
-        return tap((new $class())->setTable($table_name), function ($instance) {
-            if (!$instance->getConnectionName()) {
-                $instance->setConnection($this->connection);
-            }
-        });
-    }
+    // protected function newRelatedInstance($class)
+    // {
+    //     $table_name = $this->rotate_key."_".(new $class)->getTable();
+    //     return tap((new $class())->setTable($table_name), function ($instance) {
+    //         if (!$instance->getConnectionName()) {
+    //             $instance->setConnection($this->connection);
+    //         }
+    //     });
+    // }
 
 }
