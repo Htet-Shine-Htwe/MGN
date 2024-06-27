@@ -22,6 +22,9 @@ return new class extends Migration
             $table->integer("chapter_number");
             $table->unsignedBigInteger('views')->default(0);
 
+            $table->text('third_party_url')->nullable();
+            $table->integer('third_party_redirect')->default(0);
+
             $table->integer('subscription_only')->default(0);
             $table->json('subscription_collection')->nullable();
 

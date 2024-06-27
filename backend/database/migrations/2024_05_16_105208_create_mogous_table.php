@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('mogous', function (Blueprint $table) {
             $table->id();
+            $table->string('rotation_key')->default('alpha');
             $table->string('title');
             $table->string('slug')->unique();
             $table->text('description');
