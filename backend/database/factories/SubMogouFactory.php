@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Enum\MogousStatus;
+use App\Models\SubMogou;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 /**
@@ -10,14 +11,13 @@ use Illuminate\Support\Str;
  */
 class SubMogouFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+
+    protected $model = SubMogou::class;
+
+
     public function definition(): array
     {
-        $title = $this->faker->sentence(4) . ' ' . $this->faker->sentence(2);
+        $title =  "beta " . $this->faker->sentence(4) . ' ' . $this->faker->sentence(2);
 
         //
         return [

@@ -18,8 +18,10 @@ class MogouFactory extends Factory
      */
     public function definition(): array
     {
-        $title = $this->faker->sentence(4).' '.$this->faker->sentence(4);
+        $key = $this->faker->randomElement(['alpha', 'beta']);
+        $title = $key . $this->faker->sentence(4).' '.$this->faker->sentence(4);
         return [
+            'rotation_key' => $key,
             'title' => $title,
             'slug' => Str::slug($title),
             'description' => $this->faker->paragraph(4),
