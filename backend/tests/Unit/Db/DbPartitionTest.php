@@ -29,8 +29,6 @@ test("create alpha partition table if not exists",function(){
         protected string $baseTable = 'sub_mogous';
 
         protected string $partition_prefix = 'sub_mogous';
-
-
     };
 
     $dbPartition->createPartition();
@@ -51,11 +49,35 @@ test("create beta partition table cuz alpha already exists",function(){
 
     };
 
-    $dbPartition->createPartition();
-    $dbPartition->createPartition();
-    $dbPartition->createPartition();
+    $dbPartition->createPartition(); // creating alpha partition table
+    $dbPartition->createPartition();  // creating beta partition table
 
     $this->assertTrue($dbPartition->checkTablePartition('beta_sub_mogous'));
+
+});
+
+test("increase the locked partition table to 3",function(){
+
+    $dbPartition = new class extends Model {
+
+        use App\Traits\DbPartition;
+
+        protected string $baseTable = 'sub_mogous';
+
+        protected string $partition_prefix = 'sub_mogous';
+
+    };
+
+    $dbPartition->createPartition(); // creating alpha partition table
+    $dbPartition->createPartition();  // creating beta partition table
+
+    TablePartition::setLockedRotation(3);
+
+    $dbPartition->createPartition();  // creating gamma partition table
+
     $this->assertTrue($dbPartition->checkTablePartition('gamma_sub_mogous'));
+
+    TablePartition::setLockedRotation(2);
+
 
 });
