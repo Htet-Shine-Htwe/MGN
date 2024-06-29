@@ -4,7 +4,8 @@ namespace App\Services\Partition;
 
 class TablePartition
 {
-    protected string $tableName = 'table';
+
+    protected static int $current_locked = 2;
 
     protected array $rotationPrefix;
 
@@ -13,8 +14,25 @@ class TablePartition
         $this->rotationPrefix = $rotationPrefix;
     }
 
-    public function getPartitionPrefix(): string
+    public static function getRotationKeys()
     {
-        return $this->tableName;
+        return [
+            "alpha","beta","gamma","delta","epsilon","zeta","eta","theta","iota","kappa","lambda","mu","nu","xi","omicron","pi","rho","sigma","tau","upsilon","phi","chi","psi","omega"
+        ];
     }
+
+    public static function availableRotationKey()
+    {
+        return array_slice(self::getRotationKeys(),0,self::$current_locked);
+    }
+
+    public static function getRandomRotationKey()
+    {
+        $keys = self::availableRotationKey();
+        $random_key = array_rand($keys);
+        return $keys[$random_key];
+    }
+
+
+
 }
