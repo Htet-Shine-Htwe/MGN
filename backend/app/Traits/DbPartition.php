@@ -25,11 +25,11 @@ trait DbPartition
 
             try {
                 DB::statement($sql);
-                echo "Table {$table}_{$table_name} created successfully\n";
+                // echo "Table {$table}_{$table_name} created successfully\n";
                 break;
             } catch (\Exception $e) {
                 if (str_contains($e->getMessage(), 'already exists')) {
-                    echo "Table {$table}_{$table_name} already exists, trying the next one...\n";
+                    // echo "Table {$table}_{$table_name} already exists, trying the next one...\n";
                     continue;
                 } else {
                     throw $e;

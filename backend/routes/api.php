@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Mogou;
+use App\Services\Api\DataClient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Benchmark;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +28,10 @@ Route::prefix('v1')
 
     Route::get('v1/test', function () {
         // Set the number of items per page
+        $title = DataClient::getMangaData()[0]['title'];
+        // "Eiyuu" Kaitai to Eiyuu Kaitai
+        // remove "" to normal string
+        return str_replace('"', '', $title);
         $perPage = 10;
 
         // Build the query for Mogou instances and apply pagination

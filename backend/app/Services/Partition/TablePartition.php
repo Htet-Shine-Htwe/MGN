@@ -33,6 +33,11 @@ class TablePartition
         return $keys[$random_key];
     }
 
+    public static function setLockedRotation(int $locked)
+    {
+        self::$current_locked = $locked;
+    }
+
 
 
 }
