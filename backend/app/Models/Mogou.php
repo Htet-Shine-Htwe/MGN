@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Enum\MogouFinishStatus;
 use App\Enum\MogousStatus;
+use App\Services\Partition\TablePartition;
+use App\Traits\DbPartition;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -42,7 +44,7 @@ class Mogou extends Model
 
         static::creating(function($mogou){
             $mogou->slug = Str::slug($mogou->title);
-
+            $mogou->rotation_key = TablePartition::getRandomRotationKey();
         });
 
         static::updating(function($mogou){
