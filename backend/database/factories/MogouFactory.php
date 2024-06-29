@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Enum\MogousStatus;
 use App\Enum\MogouFinishStatus;
+use App\Services\Partition\TablePartition;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 /**
@@ -18,7 +19,7 @@ class MogouFactory extends Factory
      */
     public function definition(): array
     {
-        $key = $this->faker->randomElement(['alpha', 'beta']);
+        $key = TablePartition::getRandomRotationKey();
         $title = $key . $this->faker->sentence(4).' '.$this->faker->sentence(4);
         return [
             'rotation_key' => $key,

@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
+use App\Models\Mogou;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -13,15 +15,19 @@ class MogousCategorySeeder extends Seeder
      */
     public function run(): void
     {
-       $one = $this->loopOver(config('control.test.mogous_count'), config('control.test.categories_count'));
-       $two = $this->loopOver(config('control.test.mogous_count'), config('control.test.categories_count'));
+        if(config('database.default') == 'sqlite') {
+            $one = $this->loopOver(config('control.test.mogous_count'), config('control.test.categories_count'));
+            $two = $this->loopOver(config('control.test.mogous_count'), config('control.test.categories_count'));
+            $mogousCategories = array_merge($one, $two);
 
-       $mogousCategories = array_merge($one, $two);
+        } else {
+            $mogousCategories = $this->loopOver(Mogou::count(), Category::count());
+        }
 
         DB::table('mogous_categories')->insert($mogousCategories);
     }
 
-    protected function loopOver($mogousCount, $categoriesCount)
+    protected function loopOver($mogousCount, $categoriesCount) : array
     {
         $mogousCategories = [];
 
