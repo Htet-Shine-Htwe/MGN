@@ -11,7 +11,7 @@ class ApplicationConfig extends Model
 
     protected $fillable = [
         'title',
-        'cover'
+        'logo'
     ];
 
 
