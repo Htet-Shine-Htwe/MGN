@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Admin\ApplicationConfigController;
 use App\Models\Mogou;
 use App\Services\Api\DataClient;
 use Illuminate\Http\Request;
@@ -24,39 +25,11 @@ Route::prefix('v1')
     ->group(function ()
     {
         \App\Services\Route\RouteHelper::includedRouteFiles(__DIR__ . '/api');
-    });
-
-    Route::get('v1/test', function () {
-        // Set the number of items per page
-        $title = DataClient::getMangaData()[0]['title'];
-        // "Eiyuu" Kaitai to Eiyuu Kaitai
-        // remove "" to normal string
-        return str_replace('"', '', $title);
-        $perPage = 10;
-
-        // Build the query for Mogou instances and apply pagination
-        $mogouQuery = Mogou::select('id','title','status','cover','rotation_key')
-        ->search()
-        ->paginate($perPage);
-
-        // Get the paginated results
-        $mogous = $mogouQuery->getCollection();
-
-        // Iterate over each Mogou instance to load the dynamic subMogous relationship
-        $mogous->each(function ($mogou) {
-            // Dynamically set the table name based on some logic or directly
-            $table_name = $mogou->rotation_key;
-
-            // Load the dynamic subMogous relationship
-            $subMogous = $mogou->subMogous($table_name)->select('title')->latest()->limit(3)->get();
-
-            // Attach the subMogous relationship to the mogou instance
-            $mogou->setRelation('subMogous', $subMogous);
+        Route::controller(ApplicationConfigController::class)->group(function(){
+            Route::get('/application-configs','index')->name('application-configs.index');
+            Route::post('/application-configs','update')->name('application-configs.store');
         });
-
-        // Replace the collection in the paginator with the modified collection
-        $mogouQuery->setCollection($mogous);
-
-        // Return the paginated results as JSON
-        return response()->json($mogouQuery);
     });
+
+
+

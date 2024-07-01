@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('application_configs', function (Blueprint $table) {
             $table->id();
             $table->string("title");
-            $table->string("cover")->nullable();
+            $table->string("logo")->nullable();
             $table->timestamps();
         });
     }

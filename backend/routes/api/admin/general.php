@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\Admin\AdminController;
 use App\Http\Controllers\Api\Admin\ApplicationConfigController;
 use App\Http\Controllers\Api\Admin\CategoryController;
 use App\Http\Controllers\Api\Admin\MogouController;
+use App\Http\Controllers\Api\Admin\SubMogouController;
 use App\Http\Controllers\Api\Admin\SubscriptionController;
 use App\Http\Controllers\Api\Admin\UserSubscriptionController;
 use App\Http\Controllers\TestController;
@@ -42,7 +43,6 @@ Route::middleware(['auth:sanctum'])
 
         Route::get('/users/{user_code}/subscriptions','subscriptions')->name('subscription-users.subscriptions');
         Route::get('/users/show/{user_code}','show')->name('subscription-users.show');
-
     });
 
     Route::controller(MogouController::class)->group(function(){
@@ -53,11 +53,13 @@ Route::middleware(['auth:sanctum'])
         Route::post('/delete/mogous','delete')->name('mogous.delete');
     });
 
-    Route::controller(ApplicationConfigController::class)->group(function(){
-        Route::get('/application-configs','index')->name('application-configs.index');
-        Route::post('/application-configs','update')->name('application-configs.store');
+    Route::controller(SubMogouController::class)->group(function(){
+
     });
 });
+
+
+
 
 
 Route::controller(TestController::class)->group(function(){
