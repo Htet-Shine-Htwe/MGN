@@ -38,10 +38,11 @@ enum MogouTypeEnum :int
 
     public static function getMogouType(string $type): int
     {
+        $type = strtolower($type);
         return match ($type) {
-            'Manga' => self::MANGA->value,
-            'Manhwa' => self::MANHWA->value,
-            'Comic' => self::COMIC->value,
+            'manga' => self::MANGA->value,
+            'manhwa' => self::MANHWA->value,
+            'comic' => self::COMIC->value,
         };
     }
 

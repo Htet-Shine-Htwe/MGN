@@ -1,6 +1,7 @@
 <?php
 
 use App\Enum\MogouFinishStatus;
+use App\Enum\MogouTypeEnum;
 use Database\Seeders\CategorySeeder;
 use Database\Seeders\MogousCategorySeeder;
 use Database\Seeders\MogouSeeder;
@@ -280,4 +281,40 @@ test("Only Completed Mogou returned",function(){
     collect($mogous)->each(function($mogou){
         $this->assertEquals(MogouFinishStatus::COMPLETED->value,$mogou['finish_status']);
     });
-})->group('completed-returned');
+});
+
+test("Only Manhwa Mogou returned",function(){
+
+    $response = $this->authenticatedAdmin()->getJson(route('api.admin.mogous.index',[
+        'mogou_type' => "Manhwa"
+    ]));
+
+    $response->assertOk();
+
+    $mogous = $response->json('mogous.data');
+
+    $this->assertNotEmpty($mogous);
+
+    collect($mogous)->each(function($mogou){
+        $this->assertEquals(MogouTypeEnum::MANHWA->value,$mogou['mogou_type']);
+    });
+});
+
+test("Only Completed Manhwa Mogou returned",function(){
+
+    $response = $this->authenticatedAdmin()->getJson(route('api.admin.mogous.index',[
+        'mogou_type' => "Manhwa",
+        'finish_status' => MogouFinishStatus::COMPLETED->value
+    ]));
+
+    $response->assertOk();
+
+    $mogous = $response->json('mogous.data');
+
+    $this->assertNotEmpty($mogous);
+
+    collect($mogous)->each(function($mogou){
+        $this->assertEquals(MogouTypeEnum::MANHWA->value,$mogou['mogou_type']);
+        $this->assertEquals(MogouFinishStatus::COMPLETED->value,$mogou['finish_status']);
+    });
+});

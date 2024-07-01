@@ -2,6 +2,8 @@
 
 namespace App\Scope;
 
+use App\Enum\MogouTypeEnum;
+
 trait MogouScope
 {
     public function scopeLastFourChapters($query)
@@ -40,6 +42,16 @@ trait MogouScope
         $finishStatus = request()->input('finish_status');
         return $query->when($finishStatus, function($query) use ($finishStatus){
             return $query->where('finish_status', $finishStatus);
+        });
+    }
+
+    public function scopeByMogouType($query)
+    {
+        $mogouType = request()->input('mogou_type');
+
+        return $query->when($mogouType, function($query) use ($mogouType){
+            $mogouTypeValue = MogouTypeEnum::getMogouType($mogouType);
+            return $query->where('mogou_type', $mogouTypeValue);
         });
     }
 

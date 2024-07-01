@@ -32,6 +32,7 @@ class MogouActionRequest extends FormRequest
             'legal_age' => 'required|boolean',
             'rating' => 'required|numeric|between:0,5',
             'finish_status' => MogouValidation::finishStatus(),
+            'mogou_type' => MogouValidation::mogouType(true),
             'categories' => 'required|array',
             'categories.*' => 'exists:categories,id',
             'released_year' => 'nullable|integer',

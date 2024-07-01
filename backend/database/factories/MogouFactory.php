@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Enum\MogousStatus;
 use App\Enum\MogouFinishStatus;
+use App\Enum\MogouTypeEnum;
 use App\Services\Partition\TablePartition;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -30,6 +31,7 @@ class MogouFactory extends Factory
             'cover' => $this->faker->imageUrl(),
             'status' => MogousStatus::getRandomStatus(),
             'finish_status' => MogouFinishStatus::getRandomStatus(),
+            'mogou_type' => MogouTypeEnum::getRandomMogouType(),
             'legal_age' => $this->faker->boolean,
             'rating' => $this->faker->randomFloat(1, 0, 5),
             'released_year' => $this->faker->year,

@@ -24,7 +24,6 @@ class MogouSeeder extends Seeder
 
             $outsource_data = DataClient::getMangaData();
 
-
             foreach ($outsource_data as $manga) {
                 $title  = str_replace('"', '', $manga['title']);
                 $data[] = [
