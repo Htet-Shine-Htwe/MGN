@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
+            ApplicationConfigSeeder::class,
             AdminSeeder::class,
             PermissionSeeder::class,
             AdminPermissionSeeder::class,
