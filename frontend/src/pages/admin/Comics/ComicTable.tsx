@@ -1,7 +1,3 @@
-import { MoreHorizontal } from "lucide-react"
-
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
 import {
     Card,
     CardContent,
@@ -10,65 +6,32 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+
 import {
     Table,
     TableBody,
-    TableCell,
     TableHead,
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { TablePagination } from "@/components/TablePagination"
+import { useState } from "react"
+import { useSearchParams } from "react-router-dom"
+import useQuery from "@/hooks/useQuery"
+import ContentTableRow from "@/components/ui/custom/ContentTableRow"
+import { MogousType } from "./type"
+import ComicTableRow from "./ComicTableRow"
 
 const ComicTable = () => {
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [queryParameters] = useSearchParams();
+    const [search, setSearch] = useState<string>(queryParameters.get('search') ?? "");
 
+    const { data, isLoading, isFetching, error, refetch } = useQuery(`admin/mogous?page=${currentPage}&search=${search}`);
 
-   const comics = Array.from({ length: 10 }, (_, index) => (
-        <TableRow key={index}>
-            <TableCell className="hidden sm:table-cell">
-                <Avatar className="w-16 h-16  md:h-24 md:w-24 !rounded-sm">
-                    <AvatarFallback  className="!rounded-sm"  >CN</AvatarFallback>
-                </Avatar>
-            </TableCell>
-            <TableCell className="font-medium">
-                Laser Lemonade Machine
-            </TableCell>
-            <TableCell>
-                <Badge variant="outline">Published</Badge>
-            </TableCell>
-            <TableCell className="hidden md:table-cell">331</TableCell>
-            <TableCell className="hidden md:table-cell">25.k</TableCell>
-            <TableCell className="hidden md:table-cell">
-                2023-07-12 10:42 AM
-            </TableCell>
-            <TableCell>
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button aria-haspopup="true" size="icon" variant="ghost">
-                            <MoreHorizontal className="h-4 w-4" />
-                            <span className="sr-only">Toggle menu</span>
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem>Edit</DropdownMenuItem>
-                        <DropdownMenuItem>Delete</DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            </TableCell>
-        </TableRow>
-    ));
-
-  return (
-    <Card>
+    return (
+        <Card>
             <CardHeader>
                 <CardTitle>Manga & Manhwas</CardTitle>
                 <CardDescription>
@@ -95,18 +58,28 @@ const ComicTable = () => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {comics}
+                        {
+                            isLoading ? (<ContentTableRow />)
+                                :
+                                (
+                                    data.mogous.data.length === 0 ? <ContentTableRow content="No data Found" /> :
+                                        data.mogous.data.map((sub: MogousType) => {
+                                            return <ComicTableRow key={sub.id} mogous={sub} />
+                                        })
+                                )
+                        }
 
                     </TableBody>
                 </Table>
             </CardContent>
             <CardFooter>
-                
 
-                <TablePagination />
+            {
+                    (data && data.mogous.data.length > 0 ) && <TablePagination url={data.mogous.path} lastPage={data.mogous.last_page} currentPage={currentPage} setCurrentPage={setCurrentPage} isFetching={isFetching} />
+            }
             </CardFooter>
         </Card>
-  )
+    )
 }
 
 export default ComicTable
