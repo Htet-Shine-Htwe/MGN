@@ -27,6 +27,7 @@ uses()->group('unit', 'tablePartition');
 //     $this->individual_user = User::factory()->create();
 // });
 
+
 test("get the limited rotation key collection",function(){
     $available_keys = TablePartition::availableRotationKey();
 

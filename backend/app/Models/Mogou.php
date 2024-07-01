@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Enum\MogouFinishStatus;
 use App\Enum\MogousStatus;
+use App\Enum\MogouTypeEnum;
+use App\Scope\MogouScope;
 use App\Services\Partition\TablePartition;
 use App\Traits\DbPartition;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,6 +14,7 @@ use Illuminate\Support\Str;
 class Mogou extends Model
 {
     use HasFactory,\Staudenmeir\EloquentEagerLimit\HasEagerLimit;
+    use MogouScope;
 
     protected $fillable = [
         'rotation_key',
@@ -21,6 +24,7 @@ class Mogou extends Model
         'author',
         'cover',
         'status',
+        'mogou_type',
         'finish_status',
         'legal_age',
         'rating',
@@ -34,9 +38,10 @@ class Mogou extends Model
         'rating' => 'double',
         'legal_age' => 'boolean',
         'finish_status' => MogouFinishStatus::class,
+        'mogou_type' => MogouTypeEnum::class,
     ];
 
-    protected $appends = ['status_name'];
+    protected $appends = ['status_name','mogou_type_name'];
 
     protected static function boot()
     {
@@ -52,6 +57,29 @@ class Mogou extends Model
         });
     }
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+    protected function getStatusNameAttribute()
+    {
+        if($this->status)
+        {
+            return MogousStatus::getStatusName($this->status);
+        }
+    }
+
+    protected function getMogouTypeNameAttribute()
+    {
+        if($this->mogou_type)
+        {
+            return MogouTypeEnum::getMogouTypeName($this->mogou_type);
+        }
+    }
+
+
+    // relationship
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'mogous_categories');
@@ -68,88 +96,7 @@ class Mogou extends Model
         );
     }
 
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
 
-    protected function getStatusNameAttribute()
-    {
-        if($this->status)
-        {
-            return MogousStatus::getStatusName($this->status);
-        }
-
-    }
-
-    public function scopeLastFourChapters($query)
-    {
-        return $query->with(['subMogous' => function($q){
-            $q->select('id','chapter_number','mogou_id')
-                ->orderBy('id', 'desc')
-                ->limit(3);
-        }]);
-    }
-
-    public function scopeOrderByRating($query)
-    {
-        return $query->when(request('order_by_rating'), function($query){
-            return $query->orderBy('rating', request('order_by_rating'));
-        });
-    }
-
-    public function scopeFilterStatus($query,bool $orWhere = true)
-    {
-        $status = request()->input('status');
-        return $query->when($status, function($query) use ($orWhere,$status){
-            return $orWhere ? $query->orWhere('status', $status) : $query->where('status', $status);
-        });
-    }
-
-    public function scopeLegalOnly($query)
-    {
-        return $query->when(request('legal_only'), function($query){
-            return $query->where('legal_age', true);
-        });
-    }
-
-    public function scopeByFinishStatus($query)
-    {
-        $finishStatus = request()->input('finish_status');
-        return $query->when($finishStatus, function($query) use ($finishStatus){
-            return $query->where('finish_status', $finishStatus);
-        });
-    }
-
-    public function scopeSearch($query)
-    {
-        $search = request()->input('search');
-        return $query->when($search, function($query) use ($search){
-            return $query->where('title', 'like', '%'.$search.'%')
-                ->orWhere('author', 'like', '%'.$search.'%');
-        });
-    }
-
-    public function scopeFilterCategory($query,bool $orWhere = true)
-    {
-        $category = request()->input('category');
-
-        return $query->when($category, function($query) use ($orWhere,$category){
-            return $orWhere ? $query->orWhereHas('categories', function($query) use ($category){
-                return $query->where('categories.id', $category);
-            }) : $query->whereHas('categories', function($query) use ($category){
-                return $query->where('categories.id', $category);
-            });
-        });
-    }
-
-    public function scopeYear($query)
-    {
-        $year = request()->input('year');
-        return $query->when($year, function($query) use ($year){
-            return $query->where('released_year', $year);
-        });
-    }
 
 
 
