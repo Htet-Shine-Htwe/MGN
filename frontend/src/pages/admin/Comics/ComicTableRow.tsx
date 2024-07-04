@@ -20,9 +20,9 @@ import { MogousType } from "./type"
 const ComicTableRow = ({mogous } : {mogous : MogousType}) => {
   return (
     <TableRow key={mogous.id}>
-            <TableCell className="hidden sm:table-cell">
+            <TableCell className=" ">
                     {/* moogous cover */}
-                <img src={mogous.cover} alt="cover" className="w-16 h-16 md:h-24 md:w-24 !rounded-sm" />
+                <img src={mogous.cover} alt="cover" className="w-32 h-40 md:h-32 md:w-32 !rounded-sm" />
               
             </TableCell>
             <TableCell className="font-medium">

@@ -42,7 +42,7 @@ const ComicTable = () => {
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            <TableHead className="hidden w-[100px] sm:table-cell">
+                            <TableHead className="min-w-32 md:w-[100px] sm:table-cell">
                                 <span className="sr-only">Cover</span>
                             </TableHead>
                             <TableHead>Name</TableHead>
