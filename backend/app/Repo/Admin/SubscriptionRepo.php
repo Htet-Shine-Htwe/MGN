@@ -28,6 +28,7 @@ class SubscriptionRepo implements ModelRepoInterface
         return Subscription::search($this->request->search)
         ->withCount('users')
         ->countBy($this->request->count_by)
+        ->priceBy($this->request->price_by)
         ->paginate($this->request->limit ?? 10)
         ->withQueryString();
     }

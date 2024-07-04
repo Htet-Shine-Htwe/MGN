@@ -24,6 +24,13 @@ class Subscription extends Model
         });
     }
 
+    public function scopePriceBy($query, $price): \Illuminate\Database\Eloquent\Builder
+    {
+        return $query->when($price, function ($q) use($price) {
+            return $q->orderBy('price',$price);
+        });
+    }
+
     public function users(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(User::class, 'current_subscription_id');
