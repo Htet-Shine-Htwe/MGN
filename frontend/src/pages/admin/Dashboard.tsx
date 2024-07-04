@@ -1,5 +1,6 @@
 import DashboardStat from "@/components/charts/DashboardStat";
 import OverViewChart from "@/components/charts/OverViewChart"
+import { CardsStats } from "@/components/charts/Stats";
 import { FaUsers, FaEye, FaUpload, FaChartArea } from "react-icons/fa";
 
 const Dashboard = () => {
@@ -7,6 +8,11 @@ const Dashboard = () => {
   return (
 
     <>
+
+<CardsStats />
+
+
+
       <div className="flex flex-col lg:flex-row gap-5 text-white px-4 md:px-0 pb-20">
         <div className="w-full">
           <div className="bg-white w-full min-h-[500px] rounded-3xl">
@@ -22,8 +28,10 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="w-full min-h-[50vh] flex flex-wrap gap-6">
+
           <div className="w-full flex gap-5 flex-wrap md:flex-nowrap">
             <div className="bg-primary w-full md:w-1/2  h-44 md:h-full  rounded-2xl">
+
               <DashboardStat Icon={FaUsers} stat="100" label="Total Users" />
             </div>
             <div className="bg-primary w-full md:w-1/2  h-44 md:h-full rounded-2xl">
@@ -43,6 +51,8 @@ const Dashboard = () => {
         </div>
 
       </div>
+
+
     </>
 
 
