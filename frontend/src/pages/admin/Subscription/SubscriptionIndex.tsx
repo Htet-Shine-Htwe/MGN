@@ -13,22 +13,32 @@ import { Label } from "@radix-ui/react-label"
 import { useState } from "react"
 
 
-const fruitsObject = {
+const sortSubscription = {
     "Max Subscriptions" : "desc",
     "Min Subscriptions" : "asc",
   };
+
+const sortSubscriptionPrice = {
+    "Max Price" : "desc",
+    "Min Price" : "asc",
+};
+
 
 
 const SubscriptionIndex = () => {
 
     const navigate = useNavigate();
     const [countBy,setCountBy] = useState<string>("");
+    const [priceBy,setPriceBy] = useState<string>("");
 
 
     const subscriptionCountOnChange = ((value:any)=>{
         setCountBy(value)
     })
 
+    const subscriptionPriceOnChange = ((value:any)=>{
+        setPriceBy(value)
+    })
 
     return (
         <main className=" flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
@@ -42,7 +52,14 @@ const SubscriptionIndex = () => {
 
                             <Label >Sort By :</Label>
 
-                            <SingleFilterSelect data={fruitsObject} onSelect={(value:any) => subscriptionCountOnChange(value)} placeholder="Sort By Sub Count" />
+                            <SingleFilterSelect data={sortSubscription} onSelect={(value:any) => subscriptionCountOnChange(value)} placeholder="Sort By Sub Count" />
+                        </div>
+
+                        <div className="flex items-center gap-4">
+
+                            <Label >Sort By :</Label>
+
+                            <SingleFilterSelect data={sortSubscriptionPrice} onSelect={(value:any) => subscriptionPriceOnChange(value)} placeholder="Sort By Price" />
                         </div>
                        
                         <div className="ml-auto flex items-center gap-2">
@@ -60,7 +77,7 @@ const SubscriptionIndex = () => {
                 
 
                 <div className="mt-8">
-                    <SubscriptionTable countBy={countBy} />
+                    <SubscriptionTable countBy={countBy} priceBy={priceBy} />
                 </div>
             </div>
         </main>

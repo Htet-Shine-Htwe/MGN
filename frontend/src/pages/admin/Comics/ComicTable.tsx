@@ -43,11 +43,11 @@ const ComicTable = () => {
                     <TableHeader>
                         <TableRow>
                             <TableHead className="min-w-32 md:w-[100px] sm:table-cell">
-                                <span className="sr-only">Cover</span>
+                                <span className="">Cover</span>
                             </TableHead>
                             <TableHead>Name</TableHead>
                             <TableHead>Status</TableHead>
-                            <TableHead className="hidden md:table-cell">Today Views</TableHead>
+                            <TableHead className="hidden md:table-cell">Total Chapters</TableHead>
                             <TableHead className="hidden md:table-cell">
                                 Total Views
                             </TableHead>

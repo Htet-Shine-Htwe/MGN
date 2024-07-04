@@ -21,13 +21,13 @@ import useQuery from "@/hooks/useQuery"
 import ContentTableRow from "@/components/ui/custom/ContentTableRow"
 import SubscriptionTableRow from "./SubscriptionTableRow"
 import { SubscriptionType } from "./type"
-const SubscriptionTable = ({countBy} : {countBy:string} ) => {
+const SubscriptionTable = ({countBy,priceBy} : {countBy:string,priceBy:string} ) => {
 
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [queryParameters] = useSearchParams();
     const [search, setSearch] = useState<string>(queryParameters.get('search') ?? "");
     
-    const { data, isLoading, isFetching, error, refetch } = useQuery(`admin/subscriptions?page=${currentPage}&search=${search}&count_by=${countBy}`);
+    const { data, isLoading, isFetching, error, refetch } = useQuery(`admin/subscriptions?page=${currentPage}&search=${search}&count_by=${countBy}&price_by=${priceBy}`);
 
     return (
         <Card>

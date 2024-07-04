@@ -15,14 +15,14 @@ const GobackRaw = ({ to, label = "back", variant = "outline" }: GobackProps) => 
     const renderBtn = () => {
         if (label === 'back') {
             return (
-                <Button variant={variant} onClick={() => navigate(to as string)}>
+                <Button type="button" variant={variant} onClick={() => navigate(to as string)}>
                     <ChevronLeft className="h-5 w-5" />
                     <span className='sr-only'>{label}</span>
                 </Button>
             );
         } else {
             return (
-                <Button variant="outline" size="sm" onClick={() => navigate(to as string)} >
+                <Button type="button" variant="outline" size="sm" onClick={() => navigate(to as string)} >
                     {label}
                 </Button>
             );

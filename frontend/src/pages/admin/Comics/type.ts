@@ -15,7 +15,7 @@ export interface MogousType {
     released_at:     string;
     created_at:      null;
     updated_at:      null;
-    status_name:     StatusName;
+    status_name:     MogousStatusName;
     mogou_type_name: MogouTypeName;
     categories:      Category[];
     sub_mogous:      SubMogous[];
@@ -35,10 +35,16 @@ export enum RotationKey {
     Beta = "beta",
 }
 
-export enum StatusName {
+export enum MogousStatusName {
     Archived = "Archived",
     Draft = "Draft",
     Published = "Published",
+}
+
+export enum MogousStatusColor {
+    Archived = "destructive",
+    Draft = "gold",
+    Published = "success",
 }
 
 export interface SubMogous {

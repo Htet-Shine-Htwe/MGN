@@ -8,7 +8,7 @@ trait CacheResponse
 
     public $cacheMode = true;
 
-    public function cacheResponse($key, $minutes=300 , $callback)
+    public function cacheResponse($key, $minutes=300 , $callback = null)
     {
         if (!$this->cacheMode) {
             return $callback();
@@ -49,7 +49,7 @@ trait CacheResponse
         return sprintf("%s-%s", config('app.name'), $key);
     }
 
-    public function cacheTags($tags, $key, $minutes = 300, $callback)
+    public function cacheTags($tags, $key, $minutes = 300, $callback = null)
     {
         return Cache::tags($tags)->remember($key, $minutes, $callback);
     }
