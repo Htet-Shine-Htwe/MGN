@@ -1,4 +1,3 @@
-import { title } from 'process';
 import * as Yup from 'yup';
 
 export const subscriptionValidationSchema = Yup.object().shape({
