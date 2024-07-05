@@ -82,7 +82,7 @@ class Authentication
         }
     }
 
-    public function signOut(string $guard = "web",string $path) : RedirectResponse
+    public function signOut(string $guard = "web",string $path ="/") : RedirectResponse
     {
         Auth::guard($guard)->logout();
 

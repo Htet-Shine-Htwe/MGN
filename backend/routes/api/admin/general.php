@@ -49,6 +49,9 @@ Route::middleware(['auth:sanctum'])
         Route::get('/mogous','index')->name('mogous.index');
 
         Route::post('/mogous','create')->name('mogous.store');
+        Route::post('/mogous/update-status','updateStatus')->name('mogous.updateStatus');
+        Route::post('/mogous/add-category','bindCategory')->name('mogous.addCategory');
+        Route::post('/mogous/remove-category','unbindCategory')->name('mogous.removeCategory');
         Route::put('/mogous/{mogou}','update')->name('mogous.update');
         Route::post('/delete/mogous','delete')->name('mogous.delete');
     });
