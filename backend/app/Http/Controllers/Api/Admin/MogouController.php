@@ -8,6 +8,7 @@ use App\Models\Mogou;
 use App\Repo\Admin\Mogou\MogouActionRepo;
 use App\Repo\Admin\Mogou\MogouRepo;
 use App\Traits\CacheResponse;
+use App\Vaildations\MogouValidation;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -15,8 +16,6 @@ class MogouController extends Controller
 {
 
     use CacheResponse;
-
-
     public function __construct(protected MogouRepo $mogouRepo, protected MogouActionRepo $mogouActionRepo)
     {
     }
@@ -54,10 +53,65 @@ class MogouController extends Controller
 
     public function update(MogouActionRequest $request, Mogou $mogou)
     {
-        $mogou = $this->mogouActionRepo->update($request, $mogou);
+        try{
+            $mogou = $this->mogouActionRepo->update($request, $mogou);
+            return response()->json([
+                'mogou' => $mogou
+            ]);
+        }
+        catch(\Exception $e){
+            return response()->json([
+                'message' => $e->getMessage()
+            ], Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    public function updateStatus(Request $request)
+    {
+        $request->validate([
+            'mogou_id' => 'required|exists:mogous,id',
+            'status' => 'required|'.MogouValidation::status()
+        ]);
+
+        $mogou = Mogou::find($request->input('mogou_id'));
+
+        $this->mogouActionRepo->updateStatus($mogou, $request->input('status'));
 
         return response()->json([
-            'mogou' => $mogou
+            'message' => "Mogou status updated to {$mogou->statusName} successfully"
+        ]);
+    }
+
+    public function bindCategory(Request $request)
+    {
+        $request->validate([
+            'mogou_id' => 'required|exists:mogous,id',
+            'category_id' => 'required|exists:categories,id|not_in:'.implode(',', Mogou::find($request->input('mogou_id'))->categories->pluck('id')->toArray())
+        ]);
+
+        $mogou = Mogou::find($request->input('mogou_id'));
+
+        $this->mogouActionRepo->addNewCategory($mogou, $request->input('category_id'));
+
+        return response()->json([
+            'message' => 'Category Added successfully',
+            'mogou' => $mogou->load('categories')
+        ]);
+    }
+
+    public function unbindCategory(Request $request)
+    {
+        $mogou = Mogou::findOrFail($request->input('mogou_id'));
+        $request->validate([
+            'mogou_id' => 'required|exists:mogous,id',
+            'category_id' => 'required|exists:categories,id|in:'.implode(',', $mogou->categories->pluck('id')->toArray())
+        ]);
+
+        $this->mogouActionRepo->removeCategory($mogou, $request->input('category_id'));
+
+        return response()->json([
+            'message' => 'Category removed successfully',
+            'mogou' => $mogou->load('categories')
         ]);
     }
 

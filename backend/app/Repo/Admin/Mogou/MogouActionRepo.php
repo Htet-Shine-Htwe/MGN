@@ -5,6 +5,7 @@ namespace App\Repo\Admin\Mogou;
 use App\Enum\MogousStatus;
 use App\Http\Requests\MogouActionRequest;
 use App\Models\Mogou;
+use HydraStorage\HydraStorage\Service\Option\MediaOption;
 use HydraStorage\HydraStorage\Traits\HydraMedia;
 
 class MogouActionRepo
@@ -19,8 +20,8 @@ class MogouActionRepo
             'title' => 'unique:mogous,title',
             'cover' => 'required|image'
         ]);
-
-        $data['cover'] = $this->storeMedia($request->file('cover'), 'mogou/cover',false);
+        $mediaOption = (new MediaOption())->setCustom(100,null,null,"jpg");
+        $data['cover'] = $this->storeMedia($request->file('cover'), 'mogou/cover',false,$mediaOption);
         $data['status'] = MogousStatus::ARCHIVED;
 
         $mogou = Mogou::create($data);
@@ -64,6 +65,23 @@ class MogouActionRepo
         $this->removeMedia($full_path);
 
         $mogou->delete();
+    }
+
+    public function updateStatus(Mogou $mogou, $status)
+    {
+        $mogou->update(['status' => $status]);
+
+        return $mogou;
+    }
+
+    public function addNewCategory(Mogou $mogou, $category_id)
+    {
+        $mogou->categories()->attach($category_id);
+    }
+
+    public function removeCategory(Mogou $mogou, $category_id)
+    {
+        $mogou->categories()->detach($category_id);
     }
 
 }

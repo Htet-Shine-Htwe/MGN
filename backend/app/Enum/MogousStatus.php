@@ -7,7 +7,6 @@ enum MogousStatus : int
     case DRAFT = 0;
     case PUBLISHED = 1;
     case ARCHIVED = 2;
-    case DELETED = 3;
 
     public static function getRandomStatus(): int
     {
@@ -15,7 +14,6 @@ enum MogousStatus : int
             0 => self::DRAFT->value,
             1 => self::PUBLISHED->value,
             2 => self::ARCHIVED->value,
-            3 => self::DELETED->value
         };
     }
 
@@ -25,7 +23,6 @@ enum MogousStatus : int
             self::DRAFT => "Draft",
             self::PUBLISHED => "Published",
             self::ARCHIVED => "Archived",
-            self::DELETED =>  "Deleted"
         };
     }
 
@@ -35,7 +32,6 @@ enum MogousStatus : int
             self::DRAFT->value,
             self::PUBLISHED->value,
             self::ARCHIVED->value,
-            self::DELETED->value
         ];
     }
 
@@ -45,7 +41,6 @@ enum MogousStatus : int
             "Draft" => self::DRAFT->value,
             "Published" => self::PUBLISHED->value,
             "Archived" => self::ARCHIVED->value,
-            "Deleted" => self::DELETED->value
         };
     }
 
