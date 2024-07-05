@@ -12,11 +12,11 @@ const AdminLayout = ({ children, title = "" }: AdminLayoutProps) => {
   const windowWidth = window.innerWidth;
 
   return (
-    <div className="flex h-screen overflow-scroll relative">
+    <div className="flex max-h-screen overflow-scroll ">
 
       {
         windowWidth > 768 && (
-          <div className="hidden md:w-[10%] min-w-[160px] md:flex justify-center sticky items-center ">
+          <div className="hidden md:w-[10%] min-w-[160px] md:flex justify-center sticky top-2 left-0 items-center ">
           <Sidebar />
         </div>
         )

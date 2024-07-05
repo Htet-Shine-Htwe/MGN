@@ -6,3 +6,6 @@ export type Category = {
     created_at?: string;
     updated_at?: string;
 }
+
+// take id and title from Category
+export type ComicCategory =  Pick<Category, 'id' | 'title'>;

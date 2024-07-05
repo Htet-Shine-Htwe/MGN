@@ -34,22 +34,43 @@ import {
 } from "@/components/ui/table"
 import { Textarea } from "@/components/ui/textarea"
 import Goback from "@/components/goback-btn"
-import MultiSelect from "@/components/MultiSelect"
+import CategorySelect from "./CategorySelect"
+import { useEffect, useState } from "react"
+
+const ComicType = [
+  {
+    id: 1,
+    title: 'Manga',
+  },
+  {
+    id: 2,
+    title: 'Manhwa',
+  },
+  {
+    id: 3,
+    title: 'Manhua',
+  }
+
+]
 
 
 const Action = () => {
 
-  const categories = [
-    { key: "clothing", value: "Clothing" },
-    { key: "electronics", value: "Electronics" },
-    { key: "accessories", value: "Accessories" },
-    { key: "stationery", value: "Stationery" },
-    { key: "furniture", value: "Furniture" },
-    { key: "food", value: "Food" },
-    { key: "beauty", value: "Beauty" },
-    { key: "health", value: "Health" },
-    { key: "toys", value: "Toys" },
-  ];
+  const [selectedCategories, setSelectedCategories] = useState<any>([]);
+
+  useEffect(() => {
+    setSelectedCategories([
+      {
+        id: 1,
+        title: 'Action',
+      },
+      {
+        id: 2,
+        title: 'Adventure',
+      }
+    ])
+  }, [])
+
 
   return (
 
@@ -180,19 +201,14 @@ const Action = () => {
               </CardContent>
             </Card>
 
-            <Card x-chunk="dashboard-07-chunk-2">
-              <CardHeader>
-                <CardTitle>Category</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid gap-6 sm:grid-cols-1">
+            
+                <div className="grid gap-6 sm:grid-cols-1 h-80 overflow-scroll">
                   <div className="grid gap-4">
                     {/* <Label htmlFor="tags">Category</Label> */}
-                    <MultiSelect values={categories} />
+                    <CategorySelect holderCategories={selectedCategories} setHolderCategories={setSelectedCategories} />
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              
 
 
             <Card x-chunk="dashboard-07-chunk-3">
@@ -204,12 +220,19 @@ const Action = () => {
                   <div className="grid gap-3">
                     <Label htmlFor="tier">Tier</Label>
                     <Select>
+
+                      
                       <SelectTrigger id="tier" aria-label="Select tier">
                         <SelectValue placeholder="Select tier" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="draft">Free</SelectItem>
-                        <SelectItem value="published">Premier</SelectItem>
+                        {
+                          ComicType.map((item) => (
+                            <SelectItem key={item.id} value={item.title}>
+                              {item.title}
+                            </SelectItem>
+                          ))
+                        }
                       </SelectContent>
                     </Select>
                   </div>
