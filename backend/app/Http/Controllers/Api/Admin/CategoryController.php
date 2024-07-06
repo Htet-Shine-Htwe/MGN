@@ -6,18 +6,33 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryActionRequest;
 use App\Models\Category;
 use App\Repo\Admin\CategoryRepo;
+use App\Traits\CacheResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class CategoryController extends Controller
 {
+
+    use CacheResponse;
+
     public function __construct(protected CategoryRepo $categoryRepo)
     {
     }
     public function index(Request $request)  : JsonResponse
     {
-        $categories = $this->categoryRepo->get($request);
+
+        $needCache = $request->limit > 300 ? true : false;
+
+        if ($needCache) {
+            $key = $this->generateCacheKey('all-categories');
+            $categories = $this->cacheResponse($key, 300, function () use ($request) {
+                return $this->categoryRepo->get($request);
+            });
+        } else {
+            $categories = $this->categoryRepo->get($request);
+        }
+
         return response()->json([
             'categories' => $categories
         ]);
@@ -26,6 +41,8 @@ class CategoryController extends Controller
     public function create(CategoryActionRequest $request)  : JsonResponse
     {
         $category = $this->categoryRepo->create($request);
+        $key = $this->generateCacheKey('all-categories');
+        $this->forgetCache($key);
         return response()->json([
             'category' => $category,
             'message' => 'Category created successfully.'
@@ -35,6 +52,9 @@ class CategoryController extends Controller
     public function update(CategoryActionRequest $request,Category $category)  : JsonResponse
     {
         $updated_category = $this->categoryRepo->update($request, $category);
+        $key = $this->generateCacheKey('all-categories');
+        $this->forgetCache($key);
+
         return response()->json([
             'category' => $updated_category,
             'message' => 'Category updated successfully.'
@@ -44,6 +64,9 @@ class CategoryController extends Controller
     public function delete(Category $category)  : JsonResponse
     {
         $this->categoryRepo->delete($category);
+        $key = $this->generateCacheKey('all-categories');
+        $this->forgetCache($key);
+
         return response()->json([
             'message' => 'Category deleted successfully.'
         ],Response::HTTP_OK);

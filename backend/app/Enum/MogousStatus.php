@@ -10,7 +10,7 @@ enum MogousStatus : int
 
     public static function getRandomStatus(): int
     {
-        return match (rand(0, 3)) {
+        return match (rand(0, 2)) {
             0 => self::DRAFT->value,
             1 => self::PUBLISHED->value,
             2 => self::ARCHIVED->value,

@@ -18,6 +18,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import useMutate from "@/hooks/useMutate"
 import InputError from "@/components/ui/input-error"
 import useServerValidation from "@/hooks/useServerValidation"
+import { useAppDispatch } from "@/redux/hooks"
 
 
 type CategoryModalProps = {
@@ -30,6 +31,8 @@ type CategoryModalProps = {
 export function CategoryModal({ initCategory, setInitCategory, open, setOpen }: CategoryModalProps) {
 
   const category = initCategory;
+
+  const dispatch = useAppDispatch();
 
   const isCreate = !category;
 
@@ -45,6 +48,7 @@ export function CategoryModal({ initCategory, setInitCategory, open, setOpen }: 
   const onSuccessCallback = (response: any) => {
     setInitCategory(undefined);
     setOpen(false);
+    dispatch({type: "categories/add", payload: response.data});
   }
 
 

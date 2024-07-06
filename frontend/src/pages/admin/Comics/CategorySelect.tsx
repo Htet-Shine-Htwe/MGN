@@ -35,7 +35,7 @@ const CategorySelect = ({ holderCategories, setHolderCategories }: CategorySelec
     }
 
     return (
-        <Card >
+        <Card className=''>
             <CardHeader>
                 <CardTitle>Added Categories</CardTitle>
             </CardHeader>
@@ -44,7 +44,7 @@ const CategorySelect = ({ holderCategories, setHolderCategories }: CategorySelec
                 <div className="grid gap-6 sm:grid-cols-1">
                     <div className="flex gap-4 flex-wrap">
                         {
-                            holderCategories!.map((category: ComicCategory) => {
+                            holderCategories?.map((category: ComicCategory) => {
                                 return (
                                     <div key={category.id}>
                                         <Badge
@@ -64,7 +64,7 @@ const CategorySelect = ({ holderCategories, setHolderCategories }: CategorySelec
                 <CardTitle>Category</CardTitle>
             </CardHeader>
             <CardContent>
-                <div className="grid gap-6 sm:grid-cols-1">
+                <div className="grid gap-6 sm:grid-cols-1 ">
 
                     <Input
                         ref={search}
@@ -83,9 +83,9 @@ const CategorySelect = ({ holderCategories, setHolderCategories }: CategorySelec
                         placeholder="Search category"
                         className="w-full p-2  rounded-md" />
 
-                    <div className="flex gap-4 flex-wrap">
+                    <div className="flex gap-4 flex-wrap max-h-40 overflow-scroll">
                         {
-                            categories!.map((category: ComicCategory) => {
+                            categories?.map((category: ComicCategory) => {
 
                                 const isExist = holderCategories!.find((item) => item.id === category.id);
                                 if (isExist) {

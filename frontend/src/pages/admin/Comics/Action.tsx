@@ -35,7 +35,11 @@ import {
 import { Textarea } from "@/components/ui/textarea"
 import Goback from "@/components/goback-btn"
 import CategorySelect from "./CategorySelect"
-import { useEffect, useState } from "react"
+import { useState } from "react"
+import FormInput from "@/components/ui/custom/FormInput"
+import { useForm } from "react-hook-form"
+import { yupResolver } from "@hookform/resolvers/yup"
+import { comicValidationSchema } from "./ComicActionValidation"
 
 const ComicType = [
   {
@@ -58,18 +62,15 @@ const Action = () => {
 
   const [selectedCategories, setSelectedCategories] = useState<any>([]);
 
-  useEffect(() => {
-    setSelectedCategories([
-      {
-        id: 1,
-        title: 'Action',
-      },
-      {
-        id: 2,
-        title: 'Adventure',
-      }
-    ])
-  }, [])
+  const {
+    register,
+    handleSubmit,
+    setError,
+    reset,
+    formState: { errors }
+  } = useForm<any>({
+    resolver: yupResolver(comicValidationSchema)
+  });
 
 
   return (
@@ -104,14 +105,10 @@ const Action = () => {
               </CardHeader>
               <CardContent>
                 <div className="grid gap-6">
-                  <div className="grid gap-3">
-                    <Label htmlFor="name">Title</Label>
-                    <Input
-                      id="name"
-                      type="text"
-                      className="w-full"
-                      defaultValue="Vinland Saga"
-                    />
+                  <div className="grid gap-3 md:grid-cols-2">
+
+                    <FormInput label="Title" placeholder="Title" register={register('title')} />
+                    <FormInput label="Author" placeholder="Author Name" register={register('author')} />
                   </div>
                   <div className="grid gap-3">
                     <Label htmlFor="description">Description</Label>
@@ -122,11 +119,65 @@ const Action = () => {
                     />
                   </div>
                 </div>
+
+
               </CardContent>
             </Card>
+
+            <div className="grid gap-6 md:grid-cols-2">
+
+
+            <Card x-chunk="dashboard-07-chunk-3">
+              <CardHeader>
+                <CardTitle>Type</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid gap-3">
+                    <Select>
+                      <SelectTrigger id="tier" aria-label="Select tier">
+                        <SelectValue placeholder="Select tier" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {
+                          ComicType.map((item) => (
+                            <SelectItem key={item.id} value={item.title}>
+                              {item.title}
+                            </SelectItem>
+                          ))
+                        }
+                      </SelectContent>
+                    </Select>
+                </div>
+              </CardContent>
+            </Card>
+            <Card x-chunk="dashboard-07-chunk-3">
+              <CardHeader>
+                <CardTitle>Progress</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid gap-3">
+                    <Select>
+                      <SelectTrigger id="tier" aria-label="Select Progress">
+                        <SelectValue placeholder="Select Progress" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {
+                          ComicType.map((item) => (
+                            <SelectItem key={item.id} value={item.title}>
+                              {item.title}
+                            </SelectItem>
+                          ))
+                        }
+                      </SelectContent>
+                    </Select>
+                </div>
+              </CardContent>
+            </Card>
+            </div>
+
             <Card x-chunk="dashboard-07-chunk-1">
               <CardHeader>
-                <CardTitle>Images</CardTitle>
+                <CardTitle>Chapters</CardTitle>
                 <CardDescription>
                   Lipsum dolor sit amet, consectetur adipiscing elit
                 </CardDescription>
@@ -201,61 +252,31 @@ const Action = () => {
               </CardContent>
             </Card>
 
-            
-                <div className="grid gap-6 sm:grid-cols-1 h-80 overflow-scroll">
-                  <div className="grid gap-4">
-                    {/* <Label htmlFor="tags">Category</Label> */}
-                    <CategorySelect holderCategories={selectedCategories} setHolderCategories={setSelectedCategories} />
-                  </div>
-                </div>
-              
+
+            <div className="grid gap-6 sm:grid-cols-1 ">
+              <div className="grid gap-4">
+                <CategorySelect holderCategories={selectedCategories} setHolderCategories={setSelectedCategories} />
+              </div>
+            </div>
 
 
-            <Card x-chunk="dashboard-07-chunk-3">
-              <CardHeader>
-                <CardTitle>Type</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid gap-6">
-                  <div className="grid gap-3">
-                    <Label htmlFor="tier">Tier</Label>
-                    <Select>
-
-                      
-                      <SelectTrigger id="tier" aria-label="Select tier">
-                        <SelectValue placeholder="Select tier" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {
-                          ComicType.map((item) => (
-                            <SelectItem key={item.id} value={item.title}>
-                              {item.title}
-                            </SelectItem>
-                          ))
-                        }
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
 
             <Card x-chunk="dashboard-07-chunk-5">
               <CardHeader>
                 <CardTitle>Published</CardTitle>
                 <CardDescription>
-                    If you publish this comic, it will be available to the public.
+                  If you publish this comic, it will be available to the public.
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <div></div>
-                <Button  variant="secondary" className="w-full">
+                <Button variant="success" className="w-full">
                   Publish
                 </Button>
               </CardContent>
             </Card>
 
-            
+
           </div>
         </div>
         <div className="flex items-center justify-center gap-2 md:hidden mt-4">
