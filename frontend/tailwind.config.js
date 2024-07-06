@@ -53,6 +53,7 @@ export const theme = {
       },
       gold: "hsl(var(--gold))",
       silver: "hsl(var(--silver))",
+      success: "hsl(var(--success))",
     },
     borderRadius: {
       lg: "var(--radius)",

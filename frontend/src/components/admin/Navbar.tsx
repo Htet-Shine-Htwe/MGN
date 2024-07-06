@@ -14,7 +14,7 @@ const NavbarRaw = ({ title }: NavbarProps) => {
 
 
   return (
-    <div className="flex min-w-full justify-between px-4 md:px-0">
+    <div className="flex min-w-full justify-between px-4">
       <div className="flex items-center gap-10">
 
         {windowWidth <= 768 ?(  

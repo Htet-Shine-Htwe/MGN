@@ -37,6 +37,10 @@
 
     --gold: 42.2 100% 50%;
     --silver: 0 0% 75.3%;
+
+    /* --success: 120 100% 25.1%; */
+    /* make lighter and soft */
+    --success: 130 90% 30.1%;
   }
  
   .dark {
