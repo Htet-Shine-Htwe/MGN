@@ -1,6 +1,7 @@
 import { lazy } from "react";
 import { AppRouteInterface } from "./type";
 import { adminRouteCollection } from "@/constants/constants.ts";
+import Apps from "@/pages/admin/apps/index.tsx";
 
 
 const AdminLayout = lazy(() => import('@/layouts/AdminLayout.tsx'));
@@ -103,6 +104,14 @@ const authenticatedRoutes: AppRouteInterface[] = [
       </AdminLayout>
     ),
   },
+  {
+    path: adminRouteCollection.apps,
+    element: (
+      <AdminLayout title="Apps">
+          <Apps />
+      </AdminLayout>
+    ),
+  }
 ];
 
 export default authenticatedRoutes;
