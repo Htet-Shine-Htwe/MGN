@@ -12,6 +12,7 @@ import { Category } from "./type";
 
 const CategoryIndex = () => {
 
+
   const [category, setCategory] = useState<Category | undefined>(undefined);
   const [modalOpen, setModalOpen] = useState(false);
 

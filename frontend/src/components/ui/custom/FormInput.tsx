@@ -2,14 +2,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import InputError from "../input-error";
 
-interface FormInputProps {
-  type?: string;
-  label?: string;
-  placeholder?: string;
-  defaultValue?: string | number;
-  fieldError?: { message?: string };
-  register: any;
-}
+import { FormInputProps } from "../intefaces/forminput"
 
 const FormInput = ({
   type = "text",
