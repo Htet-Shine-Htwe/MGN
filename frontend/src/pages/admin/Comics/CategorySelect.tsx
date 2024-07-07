@@ -83,7 +83,7 @@ const CategorySelect = ({ holderCategories, setHolderCategories }: CategorySelec
                         placeholder="Search category"
                         className="w-full p-2  rounded-md" />
 
-                    <div className="flex gap-4 flex-wrap max-h-40 overflow-scroll">
+                    <div className="flex gap-4 flex-wrap max-h-40 overflow-y-scroll max-w-[22rem]">
                         {
                             categories?.map((category: ComicCategory) => {
 
