@@ -53,17 +53,11 @@ class MogouController extends Controller
 
     public function update(MogouActionRequest $request, Mogou $mogou)
     {
-        try{
             $mogou = $this->mogouActionRepo->update($request, $mogou);
             return response()->json([
                 'mogou' => $mogou
             ]);
-        }
-        catch(\Exception $e){
-            return response()->json([
-                'message' => $e->getMessage()
-            ], Response::HTTP_BAD_REQUEST);
-        }
+
     }
 
     public function updateStatus(Request $request)
