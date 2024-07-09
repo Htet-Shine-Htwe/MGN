@@ -8,8 +8,6 @@ uses()->group('unit', 'dbTablePartition');
 
 
 test("check given partition table exists with checkTablePartition in db",function(){
-
-
     $dbPartition = new class extends Model {
 
         use App\Traits\DbPartition;
@@ -56,6 +54,25 @@ test("create beta partition table cuz alpha already exists",function(){
 
 });
 
+test("prevent creating partition table over locked",function(){
+
+        $dbPartition = new class extends Model {
+
+            use App\Traits\DbPartition;
+
+            protected string $baseTable = 'sub_mogous';
+
+            protected string $partition_prefix = 'sub_mogous';
+
+        };
+
+        $dbPartition->createPartition(); // creating alpha partition table
+        $dbPartition->createPartition();  // creating beta partition table
+        $dbPartition->createPartition();  // creating gamma partition table
+
+        $this->assertFalse($dbPartition->checkTablePartition('gamma_sub_mogous'));
+});
+
 test("increase the locked partition table to 3",function(){
 
     $dbPartition = new class extends Model {
@@ -76,8 +93,4 @@ test("increase the locked partition table to 3",function(){
     $dbPartition->createPartition();  // creating gamma partition table
 
     $this->assertTrue($dbPartition->checkTablePartition('gamma_sub_mogous'));
-
-    TablePartition::setLockedRotation(2);
-
-
 });

@@ -181,6 +181,7 @@ test("mogou can't update with duplicate title",function($mogou_data){
 
 
     $response = $this->authenticatedAdmin()->putJson(route('api.admin.mogous.update',$mogou['slug']),$mogou_data);
+
     $response->assertStatus(422);
     $response->assertJsonValidationErrors([
         'title'
