@@ -8,6 +8,8 @@ return [
     ],
     'mongou_storage' => "local",
 
+    "cacheMode" => false,
+
     'mogou' => [
         'cover' => [
             'path' => 'mogou/cover',

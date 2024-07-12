@@ -76,6 +76,7 @@ test("each category has mogous count and order by less popular",function(){
         'order_by_mogous_count' => 'asc'
     ]));
 
+
     $mogou = $response['categories']['data'];
 
     for($i = 0; $i < count($mogou) - 1; $i++){

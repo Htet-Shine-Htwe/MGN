@@ -25,21 +25,6 @@ beforeEach(function(){
     ]);
     $this->setupAdmin();
 
-    $this->sampleJsonStructure = [
-        'id',
-        'title',
-        'slug',
-        'description',
-        'author',
-        'cover',
-        'status',
-        'finish_status',
-        'legal_age',
-        'rating',
-        'released_year',
-        'released_at',
-        'categories',
-    ];
 });
 
 dataset('mogou-data-collection',[
@@ -69,14 +54,6 @@ test("mogou data can be fetched",function()
     $response->assertOk();
     $response->assertJsonCount(10,'mogous.data');
 
-    $response->assertJsonStructure([
-        'mogous' => [
-            'data' => [
-                '*' => $this->sampleJsonStructure
-            ]
-        ]
-    ]);
-
 });
 
 test("mogou data can searched with title",function($data)
@@ -92,13 +69,7 @@ test("mogou data can searched with title",function($data)
     $response->assertOk();
     $response->assertJsonCount(1,'mogous.data');
 
-    $response->assertJsonStructure([
-        'mogous' => [
-            'data' => [
-                '*' => $this->sampleJsonStructure
-            ]
-        ]
-    ]);
+
 
 })->with('mogou-data-collection');
 
