@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Admin\ApplicationConfigController;
+use App\Http\Controllers\Api\Admin\CategoryController;
 use App\Models\Mogou;
 use App\Services\Api\DataClient;
 use Illuminate\Http\Request;
@@ -29,7 +30,7 @@ Route::prefix('v1')
             Route::get('/application-configs','index')->name('application-configs.index');
             Route::post('/application-configs','update')->name('application-configs.store');
         });
+
+        Route::get("/public/categories",[CategoryController::class,"all"]);
     });
-
-
 

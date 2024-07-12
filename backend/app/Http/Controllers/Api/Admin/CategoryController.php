@@ -16,22 +16,26 @@ class CategoryController extends Controller
 
     use CacheResponse;
 
-    public function __construct(protected CategoryRepo $categoryRepo)
+    public function __construct(protected CategoryRepo $categoryRepo,private $cacheKey = "")
     {
+        $this->cacheKey = $this->generateCacheKey('all-categories');
     }
+
+    public function all(Request $request)
+    {
+        $key = $this->cacheKey;
+        $categories = $this->cacheResponse($key, 300, function () use ($request) {
+            return $this->categoryRepo->get($request);
+        });
+
+        return response()->json([
+            'categories' => $categories
+        ]);
+    }
+
     public function index(Request $request)  : JsonResponse
     {
-
-        $needCache = $request->limit > 300 ? true : false;
-
-        if ($needCache) {
-            $key = $this->generateCacheKey('all-categories');
-            $categories = $this->cacheResponse($key, 300, function () use ($request) {
-                return $this->categoryRepo->get($request);
-            });
-        } else {
-            $categories = $this->categoryRepo->get($request);
-        }
+        $categories =  $this->categoryRepo->get($request);
 
         return response()->json([
             'categories' => $categories
@@ -41,7 +45,8 @@ class CategoryController extends Controller
     public function create(CategoryActionRequest $request)  : JsonResponse
     {
         $category = $this->categoryRepo->create($request);
-        $key = $this->generateCacheKey('all-categories');
+        $key = $this->cacheKey;
+
         $this->forgetCache($key);
         return response()->json([
             'category' => $category,
@@ -52,7 +57,7 @@ class CategoryController extends Controller
     public function update(CategoryActionRequest $request,Category $category)  : JsonResponse
     {
         $updated_category = $this->categoryRepo->update($request, $category);
-        $key = $this->generateCacheKey('all-categories');
+        $key = $this->cacheKey;
         $this->forgetCache($key);
 
         return response()->json([
@@ -64,7 +69,7 @@ class CategoryController extends Controller
     public function delete(Category $category)  : JsonResponse
     {
         $this->categoryRepo->delete($category);
-        $key = $this->generateCacheKey('all-categories');
+        $key = $this->cacheKey;
         $this->forgetCache($key);
 
         return response()->json([
