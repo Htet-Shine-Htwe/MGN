@@ -35,7 +35,7 @@ const CategorySelect = ({ holderCategories, setHolderCategories }: CategorySelec
     }
 
     return (
-        <Card className=''>
+        <Card className='min-w-[30rem]'>
             <CardHeader>
                 <CardTitle>Added Categories</CardTitle>
             </CardHeader>
@@ -81,9 +81,9 @@ const CategorySelect = ({ holderCategories, setHolderCategories }: CategorySelec
                         }
                         type="text"
                         placeholder="Search category"
-                        className="w-full p-2  rounded-md" />
+                        className=" p-2  rounded-md" />
 
-                    <div className="flex gap-4 flex-wrap max-h-40 overflow-y-scroll max-w-[22rem]">
+                    <div className="flex gap-4 flex-wrap max-h-40 overflow-y-scroll ">
                         {
                             categories?.map((category: ComicCategory) => {
 
