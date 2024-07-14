@@ -6,6 +6,7 @@ import { BiCategory } from "react-icons/bi";
 import { MdSubscriptions } from "react-icons/md";
 import { ElementType } from "react";
 import { TbAppsFilled } from "react-icons/tb";
+import { prefixRoutes } from "@/route/helper";
 
 type MenuItem = {
     Icon: ElementType;
@@ -18,6 +19,13 @@ type NavigateMenu = {
     [key: string]: MenuItem;
 };
 
+interface ComicType {
+  id: number;
+  title: string;
+};
+
+export type AppRouteCollectionInterface = Record<string, string>;
+
 export const navigateMenu: NavigateMenu = {
     dashboard: { Icon: MdHomeFilled, to: "/dashboard", tooltip: "Home", title: "Home" },
     comics: { Icon: SiBookstack, to: "/comics", tooltip: "comics", title: "Comics" },
@@ -28,7 +36,7 @@ export const navigateMenu: NavigateMenu = {
     setting: { Icon: IoSettings, to: "/setting", tooltip: "Customize Your Application", title: "Setting" },
 };
 
-export const adminRouteCollection: Record<string, string> = {
+const adminRoutes: AppRouteCollectionInterface = {
     dashboard: "/dashboard",
     setting: "/setting",
     comics: "/comics",
@@ -42,10 +50,7 @@ export const adminRouteCollection: Record<string, string> = {
     apps: "/apps",
 };
 
-interface ComicType {
-    id: number;
-    title: string;
-};
+export const adminRouteCollection = prefixRoutes('/admin', adminRoutes);
 
 interface ComicProgress extends ComicType {};
 

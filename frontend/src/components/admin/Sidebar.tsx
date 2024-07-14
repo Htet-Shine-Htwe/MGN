@@ -5,9 +5,11 @@ import { memo } from "react";
 import { navigateMenu } from "@/constants/constants";
 import Logo from "@/assets/imgs/logo-icon.png";
 import useLogout from "@/hooks/useLogout";
+import { prefixRoutes } from "@/route/helper";
 
 const SidebarRaw = () => {
-  const icons = navigateMenu;
+  const icons = prefixRoutes('/admin',navigateMenu);
+  console.log(icons);
   const logout = useLogout();
 
   return (

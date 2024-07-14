@@ -15,6 +15,7 @@ import useServerValidation from "@/hooks/useServerValidation"
 import Cookies from "js-cookie"
 import { useAppDispatch } from "@/redux/hooks"
 import { setAdmin } from "@/redux/slices/admin-auth-slice"
+import { adminRouteCollection } from "@/constants/constants"
 
 
 interface loginSubmitForm {
@@ -49,7 +50,7 @@ const Login = () => {
           description: "You have been logged in successfully",
           variant: "success",
         });
-        navigate("/dashboard");
+        navigate(adminRouteCollection.dashboard);
       }
 
       const [postLogin, { isLoading }] = useMutate({ callback: loginOnSuccess, navigateBack: false});

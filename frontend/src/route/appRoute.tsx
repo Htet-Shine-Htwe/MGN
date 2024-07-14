@@ -4,21 +4,22 @@ import { lazy, Suspense } from 'react';
 import { ThemeProvider } from "@/components/theme-provider"
 import useAuth from "@/hooks/useAuth.tsx";
 import guestRoutes from "./guestRoute.tsx";
-import authenticatedRoutes from "./authenticatedRoute.tsx";
+import adminAuthenticatedRoutes from "./authenticatedRoute.tsx";
 import NotFoundError from "@/pages/errors/not-found.tsx";
 const AdminLayout = lazy(() => import('../layouts/AdminLayout.tsx'));
 
 const AppRoute = () => {
 
-  const isAuthenticated = useAuth();
+  const adminIsAuthenticated = useAuth({adminGuard: true});
+  const userIsAuthenticated = useAuth({adminGuard: false});
 
   const commonRoutes = [
     {
       path: "*",
-      element: isAuthenticated ? <NotFoundError /> : <NotFoundError  />
+      element: adminIsAuthenticated ? <NotFoundError /> : <NotFoundError />
     }];
 
-  const coll = isAuthenticated ? authenticatedRoutes : guestRoutes;
+  const coll = adminIsAuthenticated ? adminAuthenticatedRoutes : guestRoutes;
   // const routes = [...guestRoutes, ...authenticatedRoutes,...commonRoutes];
   const routes = [...coll, ...commonRoutes];
 

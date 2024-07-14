@@ -1,7 +1,14 @@
 import Cookies from "js-cookie"
 
-const useAuth = () : boolean => {
-    const token = Cookies.get('auth-token');
+
+type userAuthProps = {
+    adminGuard?: boolean,
+}
+
+const useAuth = ({adminGuard = true} : userAuthProps) : boolean => 
+{   
+    const tokeType = adminGuard ? 'auth-token' : 'user-auth-token';
+    const token = Cookies.get(tokeType);
     const expiresAt = Cookies.get('expiresAt');
     // console.log(token,expiresAt);
 

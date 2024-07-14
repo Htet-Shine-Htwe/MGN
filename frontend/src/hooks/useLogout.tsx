@@ -19,7 +19,7 @@ const useLogout = () => {
       variant: "destructive",
     });
     dispatch(adminLogout())
-    navigate("/login");
+    navigate('/admin/login');
   }, [navigate]);
 
   return logout;

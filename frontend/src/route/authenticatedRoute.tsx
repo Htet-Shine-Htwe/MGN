@@ -1,6 +1,6 @@
 import { lazy } from "react";
 import { AppRouteInterface } from "./type";
-import { adminRouteCollection } from "@/constants/constants.ts";
+import { adminRouteCollection  } from "@/constants/constants.ts";
 import Apps from "@/pages/admin/apps/index.tsx";
 
 
@@ -15,7 +15,8 @@ const SubscriptionIndex = lazy(() => import('../pages/admin/Subscription/Subscri
 const SubscriptionCreateEdit = lazy(() => import('../pages/admin/Subscription/SubscriptionCreateEdit.tsx'));
 const ComicIndex = lazy(() => import('../pages/admin/Comics/Index.tsx'));
 
-const authenticatedRoutes: AppRouteInterface[] = [
+
+const adminAuthenticatedRoutes: AppRouteInterface[] = [
   {
     path: '/',
     element: (
@@ -114,4 +115,4 @@ const authenticatedRoutes: AppRouteInterface[] = [
   }
 ];
 
-export default authenticatedRoutes;
+export default adminAuthenticatedRoutes;
