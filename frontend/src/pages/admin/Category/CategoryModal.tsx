@@ -19,6 +19,7 @@ import useMutate from "@/hooks/useMutate"
 import InputError from "@/components/ui/input-error"
 import useServerValidation from "@/hooks/useServerValidation"
 import { useAppDispatch } from "@/redux/hooks"
+import { addCategories } from "@/redux/slices/category-slice"
 
 
 type CategoryModalProps = {
@@ -49,6 +50,7 @@ export function CategoryModal({ initCategory, setInitCategory, open, setOpen }: 
     setInitCategory(undefined);
     setOpen(false);
     dispatch({type: "categories/add", payload: response.data});
+    dispatch(addCategories(response.data));
   }
 
 

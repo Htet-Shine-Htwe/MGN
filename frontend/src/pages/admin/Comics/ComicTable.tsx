@@ -14,7 +14,6 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { TablePagination } from "@/components/TablePagination"
 import { useState } from "react"
 import { useSearchParams } from "react-router-dom"
