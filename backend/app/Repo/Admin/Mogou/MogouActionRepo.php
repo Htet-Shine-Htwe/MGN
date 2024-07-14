@@ -21,6 +21,7 @@ class MogouActionRepo
             'cover' => 'required|image'
         ]);
         $mediaOption = (new MediaOption())->setCustom(100,null,null,"jpg");
+
         $data['cover'] = $this->storeMedia($request->file('cover'), 'mogou/cover',false,$mediaOption);
         $data['status'] = MogousStatus::ARCHIVED;
 
