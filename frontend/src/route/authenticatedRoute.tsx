@@ -3,7 +3,6 @@ import { AppRouteInterface } from "./type";
 import { adminRouteCollection  } from "@/constants/constants.ts";
 import Apps from "@/pages/admin/apps/index.tsx";
 
-
 const AdminLayout = lazy(() => import('@/layouts/AdminLayout.tsx'));
 const Dashboard = lazy(() => import('@/pages/admin/Dashboard.tsx'));
 const Setting = lazy(() => import('../pages/admin/Setting.tsx'));
@@ -17,14 +16,7 @@ const ComicIndex = lazy(() => import('../pages/admin/Comics/Index.tsx'));
 
 
 const adminAuthenticatedRoutes: AppRouteInterface[] = [
-  {
-    path: '/',
-    element: (
-      <AdminLayout title="Dashboard">
-        <Dashboard />
-      </AdminLayout>
-    ),
-  },
+ 
   {
     path: adminRouteCollection.dashboard,
     element: (

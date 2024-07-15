@@ -6,6 +6,7 @@ import useAuth from "@/hooks/useAuth.tsx";
 import guestRoutes from "./guestRoute.tsx";
 import adminAuthenticatedRoutes from "./authenticatedRoute.tsx";
 import NotFoundError from "@/pages/errors/not-found.tsx";
+import { userAuthenticatedRoutes } from "./userRoute.tsx";
 const AdminLayout = lazy(() => import('../layouts/AdminLayout.tsx'));
 
 const AppRoute = () => {
@@ -19,9 +20,12 @@ const AppRoute = () => {
       element: adminIsAuthenticated ? <NotFoundError /> : <NotFoundError />
     }];
 
-  const coll = adminIsAuthenticated ? adminAuthenticatedRoutes : guestRoutes;
+  const adminRoutes = adminIsAuthenticated ? adminAuthenticatedRoutes : guestRoutes;
+  const userRoutes =  userAuthenticatedRoutes ;
+
   // const routes = [...guestRoutes, ...authenticatedRoutes,...commonRoutes];
-  const routes = [...coll, ...commonRoutes];
+  const routes = [...adminRoutes,  ...userRoutes, ...commonRoutes];
+  console.log(routes)
 
   const routeCollection = useRoutes([...routes]);
 
