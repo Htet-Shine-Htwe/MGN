@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Enum\MogouFinishStatus;
 use App\Enum\MogousStatus;
+use App\Enum\MogouTypeEnum;
 use App\Models\Mogou;
 use App\Services\Api\DataClient;
 use App\Services\Partition\TablePartition;
@@ -35,6 +36,7 @@ class MogouSeeder extends Seeder
                     'cover' => $manga['picture_url'],
                     'status' => MogousStatus::getRandomStatus(),
                     'finish_status' =>  MogouFinishStatus::getRandomStatus(),
+                    'mogou_type' => MogouTypeEnum::getRandomMogouType(),
                     'legal_age' => 1,
                     'rating' => fake()->randomFloat(1, 0, 5),
                     'released_year' => fake()->year,
