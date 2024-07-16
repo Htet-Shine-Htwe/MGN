@@ -1,5 +1,6 @@
 import { Toaster } from "@/components/ui/toaster"
 import Navbar from "@/components/users/Navbar";
+import UserLayoutFooter from "./UserLayoutFooter";
 
 
 type UserLayoutProps = {
@@ -18,7 +19,7 @@ const UserLayout = ({ children, title = "" }: UserLayoutProps) => {
       <Navbar />
      
 
-      <div className="w-full pt-10 md:pe-20 h-[140vh]">
+      <div className="w-full pt-10 ">
 
         <div className="flex flex-col gap-8 w-full pt-2">
 
@@ -33,6 +34,10 @@ const UserLayout = ({ children, title = "" }: UserLayoutProps) => {
         </div>
 
       </div>
+
+      <footer>
+        <UserLayoutFooter />
+      </footer>
 
       <Toaster />
     </div>

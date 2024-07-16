@@ -25,15 +25,14 @@ const AppRoute = () => {
 
   // const routes = [...guestRoutes, ...authenticatedRoutes,...commonRoutes];
   const routes = [...adminRoutes,  ...userRoutes, ...commonRoutes];
-  console.log(routes)
 
   const routeCollection = useRoutes([...routes]);
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <Suspense fallback={<AdminLayout title="Dashboard">
+      <Suspense fallback={
         <p>loading....</p>
-      </AdminLayout>}>
+     }>
 
         {routeCollection}
 

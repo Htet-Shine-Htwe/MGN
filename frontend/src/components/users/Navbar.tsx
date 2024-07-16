@@ -2,13 +2,18 @@ import { CircleUser, Menu, Package2, Search } from "lucide-react"
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet"
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuSeparator, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from "../ui/dropdown-menu"
 import Logo from "@/assets/imgs/logo-icon.png";
 import { Link } from "react-router-dom"
+import { useTheme } from "../theme-provider"
+import { DropdownMenuSub } from "@radix-ui/react-dropdown-menu"
 
 const Navbar = () => {
+
+    const { setTheme } = useTheme();
+
     return (
-        <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-20">
+        <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-20 z-[999]">
             <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
                 <Link
                     to="#"
@@ -122,7 +127,28 @@ const Navbar = () => {
                             <DropdownMenuLabel>My Account</DropdownMenuLabel>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem>Settings</DropdownMenuItem>
-                            <DropdownMenuItem>Support</DropdownMenuItem>
+
+                            <DropdownMenuSub>
+
+                                <DropdownMenuSubTrigger className="flex items-center px-2 font-bold">
+                                    <span className="text-sm flex  items-center justify-between w-full"> Theme
+
+                                    </span>
+                                </DropdownMenuSubTrigger>
+                                <DropdownMenuPortal>
+                                    <DropdownMenuSubContent className="DropdownMenuContent" sideOffset={10}>
+                                        <DropdownMenuItem onClick={() => setTheme("light")}>
+                                            Light
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem onClick={() => setTheme("dark")}>
+                                            Dark
+                                        </DropdownMenuItem>
+                                    </DropdownMenuSubContent>
+                                </DropdownMenuPortal>
+
+                            </DropdownMenuSub>
+
+
                             <DropdownMenuSeparator />
                             <DropdownMenuItem>Logout</DropdownMenuItem>
                         </DropdownMenuContent>

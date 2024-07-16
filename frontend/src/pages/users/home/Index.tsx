@@ -1,10 +1,9 @@
+import { Separator } from "@radix-ui/react-select"
 import HeroCarousel from "./HeroCarousel"
-import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
-} from "@/components/ui/alert"
-import { Terminal } from "lucide-react"
+import MostViewCarousel from "./MostViewCarousel"
+import RecentlyUploaded from "./RecentlyUploaded"
+
+import ShareSection from "./ShareSection"
 
 const HomePage = () => {
   return (
@@ -14,14 +13,24 @@ const HomePage = () => {
       </div>
 
       <div className="w-full ">
-        <Alert className="bg-primary md:h-32">
-          <Terminal className="h-4 w-4" />
-          <AlertTitle>If you enjoy this website</AlertTitle>
-          <AlertDescription>
-            You can add components to your app using the cli.
-          </AlertDescription>
-        </Alert>
+        <ShareSection />
       </div>
+
+      <div className="w-full">
+        <MostViewCarousel />
+      </div>
+
+      <Separator className="w-full h-1 bg-primary" />
+
+      <div className="w-full">
+        <RecentlyUploaded />
+      </div>
+
+      <div className="w-full">
+        <MostViewCarousel />
+      </div>
+
+
     </main>
   )
 }
