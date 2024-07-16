@@ -41,7 +41,7 @@ class Mogou extends Model
         'mogou_type' => MogouTypeEnum::class,
     ];
 
-    protected $appends = ['status_name','mogou_type_name'];
+    protected $appends = ['status_name','mogou_type_name','finish_status_name'];
 
     protected static function boot()
     {
@@ -75,6 +75,14 @@ class Mogou extends Model
         if($this->mogou_type)
         {
             return MogouTypeEnum::getMogouTypeName($this->mogou_type);
+        }
+    }
+
+    protected function getFinishStatusNameAttribute()
+    {
+        if($this->finish_status)
+        {
+            return MogouFinishStatus::getKey($this->finish_status);
         }
     }
 

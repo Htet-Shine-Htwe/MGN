@@ -21,7 +21,7 @@ class MogousCategorySeeder extends Seeder
             $mogousCategories = array_merge($one, $two);
 
         } else {
-            $mogousCategories = $this->loopOver(Mogou::count(), Category::count());
+            $mogousCategories = array_merge($this->loopOver(Mogou::count(), Category::count()), $this->loopOver(Mogou::count(), Category::count()),$this->loopOver(Mogou::count(), Category::count()),$this->loopOver(Mogou::count(), Category::count()),$this->loopOver(Mogou::count(), Category::count()),$this->loopOver(Mogou::count(), Category::count()),$this->loopOver(Mogou::count(), Category::count()));
         }
 
         DB::table('mogous_categories')->insert($mogousCategories);
