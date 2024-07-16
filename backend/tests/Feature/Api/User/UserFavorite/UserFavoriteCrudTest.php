@@ -29,11 +29,11 @@ beforeEach(function() {
 test("list user favorites",function()
 {
 
-    $this->postJson(route('api.user.user-favorites.store',[
+    $this->postJson(route('api.users.user-favorites.store',[
         'mogou_id' => 1
     ]));
 
-    $response = $this->getJson(route('api.user.user-favorites.index'));
+    $response = $this->getJson(route('api.users.user-favorites.index'));
 
     $response->assertOk();
 
@@ -45,7 +45,7 @@ test("list user favorites",function()
 
 test("user can add favorite",function()
 {
-    $response = $this->postJson(route('api.user.user-favorites.store',[
+    $response = $this->postJson(route('api.users.user-favorites.store',[
         'mogou_id' => 1
     ]));
 
@@ -57,11 +57,11 @@ test("user can add favorite",function()
 
 test("duplicate favorite doesn't add to favorites",function()
 {
-    $this->postJson(route('api.user.user-favorites.store',[
+    $this->postJson(route('api.users.user-favorites.store',[
         'mogou_id' => 1
     ]));
 
-    $response = $this->postJson(route('api.user.user-favorites.store',[
+    $response = $this->postJson(route('api.users.user-favorites.store',[
         'mogou_id' => 1
     ]));
 
@@ -75,11 +75,11 @@ test("duplicate favorite doesn't add to favorites",function()
 
 test("user can remove favorite",function()
 {
-    $this->postJson(route('api.user.user-favorites.store',[
+    $this->postJson(route('api.users.user-favorites.store',[
         'mogou_id' => 1
     ]));
 
-    $response = $this->postJson(route('api.user.user-favorites.delete',[
+    $response = $this->postJson(route('api.users.user-favorites.delete',[
         'mogou_id' => 1
     ]));
 
@@ -91,7 +91,7 @@ test("user can remove favorite",function()
 
 test("user can't remove non-existing favorite",function()
 {
-    $response = $this->postJson(route('api.user.user-favorites.delete',[
+    $response = $this->postJson(route('api.users.user-favorites.delete',[
         'mogou_id' => 30303
     ]));
 

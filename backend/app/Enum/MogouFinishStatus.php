@@ -26,7 +26,7 @@ enum MogouFinishStatus :int
         ];
     }
 
-    public static function getKey(int $value): string
+    public static function getKey(MogouFinishStatus $value): string
     {
         return match ($value) {
             self::ONGOING => 'Ongoing',
