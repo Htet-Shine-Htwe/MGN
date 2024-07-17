@@ -5,12 +5,11 @@ import UserLayoutFooter from "./UserLayoutFooter";
 
 type UserLayoutProps = {
   children: React.ReactNode;
-  title: string;
 };
 
-const UserLayout = ({ children, title = "" }: UserLayoutProps) => {
+const UserLayout = ({ children}: UserLayoutProps) => {
 
-  const windowWidth = window.innerWidth;
+  // const windowWidth = window.innerWidth;
 
 
   return (
@@ -19,7 +18,7 @@ const UserLayout = ({ children, title = "" }: UserLayoutProps) => {
       <Navbar />
      
 
-      <div className="w-full pt-10 ">
+      <div className="w-full pt-10 min-h-screen">
 
         <div className="flex flex-col gap-8 w-full pt-2">
 

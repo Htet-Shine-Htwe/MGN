@@ -1,10 +1,11 @@
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
-import { FaFacebook, FaLinkedin, FaTelegram, FaTwitter } from 'react-icons/fa6'
+import { FaFacebook, FaTelegram } from 'react-icons/fa6'
 
 
 
 const socialShareData = [
         {
+            id: 33223,
             name: "Facebook",
             url: "https://www.facebook.com/sharer/sharer.php?u=https://www.mogous.com",
             icon: < FaFacebook className='text-xl' />,
@@ -13,6 +14,7 @@ const socialShareData = [
         
         // telegram
         {
+            id:34343,
             name: "Telegram",
             url: "https://t.me/share/url?url=https://www.mogous.com",
             icon: <FaTelegram className='text-2xl' />,
@@ -29,6 +31,7 @@ const ShareSection = () => {
                 <div className="flex gap-4 justify-center">
                     {socialShareData.map((social) => (
                         <a
+                            key={social.id}
                             href={social.url}
                             target="_blank"
                             rel="noreferrer"

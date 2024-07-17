@@ -10,7 +10,7 @@ export const userAuthenticatedRoutes: AppRouteInterface[] = [
     {
       path: '/',
       element: (
-        <UserLayout title="">
+        <UserLayout >
           <HomePage />
         </UserLayout>
       ),

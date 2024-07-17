@@ -56,6 +56,7 @@ const Login = () => {
       const [postLogin, { isLoading }] = useMutate({ callback: loginOnSuccess, navigateBack: false});
       const onSubmit =  async (data: loginSubmitForm) => {
         const response =  await postLogin("admin/login", data) as any;
+        console.log(response);
         if (response && response.error) {
           handleServerErrors(response.error,setError);
          }

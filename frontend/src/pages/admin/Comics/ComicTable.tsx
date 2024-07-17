@@ -25,9 +25,9 @@ import ComicTableRow from "./ComicTableRow"
 const ComicTable = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [queryParameters] = useSearchParams();
-    const [search, setSearch] = useState<string>(queryParameters.get('search') ?? "");
+    const [search] = useState<string>(queryParameters.get('search') ?? "");
 
-    const { data, isLoading, isFetching, error, refetch } = useQuery(`admin/mogous?page=${currentPage}&search=${search}`);
+    const { data, isLoading, isFetching } = useQuery(`admin/mogous?page=${currentPage}&search=${search}`);
 
     return (
         <Card>

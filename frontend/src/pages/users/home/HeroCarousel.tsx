@@ -21,7 +21,7 @@ const HeroCarousel = () => {
   return (
     <Carousel className="min-w-full ">
       <CarouselContent className="-ml-1 gap-4">
-        {!isLoading && memoData.mogous.map((mogou) => (
+        {!isLoading && memoData?.mogous.map((mogou) => (
           <HeroCarouselCard mogou={mogou} />
         ))}
       </CarouselContent>

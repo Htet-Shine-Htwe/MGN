@@ -18,7 +18,7 @@ const appText = new Map<string, string>([
 ])
 
 export default function Apps() {
-  const [sort, setSort] = useState('ascending')
+  const [sort] = useState('ascending')
   const [appType, setAppType] = useState('all')
   const [searchTerm, setSearchTerm] = useState('')
 

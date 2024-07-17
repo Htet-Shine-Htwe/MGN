@@ -1,4 +1,4 @@
-import { MoreHorizontal, Search, SearchIcon } from "lucide-react"
+import { MoreHorizontal} from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -52,7 +52,7 @@ const CategoryTable = ({
 
     const searchRef = React.useRef<HTMLInputElement>(null);
 
-    const { data: categories, isLoading, isFetching, error, refetch } = useQuery(`admin/categories?page=${currentPage}&search=${search}&order_by_mogous_count=asc`);
+    const { data: categories, isLoading, isFetching} = useQuery(`admin/categories?page=${currentPage}&search=${search}&order_by_mogous_count=asc`);
 
     const submitSearch = () => {
         console.log('worked')
@@ -127,11 +127,10 @@ const CategoryTableRow = ({ category, index, setCategory, setOpen }: {
         setOpen(false);
     }
 
-    const [postCategory, { isLoading }] = useMutate({ callback: onSuccessCallback });
+    const [postCategory] = useMutate({ callback: onSuccessCallback });
 
     const deleteCategory = async (id: number) => {
-        const response = await postCategory(`admin/categories/${id}`) as any;
-
+         await postCategory(`admin/categories/${id}`) as any;
     }
 
 

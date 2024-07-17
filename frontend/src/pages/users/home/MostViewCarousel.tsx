@@ -20,7 +20,9 @@ const MostViewCarousel = () => {
             <CardDescription>
                 <Carousel className="min-w-full ">
                     <CardTitle className='flex justify-between'>
+                        <div>
                         <p className='text-2xl'>Most Viewed</p>
+                        </div>
                         <div className="relative">
                             <CarouselPrevious className='relative -left-4 ' />
                             <CarouselNext className='relative left-0' />

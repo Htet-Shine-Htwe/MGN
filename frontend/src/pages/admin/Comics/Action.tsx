@@ -12,14 +12,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import { Switch } from "@/components/ui/switch"
 
 import Goback from "@/components/goback-btn"
@@ -32,17 +24,22 @@ import { comicValidationSchema } from "./ComicActionValidation"
 import FormTextBox from "@/components/ui/custom/FormTextBox"
 import { ComicProgress, ComicType } from "@/constants/constants"
 import { Label } from "@/components/ui/label"
-import InputError from "@/components/ui/input-error"
+import PublishTab from "./PublishTab"
+import FormSelect from "@/components/ui/custom/FormSelect"
 
 const Action = () => {
 
   const [selectedCategories, setSelectedCategories] = useState<any>([]);
+  const [bindData,setBindData] = useState<any>({
+    status : 1,
+    legal_age : false,
+  });
+
 
   const {
     register,
     handleSubmit,
-    setError,
-    reset,
+ 
     setValue,
     formState: { errors }
   } = useForm<any>({
@@ -51,7 +48,11 @@ const Action = () => {
 
 
 
-  const onSubmit = (data: any) => {
+  const onSubmit =(data: any) => {
+    data.status = bindData.status
+    data.legal_age = bindData.legal_age
+    // id array only distinct
+    data.categories = [...new Set(selectedCategories.map((item: any) => item.id))]
     console.log(data);
     console.log(errors)
   }
@@ -78,7 +79,7 @@ const Action = () => {
             <Button type="submit" size="sm">Save</Button>
           </div>
         </div>
-        <div className="grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8">
+        <div className="grid gap-4  lg:grid-cols-3 lg:gap-8">
           <div className="grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8">
             <Card x-chunk="dashboard-07-chunk-0">
               <CardHeader>
@@ -112,44 +113,18 @@ const Action = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="grid gap-3">
-                  <Select  onValueChange={(value)=>setValue('mogou_type',value)}>
-                      <SelectTrigger id="tier" aria-label="Select tier">
-                        <SelectValue placeholder="Select tier" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {
-                          ComicType.map((item) => (
-                            <SelectItem key={item.id} value={item.id as unknown as string}>
-                              {item.title}
-                            </SelectItem>
-                          ))
-                        }
-                      </SelectContent>
-                    </Select>
-                    <InputError field={errors?.mogou_type} />
+                  <FormSelect selectKey="mogou_type" collection={ComicType} setValue={setValue} errors={errors} />
+
                   </div>
                 </CardContent>
               </Card>
-              <Card x-chunk="dashboard-07-chunk-3">
+              <Card x-chunk="dashboard-07-chunk-4">
                 <CardHeader>
                   <CardTitle>Progress</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid gap-3">
-                    <Select>
-                      <SelectTrigger id="tier" aria-label="Select Progress">
-                        <SelectValue placeholder="Select Progress" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {
-                          ComicProgress.map((item) => (
-                            <SelectItem key={item.id} value={item.title}>
-                              {item.title}
-                            </SelectItem>
-                          ))
-                        }
-                      </SelectContent>
-                    </Select>
+                    <FormSelect selectKey="finish_status" collection={ComicProgress} setValue={setValue} errors={errors} />
                   </div>
                 </CardContent>
               </Card>
@@ -171,7 +146,12 @@ const Action = () => {
                     This comic contains mature content
                   </Label>
                 </div>
-                <Switch />
+                <Switch 
+                checked={bindData.legal_age}
+                onCheckedChange={(value) => setBindData({
+                  ...bindData,
+                  legal_age: value
+                })} />
               </CardContent>
             </Card>
 
@@ -200,24 +180,8 @@ const Action = () => {
                 <CategorySelect holderCategories={selectedCategories} setHolderCategories={setSelectedCategories} />
               </div>
             </div>
-
-
-
-            <Card x-chunk="dashboard-07-chunk-5">
-              <CardHeader>
-                <CardTitle>Published</CardTitle>
-                <CardDescription>
-                  If you publish this comic, it will be available to the public.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div></div>
-                <Button variant="success" className="w-full">
-                  Publish
-                </Button>
-              </CardContent>
-            </Card>
-
+              
+            <PublishTab status={bindData.status} setStatus={setBindData}/>
 
           </div>
         </div>

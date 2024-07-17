@@ -1,4 +1,3 @@
-import React from 'react'
 import { FaTwitter, FaYoutube } from 'react-icons/fa6'
 import { Link } from 'react-router-dom'
 import Logo from "@/assets/imgs/logo-icon.png";

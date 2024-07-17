@@ -16,7 +16,10 @@ const baseQuery = fetchBaseQuery({
     headers.set("Accept", "application/json")
     return headers;
   },
-});
+},
+
+
+);
 
 export const queryApi = createApi({
   reducerPath: "queryApi",

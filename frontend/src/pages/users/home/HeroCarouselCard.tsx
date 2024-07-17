@@ -1,6 +1,5 @@
 import { Card, CardContent } from '@/components/ui/card'
 import { CarouselItem } from '@/components/ui/carousel'
-import React from 'react'
 import { MogousElement } from './types'
 
 

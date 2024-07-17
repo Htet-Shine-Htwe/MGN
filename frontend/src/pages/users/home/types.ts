@@ -18,16 +18,31 @@ export interface MogousElement {
     mogou_type_name:    string;
     finish_status_name: string;
     categories:         Category[];
+    sub_mogous: SubMogousType[];
 }
+
 
 export interface Category {
     title: string;
 }
 
+export interface SubMogousType {
+    id: number;
+    title: string;
+}
 
-export type MostViewMogou = Pick<MogousElement, "id" | "title" | "cover" | "status_name" | "mogou_type_name" | "finish_status_name" | "categories">;
+export type MostViewMogou = Pick<MogousElement, "id" | "title" | "cover" | "status_name" | "mogou_type_name" | "finish_status_name" | "categories" | "sub_mogous">;
 
 export interface MostViewed {
+    // mogous: {
+    //     data : MostViewMogou[];
+    // }
+    mogous : MostViewMogou[]
+}
+
+
+
+export interface RecentlyUploadedResponse {
     mogous: {
         data : MostViewMogou[];
     }

@@ -1,6 +1,5 @@
 import { toast } from "@/components/ui/use-toast";
 import { usePostDataMutation } from "@/redux/api/queryApi";
-import useLogout from "./useLogout";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 
 type MethodType = "GET" | "POST" | "PUT" | "DELETE";
@@ -29,12 +28,10 @@ const useMutate = (params: ParamsType = {}): ReturnType => {
     callback,
     navigateBack = true,
     disableAlert = false,
-    disableInvalidate = false,
   } = params;
 
-  const logout = useLogout();
   const navigate = useNavigate();
-  const [mutate, { isLoading, isSuccess, isError, error }] = usePostDataMutation();
+  const [mutate, { isLoading, isError, error }] = usePostDataMutation();
 
   const onSubmit = async (
     url: string,
@@ -44,21 +41,36 @@ const useMutate = (params: ParamsType = {}): ReturnType => {
     try {
 
       const result = await mutate({ url, method, body: values ?? {} }) as any;
-      if (result.error) {
+      if (result.error || result.errors) {
         if (result.error.data) {
           toast({
             title: "❗️Error",
             description: result.error.data.message,
             variant: "destructive",
           });
+        }
 
+        if (result.error.error) {
+          toast({
+            title: "❗️Error",
+            description: result.error.error,
+            variant: "destructive",
+          });
+          return;
+        }
+        // handle request time out
+
+        if (result.error && result.error.name) {
+          toast({
+            title: "❗️ Server Request timeout",
+            variant: "destructive"
+          });
         }
         return result;
       }
 
-      if(isError)
-      {
-        console.log('server error',error);  
+      if (isError) {
+        console.log('server error', error);
       }
 
       if (result?.data?.message && !disableAlert) {

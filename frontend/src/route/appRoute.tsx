@@ -1,18 +1,17 @@
 import { useRoutes } from "react-router-dom"
 
-import { lazy, Suspense } from 'react';
+import {  Suspense } from 'react';
 import { ThemeProvider } from "@/components/theme-provider"
 import useAuth from "@/hooks/useAuth.tsx";
 import guestRoutes from "./guestRoute.tsx";
 import adminAuthenticatedRoutes from "./authenticatedRoute.tsx";
 import NotFoundError from "@/pages/errors/not-found.tsx";
 import { userAuthenticatedRoutes } from "./userRoute.tsx";
-const AdminLayout = lazy(() => import('../layouts/AdminLayout.tsx'));
 
 const AppRoute = () => {
 
   const adminIsAuthenticated = useAuth({adminGuard: true});
-  const userIsAuthenticated = useAuth({adminGuard: false});
+  // const userIsAuthenticated = useAuth({adminGuard: false});
 
   const commonRoutes = [
     {

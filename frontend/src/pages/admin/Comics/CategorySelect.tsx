@@ -35,7 +35,7 @@ const CategorySelect = ({ holderCategories, setHolderCategories }: CategorySelec
     }
 
     return (
-        <Card className='min-w-[30rem]'>
+        <Card className='w-full'>
             <CardHeader>
                 <CardTitle>Added Categories</CardTitle>
             </CardHeader>

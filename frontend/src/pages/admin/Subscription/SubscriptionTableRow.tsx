@@ -17,7 +17,7 @@ import {
 import AlertBox from "@/components/ui/AlertBox";
 import { SubscriptionType } from "./type";
 import { useNavigate } from "react-router-dom";
-import { adminRouteCollection } from "@/constants/constants";
+// import { adminRouteCollection } from "@/constants/constants";
 import useMutate from "@/hooks/useMutate";
 
 interface SubscriptionTableRowProps {
@@ -32,8 +32,7 @@ const SubscriptionTableRow = ({index,subscription} : SubscriptionTableRowProps) 
     const [postSubscription, { isLoading }] = useMutate({callback:()=>{}});
 
     const deleteSubscription = async (id: number) => {
-        const response = await postSubscription(`admin/subscriptions/${id}`) as any;
-
+        await postSubscription(`admin/subscriptions/${id}`) as any;
     }
 
   return (

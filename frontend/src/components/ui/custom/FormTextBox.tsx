@@ -1,5 +1,4 @@
 import { FormInputProps } from "../intefaces/forminput"
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import InputError from "../input-error";
 import { Textarea } from "@/components/ui/textarea";
@@ -23,7 +22,7 @@ const FormTextBox = ({
     return (
         <div className="grid gap-4">
             <Label htmlFor={label}>{label}</Label>
-            <Textarea defaultValue="initValue"  placeholder={placeholder} className={className} {...register}/>
+            <Textarea defaultValue={initValue}  placeholder={placeholder} className={className} {...register}/>
             <InputError field={fieldError} />
         </div>
     );

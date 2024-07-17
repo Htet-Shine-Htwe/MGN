@@ -1,11 +1,9 @@
-import { AppRouteCollectionInterface } from "@/constants/constants";
-
 export function prefixRoutes<T extends Record<string, any>>(prefix: string, routes: T): T {
     const prefixedRoutes: Record<string, any> = {};
 
     for (const key in routes) {
         if (routes.hasOwnProperty(key)) {
-            const value = routes[key];
+            const value = routes[key] as any;
             if (typeof value === 'string') {
                 prefixedRoutes[key] = prefix + value;
             } else if (typeof value === 'object' && value.to) {

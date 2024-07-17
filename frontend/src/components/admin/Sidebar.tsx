@@ -9,7 +9,6 @@ import { prefixRoutes } from "@/route/helper";
 
 const SidebarRaw = () => {
   const icons = prefixRoutes('/admin',navigateMenu);
-  console.log(icons);
   const logout = useLogout();
 
   return (

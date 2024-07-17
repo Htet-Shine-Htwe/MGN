@@ -1,7 +1,7 @@
 import { Card, CardDescription, CardTitle } from '@/components/ui/card'
 import useQuery from '@/hooks/useQuery';
-import React, { useState } from 'react'
-import { MostViewed } from './types';
+import React, { useCallback, useState } from 'react'
+import { RecentlyUploadedResponse } from './types';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { ComicType } from '@/constants/constants';
 
@@ -14,18 +14,27 @@ const RecentlyUploaded = () => {
     const MemorizedData = React.useMemo(() => {
         console.log("memorized the most viewed data")
         return data;
-    }, [data]) as MostViewed;
+    }, [data]) as RecentlyUploadedResponse;
+
+    const handlePageChange = useCallback((page: number) => {
+        // check if the page is less than 1
+        if (page < 1) {
+            return;
+        }
+        setPage(page)
+
+    }, [])
 
     return (
         <Card className='border-none'>
             <CardTitle className='flex justify-between'>
                 <p className='text-2xl'>Recently Uploaded</p>
-                <div className="relative">
+                <div className="flex  gap-12">
 
                     <ToggleGroup variant="outline" type="single">
                         {
                             ComicType.map((type) => (
-                                <ToggleGroupItem value={type.title} aria-label="Toggle bold">
+                                <ToggleGroupItem key={type.id} value={type.title} aria-label="Toggle bold">
                                     {
                                         type.title
                                     }
@@ -36,6 +45,13 @@ const RecentlyUploaded = () => {
                        
                     </ToggleGroup>
 
+                    {/* next and prev page */}
+                    
+                    <div className="flex gap-4">
+                        <button onClick={() => handlePageChange(page - 1)} className="bg-primary text-white px-2 py-1 rounded-sm">Prev</button>
+                        <button onClick={() => handlePageChange(page + 1)} className="bg-primary text-white px-2 py-1 rounded-sm">Next</button>
+                    </div>
+
 
                 </div>
             </CardTitle>
@@ -43,7 +59,7 @@ const RecentlyUploaded = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                     {
                         !isLoading && MemorizedData?.mogous?.data.map((mogou) => (
-                            <div key={mogou.id} className='pl-1 overflow-hidden cursor-pointer '>
+                            <div key={mogou.id} className='pl-1 overflow-hidden cursor-pointer rounded-lg'>
                                 <div className='flex h-full' >
                                     <div className="img w-32 md:w-40 ">
                                         <img src={mogou?.cover} alt="hero" className="w-full h-52 md:h-60 object-cover" />
