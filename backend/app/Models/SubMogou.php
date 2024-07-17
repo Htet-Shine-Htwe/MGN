@@ -3,14 +3,21 @@
 namespace App\Models;
 
 use App\Contracts\DbPartitionModelInterface;
+use App\Traits\DbPartition;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class SubMogou extends Model
 {
-    use HasFactory,\Staudenmeir\EloquentEagerLimit\HasEagerLimit;
+    use HasFactory,\Staudenmeir\EloquentEagerLimit\HasEagerLimit,DbPartition;
 
     protected $table = 'sub_mogous';
+
+    protected string $partition_prefix = 'sub_mogous';
+
+    protected string $baseTable = 'sub_mogous';
+
+
 
     protected $fillable = [
         'title',

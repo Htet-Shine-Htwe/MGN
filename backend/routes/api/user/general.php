@@ -19,7 +19,7 @@ Route::prefix('users')->name('users.')->group(function(){
     Route::controller(HomePageController::class)->group(function(){
         Route::get('/carousel','carousel')->name('carousel');
         Route::get('/most-viewed','mostViewed')->name('most-viewed');
-        Route::get('/last-uploaded','lastUploaded')->name('most-uploaded');
+        Route::get('/last-uploaded','lastUploaded')->name('last-uploaded');
     });
 
 });
