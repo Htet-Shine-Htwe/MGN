@@ -2,6 +2,7 @@
 
 use App\Enum\MogouFinishStatus;
 use App\Enum\MogouTypeEnum;
+use App\Models\Mogou;
 use Database\Seeders\CategorySeeder;
 use Database\Seeders\MogousCategorySeeder;
 use Database\Seeders\MogouSeeder;
@@ -273,6 +274,11 @@ test("Only Manhwa Mogou returned",function(){
 
 test("Only Completed Manhwa Mogou returned",function(){
 
+    Mogou::factory()->create([
+        'mogou_type' => MogouTypeEnum::MANHWA->value,
+        'finish_status' => MogouFinishStatus::COMPLETED->value
+    ]);
+
     $response = $this->authenticatedAdmin()->getJson(route('api.admin.mogous.index',[
         'mogou_type' => "Manhwa",
         'finish_status' => MogouFinishStatus::COMPLETED->value
@@ -288,4 +294,4 @@ test("Only Completed Manhwa Mogou returned",function(){
         $this->assertEquals(MogouTypeEnum::MANHWA->value,$mogou['mogou_type']);
         $this->assertEquals(MogouFinishStatus::COMPLETED->value,$mogou['finish_status']);
     });
-});
+})->group("current");
