@@ -27,6 +27,14 @@ const useQuery = (
     }, [url, refetch, refetchOnUrlChange]);
 
     useEffect(() => {
+        if (data && !isFetching) {
+            if (callback) {
+                callback(data, { isLoading, isFetching });
+            }
+        }
+    }, [data, isFetching, callback, isLoading]);
+
+    useEffect(() => {
         if (error) {
             const { status, data: errorData } = error as QueryErrorInterface;
 
