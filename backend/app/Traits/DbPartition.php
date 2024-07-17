@@ -8,11 +8,26 @@ use Illuminate\Support\Facades\Schema;
 
 trait DbPartition
 {
+
+    public function dbConstructing()
+    {
+        $available_tables = TablePartition::availableRotationKey();
+        $table_name = $this->partition_prefix;
+
+        foreach ($available_tables as $table) {
+            $this->firstOrCreate($table."_".$table_name);
+        }
+    }
+
+    public function firstOrCreate($table)
+    {
+        $this->checkTablePartition($table) ? : $this->createPartition();
+    }
+
     public function getPartitionPrefix(): string
     {
         return $this->partition_prefix;
     }
-
 
     public function createPartition(): void
     {
