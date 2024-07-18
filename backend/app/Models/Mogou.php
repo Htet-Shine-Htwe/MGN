@@ -7,7 +7,6 @@ use App\Enum\MogousStatus;
 use App\Enum\MogouTypeEnum;
 use App\Scope\MogouScope;
 use App\Services\Partition\TablePartition;
-use App\Traits\DbPartition;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -103,19 +102,5 @@ class Mogou extends Model
             $instance->newQuery(),$this,$instance->getTable().'.mogou_id','id'
         );
     }
-
-
-
-
-
-    // protected function newRelatedInstance($class)
-    // {
-    //     $table_name = $this->rotate_key."_".(new $class)->getTable();
-    //     return tap((new $class())->setTable($table_name), function ($instance) {
-    //         if (!$instance->getConnectionName()) {
-    //             $instance->setConnection($this->connection);
-    //         }
-    //     });
-    // }
 
 }

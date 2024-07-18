@@ -33,3 +33,11 @@ if(!function_exists('appDriver')){
     }
 
 }
+
+if(!function_exists('generateSubMogouFolder'))
+{
+    function generateStorageFolder($prefixFolder,$folder) :string
+    {
+        return "$prefixFolder/$folder";
+    }
+}

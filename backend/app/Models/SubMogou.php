@@ -34,6 +34,8 @@ class SubMogou extends Model
         'mogou_id',
     ];
 
+    protected $appends = ['full_cover_path'];
+
     protected static function boot()
     {
         parent::boot();
@@ -47,6 +49,11 @@ class SubMogou extends Model
         static::updating(function($sub_mogou){
             $sub_mogou->slug = Str::slug($sub_mogou->title);
         });
+    }
+
+    public function getFullCoverPathAttribute()
+    {
+        return asset('storage/'.generateStorageFolder("sub_mogou",$this->slug.'/cover') . '/' . $this->cover);
     }
 
 
