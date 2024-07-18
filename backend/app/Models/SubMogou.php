@@ -6,6 +6,8 @@ use App\Contracts\DbPartitionModelInterface;
 use App\Traits\DbPartition;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
+
 
 class SubMogou extends Model
 {
@@ -16,8 +18,6 @@ class SubMogou extends Model
     protected string $partition_prefix = 'sub_mogous';
 
     protected string $baseTable = 'sub_mogous';
-
-
 
     protected $fillable = [
         'title',
@@ -34,6 +34,21 @@ class SubMogou extends Model
         'mogou_id',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::dbConstructing();
+
+        static::creating(function($sub_mogou){
+            $sub_mogou->slug = Str::slug($sub_mogou->title);
+        });
+
+        static::updating(function($sub_mogou){
+            $sub_mogou->slug = Str::slug($sub_mogou->title);
+        });
+    }
+
 
     public function getSubscriptionCollectionAttribute($value)
     {
@@ -45,10 +60,6 @@ class SubMogou extends Model
         return $this->belongsTo(Mogou::class);
     }
 
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
 
     public function mogou_images()
     {

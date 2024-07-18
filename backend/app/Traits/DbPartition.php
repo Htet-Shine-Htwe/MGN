@@ -9,13 +9,13 @@ use Illuminate\Support\Facades\Schema;
 trait DbPartition
 {
 
-    public function dbConstructing()
+    public static function dbConstructing()
     {
         $available_tables = TablePartition::availableRotationKey();
-        $table_name = $this->partition_prefix;
+        $table_name = (new self())->partition_prefix;
 
         foreach ($available_tables as $table) {
-            $this->firstOrCreate($table."_".$table_name);
+            (new self())->firstOrCreate($table."_".$table_name);
         }
     }
 
@@ -24,9 +24,9 @@ trait DbPartition
         $this->checkTablePartition($table) ? : $this->createPartition();
     }
 
-    public function getPartitionPrefix(): string
+    public function getPartition(string $rotation_key): string
     {
-        return $this->partition_prefix;
+        return  $rotation_key . '_' . $this->partition_prefix;
     }
 
     public function createPartition(): void
