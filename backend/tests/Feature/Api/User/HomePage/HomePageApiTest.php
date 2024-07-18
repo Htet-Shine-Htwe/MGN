@@ -49,5 +49,4 @@ test("last-uploaded mogous data for homepage can fetched successfully",function(
     $response->assertOk();
     $count = count($response->json('mogous.data'));
     $this->assertTrue($count > 1);
-})->group("current");
-
+});

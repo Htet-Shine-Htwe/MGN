@@ -57,7 +57,8 @@ Route::middleware(['auth:sanctum'])
     });
 
     Route::controller(SubMogouController::class)->group(function(){
-
+        Route::post('/sub-mogous/new-draft','saveNewDraft')->name('sub-mogous.saveNewDraft');
+        Route::post('/sub-mogous/update-cover','updateCover')->name('sub-mogous.updateCover');
     });
 });
 

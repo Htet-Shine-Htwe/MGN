@@ -1,5 +1,6 @@
 <?php
 
+use App\Enum\MogousStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,10 +16,10 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug')->unique();
-            $table->text('description');
-            $table->string('cover');
+            $table->text('description')->nullable();
+            $table->string('cover')->nullable();
 
-            $table->integer('status')->default(0);
+            $table->integer('status')->default(MogousStatus::DRAFT->value);
             $table->integer("chapter_number");
             $table->unsignedBigInteger('views')->default(0);
 

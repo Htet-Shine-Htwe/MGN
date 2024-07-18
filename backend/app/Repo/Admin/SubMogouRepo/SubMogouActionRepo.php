@@ -2,19 +2,77 @@
 
 namespace App\Repo\Admin\SubMogouRepo;
 
+use App\Models\Mogou;
+use App\Models\SubMogou;
+use HydraStorage\HydraStorage\Traits\HydraMedia;
+
 class SubMogouActionRepo
 {
-    public function __construct(protected $subMogou)
+    use HydraMedia;
+
+    public function __construct()
     {
     }
 
-    public function createNewSubMogou(array $data) :void
+    protected function setSubMogouTable($id)
     {
-        $this->subMogou->create($data);
+        $mogou = Mogou::where('id',$id)->first();
+
+        $rotation_key = $mogou->rotation_key;
+
+        $sub_mogou = new SubMogou();
+        $table = $sub_mogou->getPartition($rotation_key);
+
+        $sub_mogou->setTable($table);
+
+        $sub_mogou->setKeyName('id');
+
+        return $sub_mogou;
+    }
+
+    public function generateSubMogouFolder($sub_mogou) :string
+    {
+        $folder = 'sub_mogou/'.$sub_mogou['slug']."/cover";
+
+        return $folder;
+    }
+
+    public function saveNewDraft(array $data) :SubMogou
+    {
+        $sub_mogou = $this->setSubMogouTable($data['mogou_id']);
+
+        $sub_mogou = $sub_mogou->create($data);
+
+        // $sub_mogou = (new SubMogou());
+        // $sub_mogou->title = $data['title'];
+        // $sub_mogou->chapter_number = $data['chapter_number'];
+        // $sub_mogou->mogou_id = $data['mogou_id'];
+
+        // $sub_mogou->save();
+
+        return $sub_mogou;
+    }
+
+    public function updateCover(array $data) :SubMogou
+    {
+        $sub_mogou_model = $this->setSubMogouTable($data['mogou_id']);
+
+
+        $sub_mogou = $sub_mogou_model->where('slug',$data['slug'])->firstOrFail();
+
+
+        $store_cover_folder = $this->generateSubMogouFolder($sub_mogou);
+
+        $data['cover'] = $this->storeMedia($data['cover'], $store_cover_folder ,false);
+
+        $sub_mogou->cover = $data['cover'];
+
+        $sub_mogou->save();
+
+        return $sub_mogou;
     }
 
     public function removeSubscriptionId(int|array $id) :void
     {
-        $ids = $this->subMogou->subscription_collection;
     }
 }
