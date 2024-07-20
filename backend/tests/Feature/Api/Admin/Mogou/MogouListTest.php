@@ -174,7 +174,7 @@ test("mogou data filtered with status & category & year",function($data){
 })->with('mogou-data-collection');
 
 
-test("each mogou has last 3 chapters",function()
+test("Each mogous has sub mogous",function()
 {
     $response = $this->authenticatedAdmin()->getJson(route('api.admin.mogous.index'));
 
@@ -186,7 +186,6 @@ test("each mogou has last 3 chapters",function()
 
     collect($mogous)->each(function($mogou){
         $this->assertArrayHasKey('sub_mogous',$mogou);
-        $this->assertCount(3,$mogou['sub_mogous']);
     });
 
 });

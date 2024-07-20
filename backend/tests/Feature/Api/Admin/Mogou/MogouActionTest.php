@@ -7,16 +7,20 @@ use App\Models\SubMogou;
 use Database\Seeders\CategorySeeder;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Schema;
+use Tests\Support\TestStorage;
 use Tests\Support\UserAuthenticated;
 
 uses()->group('admin','api','admin-mogou','admin-mogou-action');
 uses(UserAuthenticated::class);
+uses(TestStorage::class);
 
 beforeEach(function(){
     $this->seed([
         CategorySeeder::class
     ]);
     $this->setupAdmin();
+    $this->bootStorage();
+
     $this->sampleJsonStructure = [
         'id',
         'title',
@@ -151,6 +155,9 @@ test("mogou can be updated",function($mogou_data)
     $this->assertDatabaseHas('mogous',[
         'title' => $mogou_data['title']
     ]);
+
+    $full_path = 'mogou/cover/' . $response->json('cover');
+    $this->assertInStorage($full_path);
 
     $this->assertFileExists(storage_path('app/public/mogou/cover/'.$response->json('cover')));
 
