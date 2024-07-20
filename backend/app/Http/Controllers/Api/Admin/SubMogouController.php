@@ -43,5 +43,14 @@ class SubMogouController extends Controller
         ], 200);
     }
 
+    public function show($mogous_id, $sub_mogou_id)
+    {
+        $subMogou = $this->subMogouActionRepo->show($mogous_id, $sub_mogou_id);
+
+        return response()->json([
+            'sub_mogou' => $subMogou
+        ], 200);
+    }
+
 
 }

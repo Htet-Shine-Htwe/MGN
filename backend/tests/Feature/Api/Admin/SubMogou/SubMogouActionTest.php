@@ -3,13 +3,13 @@
 use App\Models\Mogou;
 use App\Repo\Admin\SubMogouRepo\SubMogouActionRepo;
 use Database\Seeders\CategorySeeder;
+use Tests\Support\TestStorage;
 use Tests\Support\UserAuthenticated;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 
-uses()->group('admin','api','admin-mogou','admin-mogou-action');
+uses()->group('admin','api','admin-mogou','admin-submogou-action');
 uses(UserAuthenticated::class);
+uses(TestStorage::class);
 
 beforeEach(function(){
     $this->seed([
@@ -17,7 +17,10 @@ beforeEach(function(){
     ]);
     $this->setupAdmin();
 
+    $this->bootStorage();
+
     $this->mogou = Mogou::factory()->create();
+
 });
 
 dataset('sub-mogou-data-collection',[
@@ -48,7 +51,7 @@ test("create new draft sub mogou with mogou id",function($data)
     ]);
     // dd(DB::table($this->mogou->rotation_key . '_sub_mogous')->get());
 
-})->group('current')
+})
 ->with('sub-mogou-data-collection');
 
 
@@ -60,7 +63,7 @@ test("validation sub mogou without mogou id",function($data)
     ]);
     $response->assertStatus(422);
     $response->assertJsonValidationErrors('mogou_id');
-})->group('current')
+})
 ->with('sub-mogou-data-collection');
 
 test("validation without cover in updating sub mogous cover",function($sub_mogou){
@@ -81,7 +84,6 @@ test("validation without cover in updating sub mogous cover",function($sub_mogou
     $response->assertStatus(422);
     $response->assertJsonValidationErrors('cover');
 })
-->group('current')
 ->with('sub-mogou-data-collection');
 
 test("can successfully update the cover of sub mogous",function($sub_mogou){
@@ -91,6 +93,7 @@ test("can successfully update the cover of sub mogous",function($sub_mogou){
         'chapter_number' => $sub_mogou['chapter_number'],
         'mogou_id' => $sub_mogou['mogou_id']
     ]);
+
 
     $subMogou = $response->json('sub_mogou');
 
@@ -111,7 +114,7 @@ test("can successfully update the cover of sub mogous",function($sub_mogou){
     ]);
     $full_path = $folder . '/' . $response->json('sub_mogou.cover');
 
-    $this->assertFileExists(storage_path('app/public/' . $full_path));
+    $this->assertInStorage($full_path);
 })
 ->group('current')
 ->with('sub-mogou-data-collection');

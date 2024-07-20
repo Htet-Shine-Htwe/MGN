@@ -43,13 +43,6 @@ class SubMogouActionRepo
 
         $sub_mogou = $sub_mogou->create($data);
 
-        // $sub_mogou = (new SubMogou());
-        // $sub_mogou->title = $data['title'];
-        // $sub_mogou->chapter_number = $data['chapter_number'];
-        // $sub_mogou->mogou_id = $data['mogou_id'];
-
-        // $sub_mogou->save();
-
         return $sub_mogou;
     }
 
@@ -57,11 +50,9 @@ class SubMogouActionRepo
     {
         $sub_mogou_model = $this->setSubMogouTable($data['mogou_id']);
 
-
         $sub_mogou = $sub_mogou_model->where('slug',$data['slug'])->firstOrFail();
 
-
-        $store_cover_folder = $this->generateSubMogouFolder($sub_mogou);
+        $store_cover_folder = generateStorageFolder("sub_mogou",$data['slug'].'/cover');
 
         $data['cover'] = $this->storeMedia($data['cover'], $store_cover_folder ,false);
 
@@ -72,7 +63,12 @@ class SubMogouActionRepo
         return $sub_mogou;
     }
 
-    public function removeSubscriptionId(int|array $id) :void
+    public function show($mogous_id, $sub_mogou_id) :SubMogou
     {
+        $sub_mogou = $this->setSubMogouTable($mogous_id);
+
+        $sub_mogou = $sub_mogou->where('id',$sub_mogou_id)->firstOrFail();
+
+        return $sub_mogou;
     }
 }
