@@ -33,7 +33,7 @@ trait MogouScope
     public function scopeLegalOnly($query)
     {
         return $query->when(request('legal_only'), function($query){
-            return $query->where('legal_age', true);
+            return $query->where('legal_age', request('legal_only'));
         });
     }
 
