@@ -11,25 +11,9 @@ use App\Services\Partition\TablePartition;
 // Group the test
 uses()->group('unit', 'tablePartition');
 
-// beforeEach(function() {
-//     // Set configuration
-//     config(['control.test.mogous_count' => 20]);
-
-//     // Seed the database
-//     $this->seed([
-//         SubscriptionSeeder::class,
-//         UserSeeder::class,
-//         CategorySeeder::class,
-//         MogouSeeder::class,
-//     ]);
-
-//     // Create a user instance
-//     $this->individual_user = User::factory()->create();
-// });
-
-
 test("get the limited rotation key collection",function(){
-    $available_keys = TablePartition::availableRotationKey();
+
+    $available_keys = (new TablePartition([]))->availableRotationKey();
 
     $this->assertCount(2,$available_keys);
 });
