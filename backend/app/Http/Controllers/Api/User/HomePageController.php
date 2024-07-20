@@ -18,7 +18,7 @@ class HomePageController extends Controller
 
     public function carousel()
     {
-        $mogou = Mogou::select("id", "title", "slug", "cover", "rotation_key", "description", "finish_status", 'mogou_type', 'status')
+        $mogou = Mogou::select("id", "title", "slug", "cover", "rotation_key", "description", "finish_status", 'mogou_type', 'status',"rating")
             ->where('status', MogousStatus::PUBLISHED->value)
             ->with('categories:title')
             ->take(8)
