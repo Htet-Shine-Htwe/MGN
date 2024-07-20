@@ -14,7 +14,9 @@ export interface MogousElement {
     finish_status:      number;
     mogou_type:         number;
     status:             number;
+    rating?:            number;
     status_name:        string;
+    legal_age?:          boolean;
     mogou_type_name:    string;
     finish_status_name: string;
     categories:         Category[];
@@ -31,7 +33,10 @@ export interface SubMogousType {
     title: string;
 }
 
-export type MostViewMogou = Pick<MogousElement, "id" | "title" | "cover" | "status_name" | "mogou_type_name" | "finish_status_name" | "categories" | "sub_mogous">;
+export type MostViewMogou = Pick<MogousElement, "id" | "title" | "cover" | "status_name" | "mogou_type_name" | "finish_status_name" | "categories" | "sub_mogous" | "legal_age">;
+
+export type RecentlyUploadedMogou = MostViewMogou;
+
 
 export interface MostViewed {
     // mogous: {
@@ -44,6 +49,7 @@ export interface MostViewed {
 
 export interface RecentlyUploadedResponse {
     mogous: {
+        last_page: any;
         data : MostViewMogou[];
     }
 }

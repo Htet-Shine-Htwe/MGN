@@ -43,4 +43,4 @@ export const { setCategories, addCategories, updateCategories, removeCategories 
 
 export default categoriesSlice.reducer;
 
-export const selectCategories = (state: { categories: ComicCategory[] }) => state.categories;
+export const selectSafeMode = (state: { userGlobal: { safeMode: boolean } }) => state.userGlobal.safeMode;

@@ -5,6 +5,7 @@ import { postApi } from "./api/postApi";
 import { queryApi } from "./api/queryApi";
 import adminAuthSlice from "./slices/admin-auth-slice";
 import categoriesSlice from "./slices/category-slice";
+import { userGlobalSlice } from "./slices/user-global";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     [postApi.reducerPath]: postApi.reducer,
     adminAuth: adminAuthSlice,
     categories: categoriesSlice,
+    userGlobal: userGlobalSlice.reducer,
   },
   middleware: (getDefaultMiddleware: any) =>
     getDefaultMiddleware().concat(

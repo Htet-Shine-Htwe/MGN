@@ -1,6 +1,7 @@
 import { Card, CardContent } from '@/components/ui/card'
 import { CarouselItem } from '@/components/ui/carousel'
 import { MogousElement } from './types'
+import { Rating } from '@/components/ui/rating'
 
 
 
@@ -22,6 +23,8 @@ const HeroCarouselCard = ({ mogou }: { mogou: MogousElement }) => {
                   <span className="hidden md:flex text-muted font-semibold h-12 overflow-hidden">
                     {mogou?.description}
                   </span>
+                  <Rating rating={mogou?.rating !} totalStars={5} size={24} variant="yellow" disabled={true} />
+
                   <div className="flex gap-2 flex-wrap">
 
                     {

@@ -26,7 +26,7 @@ const UserLayoutFooter = () => {
             <span className="sr-only">Twitter</span>
           </Link>
         </div>
-        <p className="mt-4 md:mt-0 text-sm text-gray-300">&copy; 2024 Radian Team. All rights reserved.</p>
+        <p className="mt-4 md:mt-0 text-sm text-gray-300">&copy; 2024 NorthSide Wizards Team. All rights reserved.</p>
       </div>
     </div>
   )
