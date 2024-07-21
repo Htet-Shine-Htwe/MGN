@@ -1,16 +1,22 @@
-import { CircleUser, Menu, Package2, Search } from "lucide-react"
+import { CircleUser, Menu, Package2 } from "lucide-react"
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet"
 import { Button } from "../ui/button"
-import { Input } from "../ui/input"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuSeparator, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from "../ui/dropdown-menu"
 import Logo from "@/assets/imgs/logo-icon.png";
 import { Link } from "react-router-dom"
 import { useTheme } from "../theme-provider"
 import { DropdownMenuSub } from "@radix-ui/react-dropdown-menu"
+import useSafeContent from "@/hooks/useSafeContent"
+import { Switch } from "../ui/switch"
+import { Label } from "../ui/label"
+import { DesktopNavigation } from "./DesktopNavigation";
 
 const Navbar = () => {
 
     const { setTheme } = useTheme();
+
+    const { safeContent, toggleSafeContent } = useSafeContent();
+
 
     return (
         <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-20 z-[999]">
@@ -22,37 +28,7 @@ const Navbar = () => {
                     <img src={Logo} alt="logo" className="w-60 hover:motion-safe:animate-spin-slow cursor-pointer" />
                 </Link>
 
-
-                <Link
-                    to="#"
-                    className="text-muted-foreground transition-colors hover:text-foreground"
-                >
-                    Dashboard
-                </Link>
-                <Link
-                    to="#"
-                    className="text-muted-foreground transition-colors hover:text-foreground"
-                >
-                    Orders
-                </Link>
-                <Link
-                    to="#"
-                    className="text-muted-foreground transition-colors hover:text-foreground"
-                >
-                    Products
-                </Link>
-                <Link
-                    to="#"
-                    className="text-muted-foreground transition-colors hover:text-foreground"
-                >
-                    Customers
-                </Link>
-                <Link
-                    to="#"
-                    className="text-foreground transition-colors hover:text-foreground"
-                >
-                    Settings
-                </Link>
+                <DesktopNavigation />
             </nav>
             <Sheet>
                 <SheetTrigger asChild>
@@ -105,16 +81,18 @@ const Navbar = () => {
                 </SheetContent>
             </Sheet>
             <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
-                <form className="ml-auto flex-1 sm:flex-initial">
-                    <div className="relative">
-                        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                        <Input
-                            type="search"
-                            placeholder="Search products..."
-                            className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
+
+
+
+                <div className="ml-auto sm:flex-initial">
+                    <div className="flex items-center gap-3">
+                        <Label className="text-muted-foreground">Safe Content</Label>
+                        <Switch
+                            checked={safeContent}
+                            onCheckedChange={toggleSafeContent}
                         />
                     </div>
-                </form>
+                </div>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="secondary" size="icon" className="rounded-full">

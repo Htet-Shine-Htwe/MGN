@@ -7,20 +7,20 @@ import { Rating } from '@/components/ui/rating'
 
 const HeroCarouselCard = ({ mogou }: { mogou: MogousElement }) => {
   return (
-    <CarouselItem key={mogou.id} className="pl-1 md:basis-1/2 lg:basis-1/3 overflow-hidden cursor-pointer ">
+    <CarouselItem key={mogou.id} className="pl-1 md:basis-1/2  overflow-hidden cursor-pointer ">
       <div className="">
-        <Card className="h-52 md:h-64 border-x-neon-primary border-x-2 z-80 pb-4 hover:bg-secondary  overflow-hidden group ">
+        <Card className="h-52 md:h-64 border-x-neon-primary border-x-2 z-80 pb-4  hover:bg-phover overflow-hidden group transition-all">
           <CardContent className="flex w-full p-0">
             <div className="side-a w-2/3 ps-4">
               <div className="flex flex-col py-10 gap-6">
 
                 <div className="">
-                  <p className="text-xs text-gray-500">{mogou?.finish_status_name}</p>
-                  <h1 className="text-lg md:text-2xl font-semibold">{mogou?.title}</h1>
+                  <p className="text-xs text-gray-300">{mogou?.finish_status_name}</p>
+                  <h1 className="text-lg md:text-2xl font-semibold text-white">{mogou?.title}</h1>
                 </div>
 
                 <div className="flex flex-col gap-4">
-                  <span className="hidden md:flex text-muted font-semibold h-12 overflow-hidden">
+                  <span className="hidden md:flex  font-semibold h-12 overflow-hidden text-gray-300">
                     {mogou?.description}
                   </span>
                   <Rating rating={mogou?.rating !} totalStars={5} size={24} variant="yellow" disabled={true} />
@@ -29,7 +29,7 @@ const HeroCarouselCard = ({ mogou }: { mogou: MogousElement }) => {
 
                     {
                       mogou?.categories.slice(0, 2).map((category) => (
-                        <span className="text-sm md:text-md font-semibold text-neon-primary ss">{category?.title}</span>
+                        <span key={category.id} className="text-sm md:text-md font-semibold text-neon-primary">{category?.title}</span>
                       ))
                     }
                   </div>

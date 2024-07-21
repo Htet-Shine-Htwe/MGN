@@ -13,6 +13,7 @@ export default function NotFoundError() {
           does not exist or might have been removed.
         </p>
         <div className='mt-6 flex gap-4'>
+          <Button onClick={() => navigate('/')}>Go Home</Button>
           <Button variant='outline' onClick={() => navigate(-1)}>
             Go Back
           </Button>
