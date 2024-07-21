@@ -1,6 +1,10 @@
 import { Toaster } from "@/components/ui/toaster"
 import Navbar from "@/components/users/Navbar";
 import UserLayoutFooter from "./UserLayoutFooter";
+import useQuery from "@/hooks/useQuery";
+import { useAppDispatch } from "@/redux/hooks";
+import { useEffect } from "react";
+import { setCategories } from "@/redux/slices/category-slice";
 
 
 type UserLayoutProps = {
@@ -10,7 +14,12 @@ type UserLayoutProps = {
 const UserLayout = ({ children}: UserLayoutProps) => {
 
   // const windowWidth = window.innerWidth;
+  const { data } = useQuery('admin/categories?limit=400');
+  const dispatch = useAppDispatch();
 
+  useEffect(() => {
+    dispatch(setCategories(data?.categories.data));
+  },[data])
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -36,6 +45,9 @@ const UserLayout = ({ children}: UserLayoutProps) => {
 
       <footer>
         <UserLayoutFooter />
+        <div className="w-full bg-primary h-12 flex justify-center items-center">
+        All the comics on this website are only previews of the original comics, there may be many language errors, character names, and story lines. For the original version, please buy the comic if it's available in your city.
+        </div>
       </footer>
 
       <Toaster />
