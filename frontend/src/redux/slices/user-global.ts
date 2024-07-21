@@ -1,5 +1,5 @@
 import { RootState } from './../store';
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice,PayloadAction } from "@reduxjs/toolkit";
 
 interface UserGlobal {
     isAuth: boolean;
@@ -9,13 +9,13 @@ interface UserGlobal {
         username: string;
         role: string;
     };
-    safeMode: boolean;
+    safeContent: boolean;
 }
 
 const initialState: UserGlobal = {
     isAuth: false,
     user: null,
-    safeMode: false,
+    safeContent: localStorage.getItem('safeContent') == 'false' ? false : true
 };
 
 export const userGlobalSlice = createSlice({
@@ -28,13 +28,13 @@ export const userGlobalSlice = createSlice({
         setUser(state, action) {
             state.user = action.payload;
         },
-        setSafeMode(state, action) {
-            state.safeMode = action.payload;
+        setSafeContent(state, action: PayloadAction<boolean>) {
+            state.safeContent = action.payload;
         },
     },
 });
 
 
-export const { setAuth, setUser, setSafeMode } = userGlobalSlice.actions;
+export const { setAuth, setUser, setSafeContent } = userGlobalSlice.actions;
 export default userGlobalSlice.reducer;
-export const selectSafeMode = (state : RootState) => state.userGlobal.safeMode;
+export const selectSafeContent = (state : RootState) => state.userGlobal.safeContent;
