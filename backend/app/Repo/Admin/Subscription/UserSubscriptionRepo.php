@@ -1,6 +1,6 @@
 <?php
+namespace App\Repo\Admin\Subscription;
 
-namespace App\Repo\Admin;
 
 use App\Models\User;
 

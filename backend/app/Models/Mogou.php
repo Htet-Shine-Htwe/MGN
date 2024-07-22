@@ -85,13 +85,11 @@ class Mogou extends Model
         }
     }
 
-
     // relationship
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'mogous_categories');
     }
-
 
     public function subMogous($table_name="alpha")
     {

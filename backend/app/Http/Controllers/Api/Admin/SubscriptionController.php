@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SubscriptionActionRequest;
 use App\Models\Subscription;
-use App\Repo\Admin\SubscriptionRepo;
+use App\Repo\Admin\Subscription\SubscriptionRepo;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;

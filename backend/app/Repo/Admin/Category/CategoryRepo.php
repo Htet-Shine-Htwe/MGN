@@ -1,6 +1,6 @@
 <?php
+namespace App\Repo\Admin\Category;
 
-namespace App\Repo\Admin;
 
 use App\Http\Requests\CategoryActionRequest;
 use App\Models\Category;

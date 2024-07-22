@@ -1,6 +1,6 @@
 <?php
+namespace App\Repo\Admin\Subscription;
 
-namespace App\Repo\Admin;
 
 use App\Contracts\ModelRepoInterface;
 use App\Http\Requests\SubscriptionActionRequest;
