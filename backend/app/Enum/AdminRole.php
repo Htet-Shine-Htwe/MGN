@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Enum;
+use App\Contracts\SmartEnum;
 
-enum AdminRole : string
+enum AdminRole : string implements SmartEnum
 {
     case Admin = 'admin';
     case Moderator = 'moderator';
@@ -14,4 +15,14 @@ enum AdminRole : string
             self::Moderator
         ];
     }
+
+    public static function getValues(): array
+    {
+        return [
+            self::Admin => 'Admin',
+            self::Moderator => 'Moderator'
+        ];
+    }
 }
+
+

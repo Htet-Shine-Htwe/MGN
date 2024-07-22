@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Enum;
+use App\Contracts\SmartEnum;
 
-enum MogouFinishStatus :int
+enum MogouFinishStatus :int implements SmartEnum
 {
     case ONGOING = 0;
     case COMPLETED = 1;

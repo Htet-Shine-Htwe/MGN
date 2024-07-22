@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Enum;
+use App\Contracts\SmartEnum;
 
-enum MogouTypeEnum :int
+enum MogouTypeEnum :int implements SmartEnum
 {
     case MANGA = 0;
     case MANHWA = 1;
