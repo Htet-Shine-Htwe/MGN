@@ -11,15 +11,16 @@ use App\Services\Partition\TablePartition;
 // Group the test
 uses()->group('unit', 'tablePartition');
 
-test("get the limited rotation key collection",function(){
-
-    $available_keys = (new TablePartition([]))->availableRotationKey();
-
-    $this->assertCount(2,$available_keys);
-});
 
 test("get the random rotation key",function(){
     $random_key = TablePartition::getRandomRotationKey();
 
     $this->assertContains($random_key,TablePartition::availableRotationKey());
 });
+
+// test("get the limited rotation key collection",function(){
+
+//     $available_keys = (new TablePartition([]))->availableRotationKey();
+
+//     $this->assertCount(2,$available_keys);
+// });

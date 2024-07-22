@@ -1,12 +1,8 @@
 <?php
 
-use App\Enum\MogouFinishStatus;
 use App\Enum\MogousStatus;
 use App\Models\Mogou;
-use App\Models\SubMogou;
 use Database\Seeders\CategorySeeder;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Schema;
 use Tests\Support\UserAuthenticated;
 
 uses()->group('admin','api','admin-mogou','admin-mogou-partial-update');
