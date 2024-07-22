@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryActionRequest;
 use App\Models\Category;
-use App\Repo\Admin\CategoryRepo;
+use App\Repo\Admin\Category\CategoryRepo;
 use App\Traits\CacheResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
