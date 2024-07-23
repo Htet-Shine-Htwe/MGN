@@ -33,5 +33,10 @@ enum SocialInfoType :string implements SmartEnum
         };
     }
 
+    public static function requiredInValidationMessage(): string
+    {
+        return "Social info type must be one of the following: " . implode(',', self::getValues());
+    }
+
 
 }

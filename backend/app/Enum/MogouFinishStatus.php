@@ -45,5 +45,10 @@ enum MogouFinishStatus :int implements SmartEnum
         };
     }
 
+    public static function requiredInValidationMessage(): string
+    {
+        return "Finish status must be one of the following: " . implode(',', self::getValues());
+    }
+
 
 }

@@ -17,9 +17,9 @@ class InEnum
         return ($nullable ? 'nullable|' : 'required|') . 'in:' . self::getEnumValuesAsString($enumClass);
     }
 
-    public static function createMessage(string $enumClass, $message)
+    public static function createMessage(string $enumClass)
     {
-        return $message . self::getEnumValuesAsString($enumClass);
+        return $enumClass::requiredInValidationMessage();
     }
 
 

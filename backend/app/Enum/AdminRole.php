@@ -23,6 +23,11 @@ enum AdminRole : string implements SmartEnum
             self::Moderator => 'Moderator'
         ];
     }
+
+    public static function requiredInValidationMessage(): string
+    {
+        return "Role must be one of the following: " . implode(',', self::getValues());
+    }
 }
 
 

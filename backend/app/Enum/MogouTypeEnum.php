@@ -47,6 +47,11 @@ enum MogouTypeEnum :int implements SmartEnum
         };
     }
 
+    public static function requiredInValidationMessage(): string
+    {
+        return "Mogou type must be one of the following: " . implode(',', self::getValues());
+    }
+
 
 
 }
