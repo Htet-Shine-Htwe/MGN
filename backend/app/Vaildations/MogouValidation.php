@@ -25,16 +25,16 @@ class MogouValidation
     // messages
     public static function invalidFinishStatusMessages()
     {
-        return InEnum::createMessage(\App\Enum\MogouFinishStatus::class, "Status must be one of the following: ");
+        return InEnum::createMessage(\App\Enum\MogouFinishStatus::class);
     }
 
     public static function invalidStatusMessages()
     {
-        return InEnum::createMessage(\App\Enum\MogousStatus::class, "Status must be one of the following: ");
+        return InEnum::createMessage(\App\Enum\MogousStatus::class);
     }
 
     public static function invalidMogouTypeMessages()
     {
-        return InEnum::createMessage(\App\Enum\MogouTypeEnum::class, "Mogou type must be one of the following: ");
+        return InEnum::createMessage(\App\Enum\MogouTypeEnum::class);
     }
 }
