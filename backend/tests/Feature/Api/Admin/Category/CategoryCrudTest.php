@@ -1,10 +1,8 @@
 <?php
 
-use App\Models\Mogou;
 use Database\Seeders\CategorySeeder;
 use Database\Seeders\MogousCategorySeeder;
 use Database\Seeders\MogouSeeder;
-use Database\Seeders\UserSeeder;
 use Illuminate\Support\Facades\Schema;
 use Tests\Support\UserAuthenticated;
 
