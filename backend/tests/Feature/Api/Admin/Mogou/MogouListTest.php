@@ -7,7 +7,6 @@ use Database\Seeders\CategorySeeder;
 use Database\Seeders\MogousCategorySeeder;
 use Database\Seeders\MogouSeeder;
 use Database\Seeders\SubMogouSeeder;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
 use Tests\Support\UserAuthenticated;
 

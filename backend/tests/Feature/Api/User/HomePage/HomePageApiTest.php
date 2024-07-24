@@ -5,7 +5,6 @@ use Database\Seeders\MogousCategorySeeder;
 use Database\Seeders\MogouSeeder;
 use Database\Seeders\SubMogouSeeder;
 use Database\Seeders\SubscriptionSeeder;
-use Database\Seeders\UserSeeder;
 use Tests\Support\UserAuthenticated;
 
 // Group the test
