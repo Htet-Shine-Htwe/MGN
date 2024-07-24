@@ -33,7 +33,7 @@ class SocialInfoRepo
 
     public function update($id, $data)
     {
-        $socialInfo = $this->model->find($id);
+        $socialInfo = $this->model->findOrfail($id);
 
         if (isset($data['cover_photo'])) {
             $data['cover_photo'] = $this->storeMedia($data['cover_photo'], 'social_info');
@@ -45,7 +45,7 @@ class SocialInfoRepo
 
     public function delete($id)
     {
-        $socialInfo = $this->model->find($id);
+        $socialInfo = $this->model->findOrfail($id);
         $this->removeMedia(storage_path('app/public/social_info/' . $socialInfo->cover_photo));
         return $socialInfo->delete();
     }

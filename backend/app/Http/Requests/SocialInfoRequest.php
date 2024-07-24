@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SocailInfoRequest extends FormRequest
+class SocialInfoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -27,7 +27,6 @@ class SocailInfoRequest extends FormRequest
             'icon' => 'required|string',
             'cover_photo' => 'nullable|file',
             'url' => 'required|url',
-
         ];
     }
 }

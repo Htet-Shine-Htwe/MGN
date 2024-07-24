@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SocialInfoRequest;
 use App\Repo\Admin\SocialInfo\SocialInfoRepo;
 use Illuminate\Http\Request;
 
@@ -18,18 +19,30 @@ class SocialInfoController extends Controller
         return $this->socialInfoRepo->all();
     }
 
-    public function store(Request $request)
+    public function store(SocialInfoRequest $request)
     {
-        return $this->socialInfoRepo->create($request->all());
+        $socialInfo = $this->socialInfoRepo->create($request->all());
+        return response()->json([
+            'success' => true,
+            'social_info' => $socialInfo
+        ], 201);
     }
 
-    public function update(Request $request, $id)
+    public function update(SocialInfoRequest $request, $id)
     {
-        return $this->socialInfoRepo->update($id, $request->all());
+        $socialInfo = $this->socialInfoRepo->update($id, $request->all());
+        return response()->json([
+            'success' => true,
+            'social_info' => $socialInfo
+        ], 200);
     }
 
-    public function delete(Request $request)
+    public function delete(Request $request,$id)
     {
-        return $this->socialInfoRepo->delete($request->id);
+         $this->socialInfoRepo->delete($id);
+
+        return response()->json([
+            'success' => true,
+        ], 200);
     }
 }
