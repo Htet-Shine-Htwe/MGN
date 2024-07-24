@@ -14,7 +14,7 @@ type UserLayoutProps = {
 const UserLayout = ({ children}: UserLayoutProps) => {
 
   // const windowWidth = window.innerWidth;
-  const { data } = useQuery('admin/categories?limit=400');
+  const { data } = useQuery('public/categories?limit=400');
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -45,7 +45,7 @@ const UserLayout = ({ children}: UserLayoutProps) => {
 
       <footer>
         <UserLayoutFooter />
-        <div className="w-full bg-primary h-12 flex justify-center items-center">
+        <div className="w-full bg-primary h-full md:px-24 py-4 flex justify-center items-center">
         All the comics on this website are only previews of the original comics, there may be many language errors, character names, and story lines. For the original version, please buy the comic if it's available in your city.
         </div>
       </footer>

@@ -19,13 +19,13 @@ const Navbar = () => {
 
 
     return (
-        <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-20 z-[999]">
+        <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-24 z-[999]">
             <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
                 <Link
-                    to="#"
+                    to="/"
                     className=""
                 >
-                    <img src={Logo} alt="logo" className="w-60 hover:motion-safe:animate-spin-slow cursor-pointer" />
+                    <img src={Logo} alt="logo" className="w-52 hover:motion-safe:animate-spin-slow cursor-pointer" />
                 </Link>
 
                 <DesktopNavigation />
