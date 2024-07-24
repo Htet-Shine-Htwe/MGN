@@ -3,7 +3,7 @@ import { AES } from "crypto-js";
 import CryptoJS from "crypto-js";
 import { useCallback } from "react";
 
-const useEncryptStorage = () => {
+const useSecureStorage = () => {
   const secretKey = config.secretKey;
   const set = useCallback(
     (key: string, value: string) => {
@@ -30,4 +30,7 @@ const useEncryptStorage = () => {
   }, []);
   return { set, get, remove };
 };
-export default useEncryptStorage;
+
+export type UseEncryptStorageType = ReturnType<typeof useSecureStorage>;
+
+export default useSecureStorage;

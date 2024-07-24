@@ -12,21 +12,21 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import InputError from "@/components/ui/input-error"
 import useMutate, { useMutateCallbackType } from "@/hooks/useMutate"
 import useServerValidation from "@/hooks/useServerValidation"
-import Cookies from "js-cookie"
 import { useAppDispatch } from "@/redux/hooks"
 import { setAdmin } from "@/redux/slices/admin-auth-slice"
 import { adminRouteCollection } from "@/constants/constants"
-
+import useSecureStorage from "@/hooks/useSecureStorage"
 
 interface loginSubmitForm {
     email: string,
     password: string
-  }
+}
 
 
 const Login = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+    const { set } = useSecureStorage();
       const {
         register,
         handleSubmit,
@@ -40,8 +40,8 @@ const Login = () => {
 
       const loginOnSuccess : useMutateCallbackType = (response : any) => {
         console.log(response);
-        Cookies.set("auth-token", response.token);
-        Cookies.set("expiresAt", (new Date().getTime() + 24 * 60 * 60 * 1000).toString());
+        set("auth-token", response.token);
+        localStorage.setItem("expiresAt", (new Date().getTime() + 24 * 60 * 60 * 1000).toString());
 
         dispatch(setAdmin(response.user));
 

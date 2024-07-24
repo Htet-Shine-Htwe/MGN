@@ -9,7 +9,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
-import { apps } from './data'
+import { apps } from '@/pages/admin/apps/data'
 
 const appText = new Map<string, string>([
   ['all', 'All Apps'],

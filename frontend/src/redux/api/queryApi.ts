@@ -1,12 +1,15 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import config from "@/config";
-import Cookies from "js-cookie";
+import { EncryptStorage } from "@/utilities/encrypt-storage";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: config.baseUrl, // Your API base URL
   prepareHeaders: (headers) => {
 
-    const token = Cookies.get("auth-token");
+
+    const encryptStorage = new EncryptStorage(config.secretKey);
+
+    const token = encryptStorage.get("auth-token") || "";
 
     if (token) {
       headers.set("Authorization", `Bearer ${token}`);
