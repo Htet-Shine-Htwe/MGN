@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\Admin\AdminController;
 use App\Http\Controllers\Api\Admin\ApplicationConfigController;
 use App\Http\Controllers\Api\Admin\CategoryController;
 use App\Http\Controllers\Api\Admin\MogouController;
+use App\Http\Controllers\Api\Admin\SocialInfoController;
 use App\Http\Controllers\Api\Admin\SubMogouController;
 use App\Http\Controllers\Api\Admin\SubscriptionController;
 use App\Http\Controllers\Api\Admin\UserSubscriptionController;
@@ -60,6 +61,13 @@ Route::middleware(['auth:sanctum'])
         Route::post('/sub-mogous/new-draft','saveNewDraft')->name('sub-mogous.saveNewDraft');
         Route::post('/sub-mogous/update-cover','updateCover')->name('sub-mogous.updateCover');
         Route::get('/sub-mogous/{mogous_id}/{sub_mogou_id}','show')->name('sub-mogous.show');
+    });
+
+    Route::controller(SocialInfoController::class)->group(function(){
+        Route::get('/social-info','index')->name('social-info.index');
+        Route::post('/social-info','create')->name('social-info.store');
+        Route::put('/social-info/{social_info}','update')->name('social-info.update');
+        Route::post('/social-info/{social_info}','delete')->name('social-info.delete');
     });
 });
 

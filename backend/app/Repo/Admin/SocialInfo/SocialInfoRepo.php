@@ -43,5 +43,12 @@ class SocialInfoRepo
         return $socialInfo->update($data);
     }
 
+    public function delete($id)
+    {
+        $socialInfo = $this->model->find($id);
+        $this->removeMedia(storage_path('app/public/social_info/' . $socialInfo->cover_photo));
+        return $socialInfo->delete();
+    }
+
 
 }

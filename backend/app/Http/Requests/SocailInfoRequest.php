@@ -23,6 +23,11 @@ class SocailInfoRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
+            'type' => 'required|string',
+            'icon' => 'required|string',
+            'cover_photo' => 'nullable|file',
+            'url' => 'required|url',
+
         ];
     }
 }

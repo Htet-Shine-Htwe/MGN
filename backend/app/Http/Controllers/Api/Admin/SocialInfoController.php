@@ -27,4 +27,9 @@ class SocialInfoController extends Controller
     {
         return $this->socialInfoRepo->update($id, $request->all());
     }
+
+    public function delete(Request $request)
+    {
+        return $this->socialInfoRepo->delete($request->id);
+    }
 }
