@@ -56,6 +56,11 @@ class SubMogou extends Model
         return asset('storage/'.generateStorageFolder("sub_mogou",$this->slug.'/cover') . '/' . $this->cover);
     }
 
+    public function getCreatedAtAttribute($value)
+    {
+        return date('d M,Y', strtotime($value));
+    }
+
 
     public function getSubscriptionCollectionAttribute($value)
     {

@@ -73,8 +73,6 @@ Route::middleware(['auth:sanctum'])
 
 
 
-
-
 Route::controller(TestController::class)->group(function(){
     Route::post('/test','test')->name('test');
 });

@@ -42,7 +42,8 @@ class SubMogouSeeder extends Seeder
 
 
             for($i = 1; $i <= Mogou::count(); $i++) {
-                $total_chapter = 4;
+                // random number of chapters
+                $total_chapter = rand(20, 200);
                 for($j = 1; $j <= $total_chapter; $j++) {
                     SubMogou::factory()->create([
                         'title' => 'Chapter ' . $j . ' of Mogou ' . $i,

@@ -17,6 +17,7 @@ export interface MogousType {
     updated_at:      null;
     status_name:     MogousStatusName;
     mogou_type_name: MogouTypeName;
+    finish_status_name  : string;
     categories:      Category[];
     sub_mogous:      SubMogous[];
 }
@@ -24,6 +25,7 @@ export interface MogousType {
 export interface Category {
     id:    number;
     title: string;
+    slug?: string;
 }
 
 export enum MogouTypeName {
@@ -55,4 +57,9 @@ export interface Link {
     url:    null | string;
     label:  string;
     active: boolean;
+}
+
+export interface IsFavoriteInterface{
+    user_id: number;
+    mogou_id: number;
 }
