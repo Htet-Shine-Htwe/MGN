@@ -45,7 +45,7 @@ const UserLayout = ({ children}: UserLayoutProps) => {
 
       <footer>
         <UserLayoutFooter />
-        <div className="w-full bg-primary h-full md:px-24 py-4 flex justify-center items-center">
+        <div className="w-full bg-primary h-full px-4 md:px-24 py-4 flex justify-center items-center text-xs md:text-sm text-center">
         All the comics on this website are only previews of the original comics, there may be many language errors, character names, and story lines. For the original version, please buy the comic if it's available in your city.
         </div>
       </footer>

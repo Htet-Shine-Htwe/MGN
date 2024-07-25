@@ -6,7 +6,7 @@ import LogoTitle from "@/assets/imgs/logo-title.png";
 const UserLayoutFooter = () => {
   return (
     <div className="dark bg-gray-900 text-white py-8">
-      <div className="px-20 flex flex-col md:flex-row items-center justify-between">
+      <div className="px-24 flex flex-col md:flex-row items-center justify-between">
         <div className="flex items-center space-x-4">
 
         <Link to="#" className="text-white hover:text-gray-300 flex items-center">

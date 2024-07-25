@@ -7,9 +7,15 @@ type userAuthProps = {
 const useAuth = ({adminGuard = true} : userAuthProps) : boolean => 
 {   
     const { get } = useSecureStorage();
-    const tokenType = adminGuard ? 'auth-token' : 'user-auth-token';
-    const token = get(tokenType);
-    const expiresAt = get('expiresAt');
+    const token = get('auth-token');
+    const expiresAt = localStorage.getItem('expiresAt');
+
+    if (adminGuard) {
+        const authType = get('auth-type');
+        if (authType !== 'admin') {
+            return false;
+        }
+    }
 
     if (!token || !expiresAt) {
         return false;
