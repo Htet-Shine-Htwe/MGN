@@ -17,7 +17,7 @@ const HomePage = () => {
   },[]);
 
   return (
-    <main className="w-full flex flex-col gap-12 px-4 md:px-20">
+    <main className="w-full flex flex-col gap-12 px-4 md:px-24">
       <div className="w-full flex justify-center ">
         <HeroCarousel />
       </div>

@@ -41,6 +41,7 @@ const Login = () => {
       const loginOnSuccess : useMutateCallbackType = (response : any) => {
         console.log(response);
         set("auth-token", response.token);
+        set("auth-type", "admin");
         localStorage.setItem("expiresAt", (new Date().getTime() + 24 * 60 * 60 * 1000).toString());
 
         dispatch(setAdmin(response.user));
