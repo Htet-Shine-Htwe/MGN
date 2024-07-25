@@ -50,7 +50,13 @@ const adminRoutes: AppRouteCollectionInterface = {
     apps: "/apps",
 };
 
+const userRoutes : AppRouteCollectionInterface = {
+  home: "/",
+  show: "/show",
+}
+
 export const adminRouteCollection = prefixRoutes('/admin', adminRoutes);
+export const userRouteCollection = prefixRoutes('', userRoutes);
 
 interface ComicProgress extends ComicType {};
 
