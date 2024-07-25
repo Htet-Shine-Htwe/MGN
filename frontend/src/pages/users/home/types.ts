@@ -33,7 +33,7 @@ export interface SubMogousType {
     title: string;
 }
 
-export type MostViewMogou = Pick<MogousElement, "id" | "title" | "cover" | "status_name" | "mogou_type_name" | "finish_status_name" | "categories" | "sub_mogous" | "legal_age">;
+export type MostViewMogou = Pick<MogousElement, "id" | "title" |"slug" | "cover" | "status_name" | "mogou_type_name" | "finish_status_name" | "categories" | "sub_mogous" | "legal_age">;
 
 export type RecentlyUploadedMogou = MostViewMogou;
 

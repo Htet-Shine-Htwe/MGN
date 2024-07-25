@@ -52,7 +52,7 @@ const adminRoutes: AppRouteCollectionInterface = {
 
 const userRoutes : AppRouteCollectionInterface = {
   home: "/",
-  show: "/show",
+  show: "/show/:slug"
 }
 
 export const adminRouteCollection = prefixRoutes('/admin', adminRoutes);
