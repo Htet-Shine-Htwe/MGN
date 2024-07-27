@@ -13,13 +13,6 @@ const Show = () => {
 
     const { data: mogous, isLoading, isFetching } = useQuery(`users/mogous/${slug}`);
 
-
-    if (true) {
-        return <div className="px-6 md:px-24 ">
-            <ShowSkeleton />
-        </div>
-    }
-
     return (
         <div className=" px-6 md:px-24 flex flex-col">
 

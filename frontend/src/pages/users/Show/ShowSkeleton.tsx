@@ -3,13 +3,23 @@ import { Skeleton } from "@/components/ui/skeleton"
 
 const ShowSkeleton = () => {
   return (
-    <div className="flex flex-col space-y-3">
-      <Skeleton className="h-[125px] w-[250px] rounded-xl" />
-      <div className="space-y-2">
-        <Skeleton className="h-4 w-[250px]" />
-        <Skeleton className="h-4 w-[200px]" />
-      </div>
+    <div className=" px-6 md:px-24 flex flex-col">
+
+    <div className="">
+        <Skeleton className="h-16 w-1/2 mb-4" />
+
     </div>
+
+    <div className="flex mt-12 ">
+        <div className="w-4/5 pe-10">
+            <Skeleton className="h-[40vh] w-full mb-4" />
+        </div>
+        <div className="w-1/5">
+
+        </div>
+    </div>
+
+</div>
   )
 }
 
