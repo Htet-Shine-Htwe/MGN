@@ -1,9 +1,7 @@
-version: '3.8'
-
 services:
     db:
         image: mysql:8
-        container_name: db
+        container_name: mgn-db
         volumes:
             - db_data:/var/lib/mysql
         restart: always
@@ -21,6 +19,7 @@ services:
             dockerfile: Dockerfile
         container_name: mgn-app
         restart: always
+        tty: true
         volumes:
             - .:/var/www/html/mgn
         ports:
@@ -36,6 +35,8 @@ services:
             DB_PASSWORD: password
             APP_NAME: Radian
             APP_ENV: local
+            REDIS_HOST: redis
+            REDIS_PORT: 6379
 
     nginx:
         image: nginx:alpine
@@ -58,6 +59,7 @@ services:
         restart: always
         ports:
             - "6379:6379"
+
         networks:
             - mgn-network
 
