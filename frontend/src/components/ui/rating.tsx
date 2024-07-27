@@ -28,8 +28,9 @@ interface RatingsProps extends React.HTMLAttributes<HTMLDivElement> {
   disabled?: boolean; // Add disabled prop
 }
 
+
 export const Rating = ({
-  rating: initialRating,
+  rating: initialRating =5,
   totalStars = 5,
   size = 20,
   fill = true,
@@ -41,7 +42,7 @@ export const Rating = ({
 }: RatingsProps) => {
   const [hoverRating, setHoverRating] = useState<number | null>(null);
   const [currentRating, setCurrentRating] = useState(initialRating);
-  const [isHovering, setIsHovering] = useState(false);
+  const [_, setIsHovering] = useState(false);
 
   const handleMouseEnter = (event: React.MouseEvent<HTMLDivElement>) => {
     if (!disabled) {
