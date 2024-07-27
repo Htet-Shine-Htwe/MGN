@@ -10,7 +10,7 @@ import { Rating } from "@/components/ui/rating";
 
 interface HeadingSectionProps {
     mogou : MogousType,
-    isFavorite : IsFavoriteInterface
+    isFavorite : IsFavoriteInterface,
 }
 
 
@@ -22,7 +22,7 @@ const HeadingSection = ({mogou,isFavorite} : HeadingSectionProps) => {
                         <div className="flex justify-center md:justify-normal md:col-span-2 xl:col-span-1">
                             <LazyLoadImage src={mogou?.cover}
                                 className="h-full xl:h-80 object-cover"
-                                alt="Image Alt"
+                                alt={mogou?.title}
                             />
 
                         </div>

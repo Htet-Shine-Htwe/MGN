@@ -18,6 +18,7 @@ import {
 import { PlusCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react";
+import { FaSpinner } from "react-icons/fa6";
 
 
 interface ChapterTableProps {
@@ -28,12 +29,18 @@ export const ChapterTable = ({
     chapterCollection = [],
 }: ChapterTableProps) => {
 
-
     const [chapters, setChapter] = useState<any>([]);
 
     useEffect(() => {
-        setChapter(chapterCollection)
+        setChapter((prev: any) => [...chapterCollection,...chapterCollection,...chapterCollection,...chapterCollection,...chapterCollection,...chapterCollection]);
+       
+
+
     }, [chapterCollection])
+
+
+
+    
 
     return (
         <>
@@ -45,17 +52,17 @@ export const ChapterTable = ({
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <Table>
+                    <Table className="">
 
-                        <TableBody className="gap-10">
+                        <TableBody className="gap-10 max-h-40 ">
                             {
                                 chapters.map((mogou, index) => (
                                     <TableRow className="text-lg">
                                         <TableCell key={index}>
                                             Chapter {mogou.chapter_number} : {mogou.title}
                                         </TableCell>
-                                        <TableCell 
-                                        className="text-right"
+                                        <TableCell
+                                            className="text-right"
                                         >
                                             {
                                                 mogou.created_at
@@ -70,9 +77,20 @@ export const ChapterTable = ({
                     </Table>
                 </CardContent>
                 <CardFooter className="justify-center border-t p-4">
-                    <Button size="sm" variant="ghost" className="gap-1">
-                        <PlusCircle className="h-3.5 w-3.5" />
-                        Show All Chapters
+                    <Button size="sm" variant="ghost" className="gap-1 border-2 border-default">
+                        {
+                            false ? (
+                                <FaSpinner
+                                    className="animate-spin "
+                                />
+                            ) : (
+                                <>
+                                    <  PlusCircle className="h-3.5 w-3.5" />
+                                    Show All Chapters
+                                </>
+
+                            )
+                        }
                     </Button>
                 </CardFooter>
             </Card></>

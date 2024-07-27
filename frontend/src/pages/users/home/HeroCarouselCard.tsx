@@ -28,8 +28,8 @@ const HeroCarouselCard = ({ mogou }: { mogou: MogousElement }) => {
                   <div className="flex gap-2 flex-wrap">
 
                     {
-                      mogou?.categories.slice(0, 2).map((category) => (
-                        <span key={category.id} className="text-sm md:text-md font-semibold text-neon-primary">{category?.title}</span>
+                      mogou?.categories.slice(0, 2).map((category,index) => (
+                        <span key={index} className="text-sm md:text-md font-semibold text-neon-primary">{category?.title}</span>
                       ))
                     }
                   </div>
