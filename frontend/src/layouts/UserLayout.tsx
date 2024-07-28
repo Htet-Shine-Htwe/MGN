@@ -22,7 +22,7 @@ const UserLayout = ({ children}: UserLayoutProps) => {
   },[data])
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col px-2 md:px-0">
 
       <Navbar />
      
