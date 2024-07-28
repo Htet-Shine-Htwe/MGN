@@ -12,7 +12,7 @@ class UserMogouController extends Controller
     {
         $mogou = $request->mogou;
 
-        $mogou = Mogou::where('slug',$mogou)->with('categories')->first();
+        $mogou = Mogou::where('slug',$mogou)->with('categories')->firstOrFail();
 
         $subMogous = $mogou->subMogous($mogou->rotation_key)
         ->select('id','title','slug','chapter_number','created_at')

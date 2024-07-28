@@ -101,4 +101,9 @@ class Mogou extends Model
         );
     }
 
+    public function getReleasedAtAttribute($value)
+    {
+        return date('d M,Y', strtotime($value));
+    }
+
 }
