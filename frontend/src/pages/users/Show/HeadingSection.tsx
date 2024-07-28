@@ -17,11 +17,11 @@ interface HeadingSectionProps {
 const HeadingSection = ({mogou,isFavorite} : HeadingSectionProps) => {
   return (
     <>
-     <Card className="px-0 border-none">
-                    <CardContent className="grid md:grid-cols-5 mx-0 px-0 gap-10 xl:gap-4">
+     <Card className="px-0 border-none outline-none shadow-none">
+                    <CardContent className="grid md:grid-cols-5 mx-0 px-0 gap-10 xl:gap-4 ">
                         <div className="flex justify-center md:justify-normal md:col-span-2 xl:col-span-1">
                             <LazyLoadImage src={mogou?.cover}
-                                className="h-full xl:h-80 object-cover"
+                                className="h-96 xl:h-80 object-cover"
                                 alt={mogou?.title}
                             />
 
@@ -31,9 +31,9 @@ const HeadingSection = ({mogou,isFavorite} : HeadingSectionProps) => {
                                 {mogou?.finish_status_name}
                             </span>
                             <Label className="text-lg md:text-4xl font-semibold">{mogou?.title}</Label>
-                            <div className="flex gap-4 text-3xl justify-center md:justify-start">
+                            <div className="flex gap-4 text-3xl justify-between lg:justify-start">
                                 <Button
-                                    className="bg-neon-primary text-white  py-6 text-lg px-8 flex items-center">
+                                    className="bg-neon-primary text-white  py-6 text-lg px-8 flex items-center w-full lg:w-fit">
                                     Start Reading <FaCaretRight className="text-2xl" />
                                 </Button>
 
@@ -49,23 +49,23 @@ const HeadingSection = ({mogou,isFavorite} : HeadingSectionProps) => {
                                 </span>
                             </div>
                         </div>
-                        <div className="col-span-full xl:col-span-1 flex xl:flex-col gap-4 xl:justify-center justify-between ">
+                        <div className="col-span-full xl:col-span-1 flex flex-wrap xl:flex-col gap-4 xl:justify-start justify-between ">
                             <div className="flex flex-col gap-1">
                                 <p className="text-md">
-                                    <span className="text-muted">Author :</span> <span className="text-white text-sm">         {mogou?.author}</span>
+                                    <span className="text-muted">Author :</span> <span className="text-sm">{mogou?.author}</span>
                                 </p>
                                 <p className="text-md">
-                                    <span className="text-muted">Published At :</span> <span className="text-white text-sm">{mogou?.created_at}</span>
+                                    <span className="text-muted">Published At :</span> <span className="text-sm">{mogou?.released_at}</span>
                                 </p>
                                 <p className="text-md">
-                                    <span className="text-muted">Genres :</span> <span className="text-white text-sm">{
+                                    <span className="text-muted">Genres :</span> <span className="text-sm">{
                                         mogou?.categories.map((category) => {
                                             return category.title
                                         }).join(", ")
                                     }</span>
                                 </p>
                             </div>
-                            <Card className="bg-secondary mt-4 ">
+                            <Card className="bg-secondary mt-4 w-full min-h-20 flex items-center">
                                 <CardContent className="flex gap-4 items-center  md:h-20 px-6 py-0">
                                     <div className="w-1/3 text-xl whitespace-nowrap">
                                         {mogou?.rating} / 5

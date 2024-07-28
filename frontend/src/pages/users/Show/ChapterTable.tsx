@@ -21,26 +21,41 @@ import { useEffect, useState } from "react";
 import { FaSpinner } from "react-icons/fa6";
 
 
+type Chapter = {
+    id:number,
+    title:string,
+    chapter_number:number,
+    created_at:string
+}
+
 interface ChapterTableProps {
-    chapterCollection: any[];
+    chapterCollection: Chapter[];
 }
 
 export const ChapterTable = ({
     chapterCollection = [],
 }: ChapterTableProps) => {
 
-    const [chapters, setChapter] = useState<any>([]);
+    const [chapters, setChapter] = useState<Chapter[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [showAll, setShowAll] = useState<boolean>(false);
 
     useEffect(() => {
-        setChapter((prev: any) => [...chapterCollection,...chapterCollection,...chapterCollection,...chapterCollection,...chapterCollection,...chapterCollection]);
-       
-
-
+        setChapter((prev: any) => [...chapterCollection]);
     }, [chapterCollection])
 
 
+    const showAllChapters = () => {
+        setLoading(true);
 
-    
+        setTimeout(() => {
+            setChapter((prev: any) => [...chapterCollection, ...chapterCollection, ...chapterCollection, ...chapterCollection, ...chapterCollection, ...chapterCollection]);
+            setLoading(false);
+            setShowAll(true);
+        },2000)
+
+    }
+
 
     return (
         <>
@@ -52,14 +67,16 @@ export const ChapterTable = ({
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <Table className="">
+                    <Table
+                        divClassname="max-h-96 overflow-y-auto "
+                        className=" w-full">
 
-                        <TableBody className="gap-10 max-h-40 ">
+                        <TableBody className="gap-10 w-full">
                             {
                                 chapters.map((mogou, index) => (
-                                    <TableRow className="text-lg">
+                                    <TableRow key={index} className="text-sm md:text-lg">
                                         <TableCell key={index}>
-                                            Chapter {mogou.chapter_number} : {mogou.title}
+                                            Chapter {mogou.chapter_number} : {mogou.title.substring(0, 10)}...
                                         </TableCell>
                                         <TableCell
                                             className="text-right"
@@ -76,23 +93,28 @@ export const ChapterTable = ({
                         </TableBody>
                     </Table>
                 </CardContent>
-                <CardFooter className="justify-center border-t p-4">
-                    <Button size="sm" variant="ghost" className="gap-1 border-2 border-default">
+                {!showAll &&  <CardFooter className="justify-center border-t p-4">
+                   <Button size="sm" variant="ghost" className="gap-1 border-2 border-default"
+
+                        onClick={showAllChapters}
+                    >
                         {
-                            false ? (
+                            loading ? (
                                 <FaSpinner
                                     className="animate-spin "
                                 />
                             ) : (
                                 <>
-                                    <  PlusCircle className="h-3.5 w-3.5" />
+                                    <  PlusCircle className="h-3.5 w-3.5"
+
+                                    />
                                     Show All Chapters
                                 </>
 
                             )
                         }
                     </Button>
-                </CardFooter>
+                </CardFooter>}
             </Card></>
     )
 }

@@ -29,7 +29,7 @@ const MostViewCarousel = () => {
                     <CarouselContent className="-ml-1 gap-4 mt-8">
                         {
                             !isLoading && MemorizedData?.mogous.map((mogou) => (
-                                <CarouselItem key={mogou.id} className='pl-1 basis-1/3 md:basis-[12.666667%] overflow-hidden cursor-pointer '>
+                                <CarouselItem key={mogou.id} className='pl-1 basis-1/3 md:basis-1/4 lg:basis-[13.666667%] overflow-hidden cursor-pointer '>
                                     <div className='flex flex-col'>
                                         <div className="img">
                                             <img src={mogou?.cover} alt="hero" className="w-full h-40 md:h-80 object-cover" />

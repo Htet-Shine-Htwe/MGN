@@ -30,7 +30,7 @@ const RecentlyUploadedCard = ({ mogou }: RecentlyUploadedCardProps) => {
 
                         {
                             mogou?.sub_mogous?.map((sub_mogou, index) => (
-                                <Button key={index} className='flex gap-2 justify-start items-center bg-primary  w-[90%] '>
+                                <Button key={index} className='flex gap-2 justify-start items-center bg-primary  lg:w-[90%] me-4 '>
                                     <p className="text-xs xl:text-sm text-white">{sub_mogou.title}</p>
                                 </Button>
                             ))
