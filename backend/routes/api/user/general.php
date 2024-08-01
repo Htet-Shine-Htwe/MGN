@@ -25,6 +25,7 @@ Route::prefix('users')->name('users.')->group(function(){
     Route::controller(UserMogouController::class)->group(function(){
 
         Route::get('/mogous/{mogou}','show')->name('mogous.show');
+        Route::get('/mogous/{mogou}/related','relatedPostPerMogou')->name('mogous.relateMogou');
 
     });
 

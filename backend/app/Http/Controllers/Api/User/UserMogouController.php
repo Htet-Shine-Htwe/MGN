@@ -25,7 +25,23 @@ class UserMogouController extends Controller
             'is_favorite' => $isFavorite,
             'chapters' => $subMogous
         ]);
+    }
 
+    public function relatedPostPerMogou(Request $request){
+        $mogou = $request->mogou;
 
+        $mogou = Mogou::where('slug',$mogou)->firstOrFail();
+
+        $relatedMogous = Mogou::select('id','title','rotation_key','slug','author','cover')
+        ->where('id','!=',$mogou->id)
+        ->whereHas('categories',function($query) use ($mogou){
+            $query->whereIn('category_id',$mogou->categories->pluck('id'));
+        })
+
+        ->latest()->limit(6)->get();
+
+        return response()->json([
+            'mogous' => $relatedMogous
+        ]);
     }
 }
