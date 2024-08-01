@@ -4,8 +4,9 @@ import HeadingSection from "./HeadingSection";
 import { ChapterTable } from "./ChapterTable";
 import { useParams } from "react-router-dom";
 import Goback from "@/components/goback-btn";
-import RelatedMogou from "./RelatedMogou";
+import { lazy, Suspense, useEffect } from "react";
 
+const RelatedMogou = lazy(() => import('./RelatedMogou'));
 
 const Show = () => {
 
@@ -13,6 +14,17 @@ const Show = () => {
 
 
     const { data: mogous, isLoading, isFetching } = useQuery(`users/mogous/${slug}`);
+
+
+    useEffect(() => {
+        // smooth scroll to top
+
+       !isFetching && window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    },[isFetching])
 
     if(!isLoading && mogous?.mogou == null){
         return <div>
@@ -35,12 +47,17 @@ const Show = () => {
                 <HeadingSection mogou={mogous?.mogou} isFavorite={mogous?.is_favorite} />
             </div>
 
-            <div className="mt-12 grid md:grid-cols-5 gap-4 ">
-                <div className="md:col-span-4 ">
+            <div className="mt-12 grid md:grid-cols-8 gap-4 ">
+                <div className="md:col-span-6 ">
                     <ChapterTable chapterCollection={mogous?.chapters} />
                 </div>
-                <div className="md:col-span-1 flex justify-start text-start">
-                    <RelatedMogou />
+                <div className="md:col-span-2 flex justify-start text-start">
+                    {
+                        mogous?.mogou && <Suspense fallback={<div>Loading...</div>}>
+                            <RelatedMogou slug={mogous?.mogou.slug} />
+                        </Suspense>
+                    }
+                 
                 </div>
             </div>
 

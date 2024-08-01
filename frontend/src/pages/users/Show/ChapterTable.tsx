@@ -41,8 +41,8 @@ export const ChapterTable = ({
     const [showAll, setShowAll] = useState<boolean>(false);
 
     useEffect(() => {
-        setChapter((prev: any) => [...chapterCollection]);
-    }, [chapterCollection])
+        setChapter(chapterCollection);
+    }, [chapterCollection,setChapter])
 
 
     const showAllChapters = () => {
@@ -74,12 +74,12 @@ export const ChapterTable = ({
                         <TableBody className="gap-10 w-full">
                             {
                                 chapters.map((mogou, index) => (
-                                    <TableRow key={index} className="text-sm md:text-lg">
-                                        <TableCell key={index}>
+                                    <TableRow key={index} className="md:text-lg h-12">
+                                        <TableCell key={index} className="text-sm ">
                                             Chapter {mogou.chapter_number} : {mogou.title.substring(0, 10)}...
                                         </TableCell>
                                         <TableCell
-                                            className="text-right"
+                                            className="text-right text-sm "
                                         >
                                             {
                                                 mogou.created_at
