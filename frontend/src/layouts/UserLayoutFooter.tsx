@@ -15,7 +15,7 @@ const UserLayoutFooter = () => {
            
           </Link>
 
-          <div className="flex items-center ">
+          <div className="flex items-center gap-4">
           <Link to="#" className=" hover:text-gray-300">
             <FaYoutube className="h-6 w-6" />
             <span className="sr-only">YouTube</span>
