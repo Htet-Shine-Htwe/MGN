@@ -35,8 +35,10 @@ const Show = () => {
     return (
         <div className=" px-6 md:px-24 flex flex-col">
             <div className="flex items-center gap-4 mb-10">
-                <Goback to={'/'} />
-                <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
+                <Goback
+                size={"sm"}
+                 to={'/'} />
+                <h1 className="flex-1 shrink-0 lg:whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
                     {mogous?.mogou?.title}
                 </h1>
            
