@@ -2,6 +2,7 @@ import { lazy } from "react";
 import { AppRouteInterface } from "./type";
 import { userRouteCollection } from "@/constants/constants";
 import Show from "@/pages/users/Show/Show";
+import { UserLogin } from "@/pages/users/Auth/Login";
 
 
 const UserLayout = lazy(() => import('@/layouts/UserLayout.tsx'));
@@ -24,6 +25,12 @@ export const userAuthenticatedRoutes: AppRouteInterface[] = [
         <Show />
       </UserLayout>
     ),
+  },
+  {
+    path : userRouteCollection.login,
+    element: (
+      <UserLogin />
+    )
   }
 
 ];
