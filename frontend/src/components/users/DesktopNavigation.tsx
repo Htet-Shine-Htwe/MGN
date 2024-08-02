@@ -26,12 +26,12 @@ export function DesktopNavigation() {
                 <NavigationMenuItem>
                     <NavigationMenuTrigger
                     >Types</NavigationMenuTrigger>
-                    <NavigationMenuContent>
-                        <ul className="grid gap-3 p-4 w-[200px] grid-cols-1">
+                    <NavigationMenuContent >
+                        <ul className="grid gap-3 p-4 w-[160px] grid-cols-1">
                             {
-                                ComicType.map((type) => (
+                                ComicType?.map((type) => (
                                     <ListItem key={type.id} title={type.title} href={`/types/${type.id}`}>
-                                        {type.title}
+                                     {type?.title}
                                     </ListItem>
                                 ))
                             }
@@ -40,13 +40,13 @@ export function DesktopNavigation() {
                     </NavigationMenuContent>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                    <NavigationMenuTrigger>Components</NavigationMenuTrigger>
+                    <NavigationMenuTrigger>Genres</NavigationMenuTrigger>
                     <NavigationMenuContent>
                         <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-3 lg:w-[600px] ">
                             {
                                 categories?.map((category) => (
-                                    <ListItem key={category.id} title={category.title} href={`/categories/${category.id}`}>
-                                        {category.title}
+                                    <ListItem  key={category.id} title={category.title} href={`/categories/${category.id}`}>
+                                        {category?.title}
                                     </ListItem>
                                 ))
                             }
@@ -63,7 +63,7 @@ export function DesktopNavigation() {
             </NavigationMenuList>
         </NavigationMenu>
     )
-}
+}   
 
 const ListItem = React.forwardRef<
     React.ElementRef<"a">,
@@ -71,20 +71,18 @@ const ListItem = React.forwardRef<
 >(({ className, title, children, ...props }, ref) => {
     return (
         <li>
-            <NavigationMenuLink asChild>
                 <Link
                     to="?"
                     ref={ref}
                     className={cn(
-                        "select-none rounded-md  no-underline outline-none transition-colors hover:text-secondary focus:bg-accent focus:text-accent-foreground",
+                        "select-none rounded-md  no-underline outline-none transition-colors hover:text-secondary focus:bg-accent focus:text-accent-foreground text-sm font-medium",
                         className
                     )}
                     {...props}
                 >
-                    <div className="text-sm font-medium ">{title}</div>
+                    {title}
 
                 </Link>
-            </NavigationMenuLink>
         </li>
     )
 })

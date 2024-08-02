@@ -12,6 +12,7 @@ import { Label } from "../ui/label"
 import { DesktopNavigation } from "./DesktopNavigation";
 import { lazy } from "react";
 import { useScreenDetector } from "@/hooks/useScreenDetector";
+import { Badge } from "../ui/badge";
 
 const MobileSidebarSheet = lazy(() => import('./MobileSidebarSheet'));
 
@@ -65,6 +66,9 @@ const Navbar = () => {
                         />
                     </div>
                 </div>
+                <div className="">
+                    <Badge variant={"gold"} >Gold</Badge>
+                </div>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="secondary" size="icon" className="rounded-full">
@@ -73,7 +77,7 @@ const Navbar = () => {
                         </Button>
                     </DropdownMenuTrigger>
                     {
-                        true ? (<DropdownMenuContent align="end">
+                        false ? (<DropdownMenuContent align="end">
                             <DropdownMenuLabel>My Account</DropdownMenuLabel>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem>Settings</DropdownMenuItem>
@@ -102,8 +106,10 @@ const Navbar = () => {
                             <DropdownMenuSeparator />
                             <DropdownMenuItem>Logout</DropdownMenuItem>
                         </DropdownMenuContent>
-                        ) : (<DropdownMenuContent align="end">
-                            <DropdownMenuItem>Login</DropdownMenuItem>
+                        ) : (<DropdownMenuContent className="z-[300]" align="end">
+                            <DropdownMenuItem>
+                                <Link to="/login" >Login</Link>
+                            </DropdownMenuItem>
 
                         </DropdownMenuContent>)
 
